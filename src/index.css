@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --background: #EBE7D9;
+  --foreground: #0F212D;
+  --accent: #F55139;
+}
+
+::selection {
+  background: var(--accent);
+}

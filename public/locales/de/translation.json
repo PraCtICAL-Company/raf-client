@@ -1,0 +1,14 @@
+{
+    "home_navbar_text": "Home",
+    "services_navbar_text": "Leistungen",
+    "catalog_navbar_text": "Shop",
+    "about_navbar_text": "Info",
+    "projects_navbar_text": "Projekte",
+    "work_schedule_navbar_text_name1": "Mo-Fr",
+    "work_schedule_navbar_text_value1": "8:00-18:00",
+    "work_schedule_navbar_text_name2": "Samstag",
+    "work_schedule_navbar_text_value2": "8:00-18:00",
+    "work_schedule_navbar_text_name3": "Sonntag",
+    "work_schedule_navbar_text_value3": "Geschlossen",
+    "phone_navbar_text": "+49 176 29187440"
+}
