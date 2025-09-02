@@ -20,9 +20,13 @@ export default function Navbar() {
 
 
     useEffect(() => {
-        window.addEventListener('scroll', () => {
-            setIsAtTop(window.scrollY == 0);
-        })
+        if (window.location.pathname == '/') {
+            window.addEventListener('scroll', () => {
+                setIsAtTop(window.scrollY == 0);
+            })
+        } else {
+            setIsAtTop(false);
+        }
     }, []);
 
     useEffect(() => {

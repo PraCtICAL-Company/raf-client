@@ -8,7 +8,8 @@
   --background: #EBE7D9;
   --foreground: #0F212D;
   --accent: #F55139;
-  --navbar-height: 80px
+  --navbar-height: 80px;
+  --default-padding: 4em
 }
 
 ::selection {
