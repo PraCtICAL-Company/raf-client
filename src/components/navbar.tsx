@@ -53,7 +53,7 @@ export default function Navbar() {
 
     return (
         <div className={clsx(
-            "w-full h-[80px] text-white flex justify-center items-center fixed transition-colors duration-300 p-6",
+            "w-full text-white flex justify-center items-center fixed z-10 transition-colors duration-300 px-6 py-4",
             {
                 'bg-(--foreground)': !isAtTop,
                 'bg-transparent': isAtTop
@@ -144,7 +144,7 @@ export default function Navbar() {
                                     <div className="font-sm font-bold">Loading</div>
                                     :
                                     <div className="">
-                                        <div className="font-bold">{data!.itemCount} items</div>
+                                        <div className="font-bold">{data!.itemCount} {t("item_count_text")}</div>
                                         <div className="font-bold">{data!.total} €</div>
                                     </div>
                             }
