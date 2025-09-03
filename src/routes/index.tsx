@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import homepageVideo from '../assets/video/homepage_video5.mp4'
 import { useTranslation } from 'react-i18next'
-import { UserIcon } from '@heroicons/react/20/solid';
+import { AtSymbolIcon, EnvelopeIcon, UserIcon } from '@heroicons/react/20/solid';
 
 export const Route = createFileRoute('/')({
     component: Index,
@@ -105,7 +105,7 @@ function ContactForm() {
                 <label className="block text-sm font-semibold">{t("homepage.contact_form.input2.label")}</label>
                 <div className="mt-2 text-(--foreground) flex border-(--foreground) border-[2px] rounded-xl bg-[#E5E0D2]">
                     <div className="mr-3 ml-3">
-                        <UserIcon className='h-full size-6' />
+                        <AtSymbolIcon className='h-full size-6' />
                     </div>
                     <input id="price" type="text" name="price" placeholder={t("homepage.contact_form.input2.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3" />
                 </div>
@@ -114,7 +114,7 @@ function ContactForm() {
                 <label className="block text-sm font-semibold">{t("homepage.contact_form.input3.label")}</label>
                 <div className="mt-2 text-(--foreground) flex border-(--foreground) border-[2px] rounded-xl bg-[#E5E0D2]">
                     <div className="mr-3 ml-3 mt-3">
-                        <UserIcon className=' size-6' />
+                        <EnvelopeIcon className=' size-6' />
                     </div>
                     <textarea id="price" name="price" placeholder={t("homepage.contact_form.input3.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3 resize-none h-[10em]" />
                 </div>

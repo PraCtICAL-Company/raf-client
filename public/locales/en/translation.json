@@ -23,10 +23,15 @@
     "homepage.panel2.text": "How to find us",
     "homepage.panel2.button_text": "Open map",
     "homepage.contact_form.input1.label": "Name",
-    "homepage.contact_form.input1.placeholder": "e.g. Sebastian",
+    "homepage.contact_form.input1.placeholder": "e.g. Lewis Hamilton",
     "homepage.contact_form.input2.label": "Email",
     "homepage.contact_form.input2.placeholder": "you@example.com",
     "homepage.contact_form.input3.label": "Message",
     "homepage.contact_form.input3.placeholder": "Any questions you may have about our services",
-    "homepage.contact_form.button.text": "Send message"
+    "homepage.contact_form.button.text": "Send message",
+    "footer.socials.text1": "Imprint",
+    "footer.socials.text2": "Privacy Policy",
+    "footer.address.row1": "Address: Max Planck Street 9",
+    "footer.address.row2": "31135 Hildesheim",
+    "footer.address.row3": "+49 176 29187440"
 }

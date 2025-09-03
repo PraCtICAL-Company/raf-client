@@ -28,5 +28,10 @@
     "homepage.contact_form.input2.placeholder": "you@example.com",
     "homepage.contact_form.input3.label": "Nachricht",
     "homepage.contact_form.input3.placeholder": "Bei Fragen zu unseren Leistungen",
-    "homepage.contact_form.button.text": "Nachricht senden"
+    "homepage.contact_form.button.text": "Nachricht senden",
+    "footer.socials.text1": "Impressum",
+    "footer.socials.text2": "Datenschutz",
+    "footer.address.row1": "Adresse: Max-Planck-Straße 9",
+    "footer.address.row2": "31135 Hildesheim",
+    "footer.address.row3": "+49 176 29187440"
 }
