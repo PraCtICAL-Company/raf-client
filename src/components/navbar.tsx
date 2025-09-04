@@ -27,8 +27,6 @@ export default function Navbar() {
         } else {
             setIsAtTop(false);
         }
-        console.log(window.location.pathname);
-
     });
 
     useEffect(() => {
@@ -59,7 +57,7 @@ export default function Navbar() {
 
     return (
         <div className={clsx(
-            "w-full text-white flex justify-center items-center fixed z-10 transition-colors duration-300 px-6 py-4",
+            "w-full text-white flex justify-center items-center fixed top-[0] z-10 transition-colors duration-300 px-6 py-4",
             {
                 'bg-(--foreground)': !isAtTop,
                 'bg-transparent': isAtTop
@@ -88,7 +86,7 @@ export default function Navbar() {
                         {t("about_navbar_text")}
                     </Link>
                     <Link
-                        to={"/"}
+                        to={"/projects"}
                     >
                         {t("projects_navbar_text")}
                     </Link>

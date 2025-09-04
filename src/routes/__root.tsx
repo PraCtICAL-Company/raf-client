@@ -24,6 +24,7 @@ function RootComponent() {
         <>
             <Navbar />
             <Outlet />
+
             <Footer />
         </>
     );
