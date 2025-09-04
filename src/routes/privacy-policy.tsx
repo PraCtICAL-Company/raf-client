@@ -2,8 +2,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useAtom } from 'jotai';
 import { localeAtom } from '../state/atoms';
 import { useEffect, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { usePrivacyPolicy } from '../queries/queryHooks';
 
 export const Route = createFileRoute('/privacy-policy')({
     component: PrivacyPolicy,
@@ -29,7 +27,7 @@ function PrivacyPolicy() {
 
     return (
         <div className="flex justify-center font-[Montserrat] font-semibold">
-            <div className="w-7xl pt-(--default-padding) pb-(--default-padding)">
+            <div className="w-[88rem] p-(--default-padding)  pt-(--navbar-height) mt-(--default-padding) pb-(--default-padding)">
                 <h1 className='text-5xl text-center mb-[1em]'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor est labore, voluptate eum dolorem et quo saepe placeat cumque rem earum blanditiis quae voluptas facilis doloremque excepturi laudantium natus alias?</h1>
                 <article>
                     {

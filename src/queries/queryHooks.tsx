@@ -48,3 +48,25 @@ export const useProjects = () => {
         }
     })
 }
+
+export const useWorkers = () => {
+    return useQuery({
+        queryKey: ['useWorkers'],
+        queryFn: () => {
+            return [
+                {
+                    imageUrl: 'img/worker_1.jpg',
+                    description: 'S. Vettel, CEO',
+                },
+                {
+                    imageUrl: 'img/worker_2.jpg',
+                    description: 'M. Schumacher, GOAT',
+                },
+                {
+                    imageUrl: 'img/worker_3.jpg',
+                    description: 'N. Rosberg, in equal machinery',
+                },
+            ]
+        }
+    })
+}

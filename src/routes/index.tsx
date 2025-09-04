@@ -19,7 +19,6 @@ function Index() {
             </div>
             <video src={homepageVideo} autoPlay muted className="w-full"></video>
             <div className="max-w-[88rem]">
-
                 <div className="p-(--default-padding) font-[Montserrat]">
                     <p className='text-2xl font-semibold color-(--foreground)'>
                         {t("homepage.teaser_text1")}

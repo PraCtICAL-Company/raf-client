@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
+import { Route as InfoRouteImport } from './routes/info'
 import { Route as IndexRouteImport } from './routes/index'
 
 const ProjectsRoute = ProjectsRouteImport.update({
@@ -23,6 +24,11 @@ const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
   path: '/privacy-policy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InfoRoute = InfoRouteImport.update({
+  id: '/info',
+  path: '/info',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -31,30 +37,34 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/info': typeof InfoRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/projects': typeof ProjectsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/info': typeof InfoRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/projects': typeof ProjectsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/info': typeof InfoRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/projects': typeof ProjectsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/privacy-policy' | '/projects'
+  fullPaths: '/' | '/info' | '/privacy-policy' | '/projects'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/privacy-policy' | '/projects'
-  id: '__root__' | '/' | '/privacy-policy' | '/projects'
+  to: '/' | '/info' | '/privacy-policy' | '/projects'
+  id: '__root__' | '/' | '/info' | '/privacy-policy' | '/projects'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  InfoRoute: typeof InfoRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   ProjectsRoute: typeof ProjectsRoute
 }
@@ -75,6 +85,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyPolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/info': {
+      id: '/info'
+      path: '/info'
+      fullPath: '/info'
+      preLoaderRoute: typeof InfoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  InfoRoute: InfoRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   ProjectsRoute: ProjectsRoute,
 }

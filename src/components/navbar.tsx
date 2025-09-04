@@ -1,7 +1,7 @@
 import { useEffect, useState, type MouseEvent } from "react"
 import clsx from "clsx";
 import { ShoppingCartIcon, UserIcon } from "@heroicons/react/20/solid";
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { useCart } from "../queries/queryHooks";
 import { useTranslation } from "react-i18next";
 import { useAtom } from "jotai";
@@ -17,6 +17,7 @@ export default function Navbar() {
     const [localeIconPath, setLocaleIconPath] = useState("")
 
     const [locale, setLocale] = useAtom(localeAtom);
+    const routerState = useRouterState();
 
 
     useEffect(() => {
@@ -56,7 +57,7 @@ export default function Navbar() {
     }
 
     return (
-        <div className={clsx(
+        <div key={routerState.location.href} className={clsx(
             "w-full text-white flex justify-center items-center fixed top-[0] z-10 transition-colors duration-300 px-6 py-4",
             {
                 'bg-(--foreground)': !isAtTop,
@@ -81,7 +82,7 @@ export default function Navbar() {
                         {t("catalog_navbar_text")}
                     </Link>
                     <Link
-                        to={"/"}
+                        to={"/info"}
                     >
                         {t("about_navbar_text")}
                     </Link>
