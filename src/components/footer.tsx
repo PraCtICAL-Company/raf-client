@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next"
 
 export default function Footer() {
@@ -13,8 +14,8 @@ export default function Footer() {
                     <img src="../../src/assets/svg/socials/facebook.svg" alt="" className="w-[20px]" />
                 </div>
                 <div className="ml-[3em] flex gap-x-9 items-center font-[Montserrat] text-(--background) font-semibold text-xs">
-                    <span>{t("footer.socials.text1")}</span>
-                    <span>{t("footer.socials.text2")}</span>
+                    <Link to="/">{t("footer.socials.text1")}</Link>
+                    <Link to="/privacy-policy">{t("footer.socials.text2")}</Link>
                 </div>
             </div>
             <div className="text-[0.625rem] leading-[1.2em] font-semibold font-[Montserrat] text-(--background)">

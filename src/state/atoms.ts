@@ -10,6 +10,6 @@ export const supportedLocalesAtom = atom([
     },
     {
         name: 'de',
-        iconFilename: 'png/german_flag.png'
+        iconFilename: 'svg/flags/germany.svg'
     },
 ])

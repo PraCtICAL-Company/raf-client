@@ -1,0 +1,101 @@
+<h2>Einführung</h2>
+<p>In diesen Datenschutzbestimmungen stellt Raf Performance GmbH seine Vorgehensweise bezüglich der von Benutzern erfassten Daten, die auf unsere Webseite unter rafperformance.de zugreifen oder uns auf andere Weise personenbezogene Daten bereitstellen , dar.</p>
+
+<h2>Grundlage für die Datenerfassung</h2>
+<p>Die Verarbeitung Ihrer personenbezogenen Daten (d. h. jegliche Daten, die mit vertretbaren Mitteln eine Identifizierung Ihrer Person zulassen; " personenbezogene Daten ") [hier Erklärung zur Rechtsgrundlage für die Verarbeitung von personenbezogenen Daten einfügen, zum Beispiel:] ist erforderlich, um unseren vertraglichen Verpflichtungen Ihnen gegenüber nachzukommen und damit wir Ihnen unsere Services bereitstellen, unser legitimes Interesse schützen sowie rechtlichen und finanziellen Regulierungsverpflichtungen, denen wir unterworfen sind, nachkommen können.</p>
+<p>Durch die Nutzung dieser Webseite stimmen Sie der Erfassung, Speicherung, Verwendung, Offenlegung und sonstigen Nutzung Ihrer personenbezogenen Daten wie in diesen Datenschutzbestimmungen beschrieben zu.</p>
+<p>Bitte lesen Sie sich die Datenschutzbestimmungen sorgfältig durch, bevor Sie Entscheidungen treffen.</p>
+
+<h2>Welche Daten werden erfasst?</h2>
+<p>Wir erfassen zwei Arten von Daten und Informationen von Benutzern.</p>
+<p>Zur ersten Kategorie gehören nicht identifizierende und nicht identifizierbare Benutzerdaten, die durch die Nutzung der Webseite bereitgestellt oder erfasst werden (" Nicht personenbezogene Daten "). Wir kennen die Identität des Benutzers nicht, von dem nicht personenbezogene Daten erfasst wurden. Zu den nicht personenbezogenen Daten, die erfasst werden können, gehören aggregierte Nutzungsdaten und technische Daten, die von Ihrem Gerät übermittelt werden, einschließlich bestimmter Informationen bezüglich Software und Hardware (z. B. auf dem Gerät verwendeter Browser und verwendetes Betriebssystem, Spracheinstellung, Zugriffszeit usw.). Anhand dieser Daten verbessern wir die Funktionalität unserer Webseite. Wir können auch Daten über Ihre Aktivität auf der Webseite erfassen (z. B. aufgerufene Seiten, Surfverhalten, Klicks, Aktionen usw.).</p>
+<p>Zur zweiten Kategorie gehören personenbezogene Daten , also Daten, die eine Einzelperson identifizieren oder durch angemessene Maßnahmen identifizieren können. Zu solchen Daten gehören:</p>
+<p>Gerätedaten: Wir erfassen personenbezogene Daten von Ihrem Gerät. Solche Daten umfassen Geolocation-Daten, IP-Adresse, eindeutige Kennungen (z. B. MAC-Adresse und UUID) sowie andere Daten, die sich aus Ihrer Aktivität auf der Webseite ergeben.</p>
+<p>Registrierungsdaten: Wenn Sie sich auf unserer Webseite registrieren, werden Sie um die Angabe bestimmter Informationen gebeten, z. B.: Vor- und Nachname, E-Mail-Adresse oder Anschrift bzw. andere Information.</p>
+<p>…</p>
+<p>…</p>
+
+<h2>Wie erhalten wir Daten über Sie?</h2>
+<p>Wir beziehen Ihre personenbezogenen Daten aus verschiedenen Quellen:</p>
+<p>Sie stellen uns solche Daten freiwillig bereit, zum Beispiel bei der Registrierung auf unserer Webseite.</p>
+<p>Wir erhalten solche Daten, wenn Sie unsere Webseite nutzen oder in Verbindung mit einem unserer Services darauf zugreifen.</p>
+<p>Wir erhalten solche Daten von anderen Anbietern, Services und aus öffentlichen Registern (zum Beispiel von Datentraffic-Analyseanbietern).</p>
+
+<h2>Welche Daten werden erfasst?</h2>
+<p>Wir geben Benutzerdaten nicht an Dritte weiter, außer wie in diesen Datenschutzbestimmungen beschrieben.</p>
+<p>Wir verwenden Daten für folgende Zwecke:</p>
+<p>Zur Kommunikation mit Ihnen (Senden von Hinweisen bezüglich unserer Services, Bereitstellen von technischen Informationen und ggf. Bearbeiten von Kundendienstanfragen)</p>
+<p>Zur Information über neue Updates und Services</p>
+<p>Zur Anzeigenschaltung im Rahmen der Nutzung unserer Webseite (weitere Informationen unter "Werbung")</p>
+<p>Zur Vermarktung unserer Webseiten und Produkte (weitere Informationen unter "Marketing")</p>
+<p>Zu statistischen und Analysezwecken, die der Verbesserung der Webseite dienen</p>
+<p>…</p>
+<p>Neben den verschiedenen, oben aufgeführten Verwendungszwecken können wir personenbezogene Daten auch an unsere Tochtergesellschaften, verbundenen Unternehmen und Subunternehmer weitergeben.</p>
+<p>Zusätzlich zu den in diesen Datenschutzbestimmungen aufgeführten Zwecken können wir personenbezogene Daten aus folgenden Gründen an unsere vertrauenswürdigen externen Anbieter weiterleiten, die ihren Sitz in unterschiedlichen Rechtsprechungen auf der ganzen Welt haben:</p>
+<p>Hosten und Betreiben unserer Webseite</p>
+<p>[hier relevante Arten von Drittanbieterleistungen einfügen, zum Beispiel:]</p>
+<p>Bereitstellen unserer Services, einschließlich der personalisierten Anzeige unserer Webseite</p>
+<p>Speichern und Verarbeiten solcher Daten in unserem Namen</p>
+<p>Schalten von Anzeigen sowie die Möglichkeit, den Erfolg unserer Werbekampagnen zu beurteilen, Retargeting von Benutzern</p>
+<p>Bereitstellen von Marketingangeboten und Werbematerialien in Zusammenhang mit unserer Webseite und unseren Services</p>
+<p>Durchführen von Studien, technischen Diagnosen oder Analysen</p>
+<p>Wir können Daten auch offenlegen, wenn wir im guten Glauben sind, dies ist hilfreich oder angemessen, um: (i) geltenden Gesetzen, Vorschriften, Gerichtsverfahren oder behördlichen Anfragen zu entsprechen; (ii) unsere Richtlinien (einschließlich unserer Vereinbarung) durchzusetzen und ggf. diesbezügliche mögliche Verletzungen zu untersuchen; (iii) illegale Aktivitäten oder anderes Fehlverhalten, Betrugsverdacht oder Sicherheitsprobleme zu untersuchen, zu erkennen, zu verhindern oder Maßnahmen dagegen zu ergreifen; (iv) eigene Rechtsansprüche geltend zu machen oder durchzusetzen bzw. uns gegen die Ansprüche anderer zu verteidigen; (v) die Rechte, das Eigentum oder unsere Sicherheit, die Sicherheit unserer Benutzer, Ihre Sicherheit oder die Sicherheit von Dritten zu schützen; oder um (vi) mit Strafverfolgungsbehörden zusammenzuarbeiten und/oder geistiges Eigentum oder andere Rechtsansprüche zu schützen.</p>
+
+<h2>Benutzerrechte</h2>
+<p>Sie haben folgende Rechte:</p>
+<p>Eine Bestätigung, ob und inwieweit Ihre personenbezogenen Daten verwendet und verarbeitet werden, sowie den Zugriff auf die über Sie gespeicherten personenbezogenen Daten und zusätzliche Informationen anfordern</p>
+<p>Eine Kopie der personenbezogenen Daten, die Sie uns freiwillig bereitgestellt haben, in einem strukturierten, gängigen und maschinenlesbaren Format anfordern</p>
+<p>Eine Berichtigung der personenbezogenen Daten, die wir von Ihnen gespeichert haben, anfordern</p>
+<p>Das Löschen Ihrer personenbezogenen Daten beantragen</p>
+<p>Der Verarbeitung Ihrer personenbezogenen Daten durch uns widersprechen</p>
+<p>Die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten durch uns beantragen</p>
+<p>Eine Beschwerde bei einer Aufsichtsbehörde einreichen</p>
+<p>Beachten Sie jedoch, dass diese Rechte nicht uneingeschränkt gelten, sondern unseren eigenen rechtmäßigen Interessen sowie behördlichen Vorschriften unterliegen.</p>
+<p>Wenn Sie eines der hier aufgeführten Rechte in Anspruch nehmen möchten oder weitere Informationen wünschen, wenden Sie sich an unseren Datenschutzbeauftragten.</p>
+
+<h2>Speicherung</h2>
+<p>Wir speichern Ihre personenbezogene Daten so lange, wie es für die Bereitstellung unserer Services, die Einhaltung rechtlicher Verpflichtungen sowie die Beilegung von Streitigkeiten und die Durchsetzung unserer Richtlinien erforderlich ist. Die Aufbewahrungsfristen richten sich nach der Art der erfassten Daten und dem Zweck, für den diese Daten erfasst wurden, wobei sowohl die fallspezifischen Gegebenheiten als auch die Notwendigkeit berücksichtigt werden, veraltete, nicht genutzte Informationen baldmöglichst zu löschen. Datensätze mit personenbezogenen Daten von Kunden, Dokumente über die Kontoeinrichtung, Mitteilungen und andere Daten speichern wir gemäß geltender Gesetze und Vorschriften.</p>
+<p>Wir können jederzeit und in unserem alleinigen Ermessen unvollständige oder unrichtige Daten korrigieren, vervollständigen oder entfernen.</p>
+
+<h2>Cookies</h2>
+<p>Wir und unsere vertrauenswürdigen Partner verwenden Cookies und andere Technologien in unseren zugehörigen Services, einschließlich bei Ihrem Besuch unserer Webseite oder bei Ihrem Zugriff auf unsere Services.</p>
+<p>Ein "Cookie" ist eine kleine Dateieinheit, die eine Webseite Ihrem Gerät zuweist, während Sie diese aufrufen. Cookies sind sehr nützlich und können für verschiedene Zwecke verwendet werden. Dazu gehören die problemlose Seitennavigation, eine mögliche automatische Aktivierung von bestimmten Funktionen, die Speicherung Ihrer Einstellungen sowie eine schnelle und einfache Interaktion zwischen Ihnen und unseren Services. Cookies werden auch verwendet, um Ihnen relevante, für Sie interessante Werbeanzeigen einzublenden und Statistiken über Ihre Nutzung unserer Services zusammenzustellen.</p>
+<p>Auf der Webseite werden folgende Arten von Cookies eingesetzt:</p>
+<p>a. "Session-Cookies" werden nur vorübergehend während einer Browsersitzung verwendet, um eine normale Systemnutzung zu ermöglichen. Diese Cookies werden von Ihrem Gerät gelöscht, sobald der Browser geschlossen wird.</p>
+<p>b. "Persistente Cookies " werden nur von der Webseite gelesen, auf Ihrem Computer für einen festgelegten Zeitraum gespeichert und nicht gelöscht, wenn der Browser geschlossen wird. Solche Cookies werden verwendet, damit wir Sie bei einem wiederholten Besuch erkennen. Dadurch können wir beispielsweise Ihre Einstellungen für die nächste Anmeldung speichern.</p>
+<p>c. "Cookies von Dritten" werden von anderen Onlineservices platziert, die Inhalte auf der angezeigten Seite ausführen, zum Beispiel von externen Analyseunternehmen, die den Zugriff auf unsere Webseite überwachen und analysieren.</p>
+<p>Cookies enthalten keine Daten, anhand derer Sie identifiziert werden können. Personenbezogene Daten, die wir von Ihnen speichern, werden möglicherweise von uns mit den in Cookies gespeicherten und von Cookies abgerufenen Daten verknüpft. Informationen zum Entfernen dieser Cookies stehen in den Anweisungen der Geräteeinstellungen. Beachten Sie, dass durch das Deaktivieren von Cookies einige Funktionen unserer Webseite möglicherweise nicht mehr ordnungsgemäß funktionieren und Ihre Online-Erfahrung dadurch möglicherweise eingeschränkt wird.</p>
+<p>Wir verwenden auch das Tool "Google Analytics", um Daten über Ihre Nutzung der Webseite zu erfassen. Google Analytics erfasst beispielsweise, wie häufig die Webseite aufgerufen wird, welche Seiten bei einem Besuch aufgerufen werden usw. Wir verwenden die Google Analytics-Daten nur zur Verbesserung unserer Webseite und Services. Google Analytics erfasst die Ihnen am Tag Ihres Besuchs der Webseite zugewiesene IP-Adresse und nicht Ihren Namen oder andere identifizierbare Daten. Wir führen die erfassten Google Analytics-Daten nicht mit personenbezogenen Daten zusammen. Die Möglichkeiten von Google, die von Google Analytics erfassten Daten über Ihre Besuche auf dieser Webseite zu verwenden und freizugeben, unterliegen den Nutzungsbedingungen von Google Analytics und der Datenschutzerklärung von Google.</p>
+
+<h2>Erfassung von Daten durch Dritte</h2>
+<p>In dieser Richtlinie werden nur die Nutzung und Offenlegung von Daten, die wir von Ihnen erfassen, behandelt. Wenn Sie Daten auf anderen Webseiten veröffentlichen oder Dritten im Internet offenlegen, gelten möglicherweise andere Bestimmungen. Lesen Sie sich daher die allgemeinen Geschäftsbedingungen und Datenschutzbestimmungen immer sorgfältig durch, wenn Sie Daten offenlegen.</p>
+<p>Diese Datenschutzbestimmungen beziehen sich nicht auf Geschäftspraktiken von Unternehmen, die sich nicht in unserem Besitz befinden bzw. nicht unter unserer Kontrolle stehen, oder auf andere Personen als unsere Angestellten und Mitarbeiter, einschließlich Dritter, denen wir diese Daten wie in diesen Datenschutzbestimmungen beschrieben offenlegen.</p>
+
+<h2>Wie schützen wir Ihre Daten?</h2>
+<p>Wir setzen die Sicherheitsmaßnahmen auf der Webseite mit großer Sorgfalt um und schützen Ihre Daten. [ Hier bitte Sicherheitsmaßnahmen erläutern, zum Beispiel: Wir verwenden in der Branche übliche Verfahren und Richtlinien, um den Schutz der erfassten und gespeicherten Daten sicherzustellen, und verhindern die unbefugte Verwendung solcher Daten. Wir verlangen außerdem von Dritten, dass sie sich gemäß diesen Datenschutzbestimmungen an ähnliche Sicherheitsanforderungen halten.] . Obwohl wir angemessene Schritte für den Schutz von Daten unternehmen, können wir nicht verantwortlich gemacht werden für Handlungen von jenen, die sich unbefugten Zugang zu unserer Webseite verschafft haben oder diese missbräuchlich verwenden, und wir geben keine ausdrückliche noch stillschweigende Gewähr, dass wir einen solchen Zugriff verhindern können.</p>
+
+<h2>Übermittlung von Daten außerhalb des Europäischen Wirtschaftsraums</h2>
+<p>Beachten Sie, dass einige Empfänger ihren Sitz möglicherweise nicht im Europäischen Wirtschaftsraum haben. Ist dies der Fall, werden wir Ihre Daten nur in von der Europäischen Kommission genehmigte Länder mit angemessenem Datenschutzniveau übermitteln oder durch eine rechtliche Vereinbarung ein angemessenes Datenschutzniveau sicherstellen.</p>
+
+<h2>Werbung</h2>
+<p>Wenn Sie auf unsere Webseite zugreifen, schalten wir möglicherweise Anzeigen mithilfe von Anzeigentechnologie externer Anbieter. Diese Technologie verwendet für die Anzeigenschaltung Ihre Nutzungsdaten der Services (z. B. durch die Platzierung von Drittanbieter-Cookies in Ihrem Webbrowser).</p>
+<p>[Hier bitte Informationen zu den Opt-out-Optionen von personalisierter Werbung einfügen, zum Beispiel:] Sie können sich von zahlreichen Anzeigennetzwerken Dritter abmelden, auch von Netzwerken, die von Mitgliedern der Network Advertising Initiative ("NAI") und der Digital Advertising Alliance ("DAA") betrieben werden. Informationen über die Vorgehensweise von NAI- und DAA-Mitgliedern, über Ihre Options, die Sie bezüglich der Verwendung solcher Daten von diesen Unternehmen haben, und darüber, wie Sie sich aus Anzeigennetzwerken Dritter, die von NAI- und DAA-Mitgliedern betrieben werden, abmelden können, finden Sie auf der jeweiligen Webseite: http://optout.networkadvertising.org/#!/ und http://optout.aboutads.info#!/.</p>
+
+<h2>Marketing</h2>
+<p>Wir können Ihre personenbezogene Daten wie Ihren Namen, Ihre E-Mail-Adresse, Ihre Telefonnummer usw. selbst verwenden oder an einen externen Untervertragsnehmer weiterleiten, um Ihnen Werbematerialien bezüglich unserer Services bereitzustellen, die Sie möglicherweise interessieren.</p>
+<p>Wir respektieren Ihr Recht auf Privatsphäre. Daher erhalten Sie in diesen Marketingmaterialien stets die Möglichkeit, sich von weiteren Zusendungen abzumelden. Wenn Sie sich abmelden, wird Ihre E-Mail-Adresse oder Telefonnummer aus unseren Marketing-Verteilerlisten entfernt.</p>
+<p>Beachten Sie, dass wir Ihnen auch nach einer Abmeldung vom Erhalt unserer Marketing-E-Mails weiterhin E-Mails mit wichtigen Informationen senden, die keine Abmeldeoption enthalten. Dazu gehören Wartungsmeldungen oder administrative Benachrichtigungen.</p>
+
+<h2>Unternehmenstransaktion</h2>
+<p>Wir können Daten im Fall einer Unternehmenstransaktion (z. B. beim Verkauf wesentlicher Unternehmensteile, bei einer Fusion, einer Konsolidierung oder einem Anlagenverkauf) weitergeben. Falls ein oben genannter Fall eintritt, übernimmt der Erwerber oder das entsprechende Unternehmen die in dieser Datenschutzerklärung dargelegten Rechte und Pflichten.</p>
+
+<h2>Minderjährige</h2>
+<p>Der Schutz der Daten von Kindern ist insbesondere im Online-Bereich sehr wichtig. Die Webseite ist nicht für Kinder konzipiert und richtet sich nicht an diese. Die Nutzung unserer Services durch Minderjährige ist nur mit der vorherigen Einwilligung oder Autorisierung von einem Elternteil oder Erziehungsberechtigten zulässig. Wir erfassen personenbezogene Daten von Minderjährigen nicht wissentlich. Wenn ein Elternteil oder Erziehungsberechtigter Kenntnis davon erlangt, dass sein oder ihr Kind uns personenbezogene Daten ohne deren Einwilligung bereitgestellt hat, kann er/sie sich unter [hier entsprechende E-Mail-Adresse eingeben] an uns wenden.</p>
+
+<h2>Aktualisierungen oder Änderungen dieser Datenschutzbestimmungen</h2>
+<p>Wir behalten uns das Recht vor, diese Datenschutzbestimmungen von Zeit zu Zeit zu ändern oder zu prüfen. Sie finden das Datum der aktuellen Version unter "Zuletzt geändert am". Ihre fortgesetzte Nutzung der Plattform nach der Bekanntmachung solcher Änderungen auf unserer Webseite stellt Ihre Zustimmung zu solchen Änderungen an den Datenschutzbestimmungen dar und gilt als Ihr Einverständnis der Bindung an die geänderten Bestimmungen.</p>
+
+<h2>So erreichen Sie uns</h2>
+<p>Wenden Sie sich bei allgemeinen Fragen zur Webseite, zu den von uns über Sie erfassten Daten oder der Verwendung dieser Daten unter info@rafperformance.de an uns.</p>
+<p>Raf Performance GmbH<br/>Max-Planck-Str 9<br/>31135 Hildesheim</p>
+<p>Zuletzt geändert am 11.02.2022</p>

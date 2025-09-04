@@ -9,10 +9,10 @@ import { localeAtom, supportedLocalesAtom } from "../state/atoms";
 
 export default function Navbar() {
     const [isAtTop, setIsAtTop] = useState(true);
-    const { data, isLoading, isError } = useCart();
+    const { data, isLoading } = useCart();
 
     const { t, i18n } = useTranslation();
-    const [supportedLocales, setSupportedLocales] = useAtom(supportedLocalesAtom)
+    const [supportedLocales] = useAtom(supportedLocalesAtom)
     const [supportedLocalesCursor, setSupportedLocalesCursor] = useState(0)
     const [localeIconPath, setLocaleIconPath] = useState("")
 
@@ -27,7 +27,9 @@ export default function Navbar() {
         } else {
             setIsAtTop(false);
         }
-    }, []);
+        console.log(window.location.pathname);
+
+    });
 
     useEffect(() => {
         const tmp = supportedLocales.find(loc => loc.name === locale);
