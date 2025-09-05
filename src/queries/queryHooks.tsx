@@ -104,6 +104,8 @@ export interface User {
     addresses: UserAddress[]
 }
 
+
+
 export interface UserAddress {
     id: number,
     city: string,
@@ -112,4 +114,18 @@ export interface UserAddress {
     floor: number,
     apartment: number,
     entrance: number,
+}
+
+export const defaultAddress = () => {
+    const address: UserAddress = {
+        id: -1,
+        city: "",
+        street: "",
+        building: -1,
+        floor: -1,
+        apartment: -1,
+        entrance: -1,
+    }
+
+    return address;
 }
