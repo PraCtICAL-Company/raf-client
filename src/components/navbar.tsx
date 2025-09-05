@@ -1,4 +1,4 @@
-import { useEffect, useState, type MouseEvent } from "react"
+import { useEffect, useState } from "react"
 import clsx from "clsx";
 import { ShoppingCartIcon, UserIcon } from "@heroicons/react/20/solid";
 import { Link, useRouterState } from "@tanstack/react-router";
@@ -131,13 +131,13 @@ export default function Navbar() {
                         <NavbarScheduleComponent />
                     </div>
                     <Link
-                        to={"/"}
+                        to={"/profile"}
                         className="max-w-[50px]"
                     >
                         <UserIcon className="size-7" />
                     </Link>
                     <Link
-                        to={"/"}
+                        to={"/cart"}
                         className="max-w-[100px]"
                     >
                         <div className="flex gap-x-1 items-center justify-between">

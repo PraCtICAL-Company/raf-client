@@ -20,7 +20,9 @@
     "jotai": "^2.13.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "react-hook-form": "^7.62.0",
     "react-i18next": "^15.7.3",
+    "react-modal": "^3.16.3",
     "tailwindcss": "^4.1.12"
   },
   "devDependencies": {
@@ -28,6 +30,7 @@
     "@tanstack/router-plugin": "^1.131.31",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
+    "@types/react-modal": "^3.16.3",
     "@vitejs/plugin-react": "^5.0.0",
     "eslint": "^9.33.0",
     "eslint-plugin-react-hooks": "^5.2.0",
