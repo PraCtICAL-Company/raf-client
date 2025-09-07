@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { useAtom } from "jotai";
 import { cartAtom, localeAtom, supportedLocalesAtom } from "../state/atoms";
 import { totalItems, totalPrice } from "../functions/cart";
+import { defaultShopSearchFilters } from "../routes/shop";
 
 export default function Navbar() {
     const [isAtTop, setIsAtTop] = useState(true);
@@ -72,12 +73,12 @@ export default function Navbar() {
                         {t("home_navbar_text")}
                     </Link>
                     <Link
-                        to={"/services"}
+                        to={"/services"} search={{ page: 0 }}
                     >
                         {t("services_navbar_text")}
                     </Link>
                     <Link
-                        to={"/"}
+                        to={"/shop"} search={defaultShopSearchFilters}
                     >
                         {t("catalog_navbar_text")}
                     </Link>

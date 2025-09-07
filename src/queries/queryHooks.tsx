@@ -117,26 +117,26 @@ export interface UserAddress {
 }
 
 export const defaultAddress = () => {
-    const address: UserAddress = {
-        id: -1,
-        city: "",
-        street: "",
-        building: -1,
-        floor: -1,
-        apartment: -1,
-        entrance: -1,
-    }
+    // const address: UserAddress = {
+    //     id: -1,
+    //     city: "",
+    //     street: "",
+    //     building: -1,
+    //     floor: -1,
+    //     apartment: -1,
+    //     entrance: -1,
+    // }
 
-    return address;
+    return {} as UserAddress;
 }
 
-export const useServices = () => {
+export const useServices = (page: number) => {
     return useQuery({
         queryKey: ['useServices'],
         queryFn: () => {
             return {
                 totalPages: 2,
-                currentPage: 1,
+                currentPage: page,
                 items: [
                     {
                         name: "Service 1",
@@ -179,4 +179,18 @@ export type PaginatedItemList<T> = {
     totalPages: number,
     currentPage: number,
     items: T[]
+}
+
+export const useSearchRecommendations = () => {
+    return useQuery({
+        queryKey: ['useSearchRecommendations'],
+        queryFn: () => {
+            return [
+                "Sit amet consectetur",
+                "Ex sapien vitae r",
+                "Sem placerat in id",
+                "Tempus leo eu aenean",
+            ];
+        }
+    })
 }
