@@ -9,7 +9,7 @@ import { useForm, type SubmitHandler } from 'react-hook-form'
 import { useAtom } from "jotai";
 import { cartAtom, type Cart } from "../state/atoms";
 import CartItemQuantityInput from "./number-input";
-import { totalItems, totalPrice } from "../functions/cart";
+import { totalPrice } from "../functions/cart";
 
 Modal.setAppElement('#root')
 
@@ -97,11 +97,11 @@ export default function ProfileCartComponent() {
         setActiveAddress(defaultAddress);
     }
 
-    const closeAddModal = (): void => {
-        setModalIsOpen(false);
-        setModalEdit(false);
-        setActiveAddress(defaultAddress);
-    }
+    // const closeAddModal = (): void => {
+    //     setModalIsOpen(false);
+    //     setModalEdit(false);
+    //     setActiveAddress(defaultAddress);
+    // }
 
     // delete modal
 
@@ -113,6 +113,10 @@ export default function ProfileCartComponent() {
     const closeDeleteModal = (): void => {
         setDeleteModalIsOpen(false);
         setActiveAddress(defaultAddress);
+    }
+
+    const handleDelete = (): void => {
+        // handling logic
     }
 
     return (
@@ -133,7 +137,7 @@ export default function ProfileCartComponent() {
                                 <XMarkIcon className='h-full size-7' />
                             </button>
                             <div className="flex justify-center mt-(--default-padding) font-[Montserrat] font-semibold">
-                                <button className="h-[51px] w-[33%] block cursor-pointer rounded-xl text-lg flex items-center justify-center text-(--background) bg-(--accent)">
+                                <button onClick={handleDelete} className="h-[51px] w-[33%] block cursor-pointer rounded-xl text-lg flex items-center justify-center text-(--background) bg-(--accent)">
                                     Text
                                 </button>
                             </div>
@@ -332,7 +336,7 @@ function AddressForm({ address, isInEditMode }:
         address: UserAddress;
         isInEditMode: boolean
     }) {
-    const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
+    const { register, handleSubmit } = useForm<Inputs>();
     const { t } = useTranslation();
 
     const onSubmit: SubmitHandler<Inputs> = (data) => {

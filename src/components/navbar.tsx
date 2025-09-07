@@ -72,7 +72,7 @@ export default function Navbar() {
                         {t("home_navbar_text")}
                     </Link>
                     <Link
-                        to={"/"}
+                        to={"/services"}
                     >
                         {t("services_navbar_text")}
                     </Link>

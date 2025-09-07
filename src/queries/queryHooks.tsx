@@ -129,3 +129,54 @@ export const defaultAddress = () => {
 
     return address;
 }
+
+export const useServices = () => {
+    return useQuery({
+        queryKey: ['useServices'],
+        queryFn: () => {
+            return {
+                totalPages: 2,
+                currentPage: 1,
+                items: [
+                    {
+                        name: "Service 1",
+                        description: "description 1",
+                        imageUrl: "img/worker_1.jpg"
+                    } as Service,
+                    {
+                        name: "Service 2",
+                        description: "description 2",
+                        imageUrl: "img/worker_2.jpg"
+                    } as Service,
+                    {
+                        name: "Service 3",
+                        description: "description 3",
+                        imageUrl: "img/worker_3.jpg"
+                    } as Service,
+                    {
+                        name: "Service 4",
+                        description: "description 4",
+                        imageUrl: "img/worker_3.jpg"
+                    } as Service,
+                    {
+                        name: "Service 5",
+                        description: "description 5",
+                        imageUrl: "img/worker_2.jpg"
+                    } as Service,
+                ]
+            } as PaginatedItemList<Service>;
+        }
+    })
+}
+
+export type Service = {
+    name: string,
+    description: string,
+    imageUrl: string
+}
+
+export type PaginatedItemList<T> = {
+    totalPages: number,
+    currentPage: number,
+    items: T[]
+}
