@@ -4,8 +4,12 @@ import clsx from "clsx";
 import { useTranslation } from "react-i18next";
 import { defaultAddress, useUser, type UserAddress } from "../queries/queryHooks";
 import Modal from 'react-modal';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm, type SubmitHandler } from 'react-hook-form'
+import { useAtom } from "jotai";
+import { cartAtom, type Cart } from "../state/atoms";
+import CartItemQuantityInput from "./number-input";
+import { totalItems, totalPrice } from "../functions/cart";
 
 Modal.setAppElement('#root')
 
@@ -34,7 +38,7 @@ const deleteModalStyles: Modal.Styles = {
     content: {
         top: '50%',
         left: '50%',
-        width: 'fit-content',
+        minWidth: '33%',
         height: 'fit-content',
         transform: 'translate(-50%, -50%)',
         backgroundColor: 'var(--background)',
@@ -54,33 +58,61 @@ type Inputs = {
 }
 
 export default function ProfileCartComponent() {
-    const { t } = useTranslation();
     const tabName = window.location.pathname;
+
+    const { t } = useTranslation();
+
     const { data, isLoading } = useUser();
-    const [modalIsOpen, setIsOpen] = useState<boolean>(false);
+
+    const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
     const [modalEdit, setModalEdit] = useState<boolean>(false);
-    const [editedAddress, setEditedAddress] = useState<UserAddress>(defaultAddress());
 
-    const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
+    const [activeAddress, setActiveAddress] = useState<UserAddress>(defaultAddress());
 
-    function openModal() {
-        setIsOpen(true);
+    const [cart, setCart] = useAtom<Cart>(cartAtom);
+    const [cartTotal, setCartTotal] = useState<number>(0);
+
+    const [deleteModalIsOpen, setDeleteModalIsOpen] = useState<boolean>(false);
+
+    useEffect(() => {
+        setCartTotal(totalPrice(cart));
+    }, []);
+
+    // edit/add modal
+
+    const openEditModal = (address: UserAddress): void => {
+        setModalEdit(true);
+        setActiveAddress(address);
+        setModalIsOpen(true);
     }
 
-    function closeModal() {
-        console.log(editedAddress);
+    const openAddModal = (): void => {
+        setModalEdit(false);
+        setModalIsOpen(true);
+    }
 
-        const tmp: UserAddress = {
-            id: -1,
-            city: "",
-            street: "",
-            building: -1,
-            floor: -1,
-            apartment: -1,
-            entrance: -1,
-        }
-        setEditedAddress(tmp);
-        setIsOpen(false);
+    const closeEditModal = (): void => {
+        setModalIsOpen(false);
+        setModalEdit(false);
+        setActiveAddress(defaultAddress);
+    }
+
+    const closeAddModal = (): void => {
+        setModalIsOpen(false);
+        setModalEdit(false);
+        setActiveAddress(defaultAddress);
+    }
+
+    // delete modal
+
+    const openDeleteModal = (address: UserAddress): void => {
+        setActiveAddress(address);
+        setDeleteModalIsOpen(true);
+    }
+
+    const closeDeleteModal = (): void => {
+        setDeleteModalIsOpen(false);
+        setActiveAddress(defaultAddress);
     }
 
     return (
@@ -92,18 +124,27 @@ export default function ProfileCartComponent() {
 
                         <Modal isOpen={deleteModalIsOpen}
                             closeTimeoutMS={200}
-                            onRequestClose={() => setDeleteModalIsOpen(false)}
+                            onRequestClose={closeDeleteModal}
                             style={deleteModalStyles}>
                             <h1 className="text-2xl font-[Montserrat] font-semibold text-center">
-                                Are you sure?
+                                Delete  {activeAddress.city} {activeAddress.street} {activeAddress.building} {activeAddress.entrance} {activeAddress.floor} {activeAddress.apartment}?
                             </h1>
+                            <button onClick={closeDeleteModal} className="absolute right-[2rem] top-[2rem] cursor-pointer">
+                                <XMarkIcon className='h-full size-7' />
+                            </button>
+                            <div className="flex justify-center mt-(--default-padding) font-[Montserrat] font-semibold">
+                                <button className="h-[51px] w-[33%] block cursor-pointer rounded-xl text-lg flex items-center justify-center text-(--background) bg-(--accent)">
+                                    Text
+                                </button>
+                            </div>
+
                         </Modal>
                         <Modal
                             closeTimeoutMS={200}
                             isOpen={modalIsOpen}
-                            onRequestClose={closeModal}
+                            onRequestClose={closeEditModal}
                             style={modalStyles}>
-                            <button onClick={closeModal} className="absolute right-[2rem] top-[2rem] cursor-pointer">
+                            <button onClick={closeEditModal} className="absolute right-[2rem] top-[2rem] cursor-pointer">
                                 <XMarkIcon className='h-full size-7' />
                             </button>
                             <h1 className="text-4xl font-[Montserrat] font-semibold text-center mb-[2rem]">
@@ -114,13 +155,19 @@ export default function ProfileCartComponent() {
                                         <div className="">Add</div>
                                 }
                             </h1>
-                            <AddressForm address={editedAddress} isInEditMode={modalEdit} />
+                            <AddressForm address={activeAddress} isInEditMode={modalEdit} />
                         </Modal>
                     </div>
             }
 
             <div className="w-[88rem] p-(--default-padding)  pt-(--navbar-height) mt-(--default-padding) pb-(--default-padding)">
-                <h1 className='text-5xl text-center mb-[1em]'>Profile</h1>
+                <h1 className='text-5xl text-center mb-[1em]'>
+                    {
+                        tabName == '/profile' ?
+                            "Profile" :
+                            "Cart"
+                    }
+                </h1>
                 <div className="flex ">
                     <div className="flex-1 flex justify-start">
                         <div className="flex flex-col gap-y-4 mt-[4.25rem]">
@@ -155,7 +202,7 @@ export default function ProfileCartComponent() {
                                                                 <UserIcon className='h-full size-6' />
                                                             </div>
                                                             <input id="username" type="text" name="username" placeholder={t("homepage.contact_form.input2.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3"
-                                                                value={data!.username} />
+                                                                value={data!.username} readOnly />
                                                         </div>
                                                     </div>
                                                     <div className='text-(--foreground) font-[Montserrat]'>
@@ -174,7 +221,7 @@ export default function ProfileCartComponent() {
                                                                 <PhoneIcon className='h-full size-6' />
                                                             </div>
                                                             <input id="phone" type="text" name="phone" placeholder={t("homepage.contact_form.input2.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3"
-                                                                value={data!.phone} />
+                                                                value={data!.phone} readOnly />
                                                         </div>
                                                     </div>
                                                     <div className='text-(--foreground) font-[Montserrat]'>
@@ -184,7 +231,7 @@ export default function ProfileCartComponent() {
                                                                 <AtSymbolIcon className='h-full size-6' />
                                                             </div>
                                                             <input id="email" type="text" name="email" placeholder={t("homepage.contact_form.input2.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3"
-                                                                value={data!.email} />
+                                                                value={data!.email} readOnly />
                                                         </div>
                                                     </div>
                                                 </form>
@@ -194,7 +241,7 @@ export default function ProfileCartComponent() {
                                                             <span className="block text-lg">Big text</span>
                                                             <span className="block text-sm/3 font-normal">Small text text text</span>
                                                         </div>
-                                                        <button onClick={() => { setModalEdit(false); openModal() }} className="h-[51px] w-[33%] block cursor-pointer border-[3px] border-(--foreground) rounded-xl text-lg flex items-center justify-center bg-(--background) text-(--background) bg-(--foreground)">
+                                                        <button onClick={() => { openAddModal() }} className="h-[51px] w-[33%] block cursor-pointer border-[3px] border-(--foreground) rounded-xl text-lg flex items-center justify-center bg-(--background) text-(--background) bg-(--foreground)">
                                                             Text
                                                         </button>
                                                     </div>
@@ -209,10 +256,10 @@ export default function ProfileCartComponent() {
                                                                         {address.city} {address.street} {address.building} {address.entrance} {address.floor} {address.apartment}
                                                                     </div>
                                                                     <div className="flex gap-x-2">
-                                                                        <button onClick={() => { setEditedAddress(address); setModalEdit(true); openModal() }}>
+                                                                        <button onClick={() => { openEditModal(address) }}>
                                                                             <PencilSquareIcon className='h-full size-6 cursor-pointer' />
                                                                         </button>
-                                                                        <button onClick={() => { setDeleteModalIsOpen(true) }}>
+                                                                        <button onClick={() => { openDeleteModal(address) }}>
                                                                             <TrashIcon className='h-full size-6 cursor-pointer' />
                                                                         </button>
                                                                     </div>
@@ -224,12 +271,52 @@ export default function ProfileCartComponent() {
                                             </div>
 
                                             :
-                                            <div className=""></div>
+                                            <div className="flex">
+                                                <div className="flex-1 grid gap-y-(--default-padding)">
+                                                    {
+                                                        cart.items.map(cartItem => (
+                                                            <div key={cartItem.id} className="flex gap-x-4 items-start">
+                                                                <div className="overflow-hidden bg-center bg-cover w-[200px] h-[200px] rounded-4xl" style={{ backgroundImage: `url(../../src/assets/${cartItem.imgUrl})` }}>
+                                                                </div>
+                                                                <div className="text-right min-w-[300px] h-full grid gap-y-2 relative">
+                                                                    <div className="">
+                                                                        <h2 className="text-lg">{cartItem.title}</h2>
+                                                                        <article className="font-normal">{cartItem.description}</article>
+                                                                    </div>
+                                                                    <div className="absolute right-[0] bottom-[0] grid gap-y-3">
+                                                                        <div className="">
+                                                                            <h2 className="text-2xl">{cartItem.priceInEuro}€</h2>
+                                                                        </div>
+                                                                        <CartItemQuantityInput cartItem={cartItem} min={1} max={99} onChange={() => {
+                                                                            setCart(cart);
+                                                                            setCartTotal(totalPrice(cart));
+                                                                        }} />
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        ))
+                                                    }
+                                                </div>
+                                                <div className="flex-1 flex justify-center">
+                                                    <div className="bg-(--accent) w-[80%] p-[2rem] rounded-4xl h-fit grid gap-y-4">
+                                                        <span className="text-3xl text-[#fff]">
+                                                            Total:&nbsp;
+                                                            {
+                                                                cartTotal.toFixed(2)
+                                                            }
+                                                            €
+                                                        </span>
+                                                        <button className="py-4 w-[100%] block cursor-pointer border-[3px] border-(--foreground) rounded-xl text-2xl flex items-center justify-center bg-(--background) text-(--background) bg-(--foreground)">
+                                                            Text
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                     }
                                 </div>
                         }
-
-
                     </div>
                 </div>
             </div>

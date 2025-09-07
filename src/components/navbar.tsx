@@ -2,14 +2,14 @@ import { useEffect, useState } from "react"
 import clsx from "clsx";
 import { ShoppingCartIcon, UserIcon } from "@heroicons/react/20/solid";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { useCart } from "../queries/queryHooks";
 import { useTranslation } from "react-i18next";
 import { useAtom } from "jotai";
-import { localeAtom, supportedLocalesAtom } from "../state/atoms";
+import { cartAtom, localeAtom, supportedLocalesAtom } from "../state/atoms";
+import { totalItems, totalPrice } from "../functions/cart";
 
 export default function Navbar() {
     const [isAtTop, setIsAtTop] = useState(true);
-    const { data, isLoading } = useCart();
+    const [cart] = useAtom(cartAtom);
 
     const { t, i18n } = useTranslation();
     const [supportedLocales] = useAtom(supportedLocalesAtom)
@@ -144,15 +144,10 @@ export default function Navbar() {
                             <div className="">
                                 <ShoppingCartIcon className="size-7" />
                             </div>
-                            {
-                                isLoading ?
-                                    <div className="font-sm font-bold">Loading</div>
-                                    :
-                                    <div className="">
-                                        <div className="font-bold">{data!.itemCount} {t("item_count_text")}</div>
-                                        <div className="font-bold">{data!.total} €</div>
-                                    </div>
-                            }
+                            <div className="">
+                                <div className="font-bold">{totalItems(cart)} {t("item_count_text")}</div>
+                                <div className="font-bold">{totalPrice(cart)}€</div>
+                            </div>
                         </div>
                     </Link>
                     <div
