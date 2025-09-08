@@ -194,3 +194,47 @@ export const useSearchRecommendations = () => {
         }
     })
 }
+
+export const useBrands = (filterBrands: string[]) => {
+    console.log(filterBrands);
+
+    let indexes = [];
+
+    const brands = [
+        {
+            label: "Brand 1",
+            value: "123"
+        } as Brand,
+        {
+            label: "Brand 2",
+            value: "113"
+        } as Brand,
+        {
+            label: "Brand 3",
+            value: "222"
+        } as Brand,
+    ];
+
+    for (let i = 0; i < brands.length; i++) {
+        for (let j = 0; j < filterBrands.length; j++) {
+            if (brands[i].value == filterBrands[j]) {
+                indexes.push(i);
+            }
+        }
+    }
+
+    return useQuery({
+        queryKey: ['useBrands'],
+        queryFn: () => {
+            return {
+                activeOptionIndexes: indexes,
+                options: brands
+            }
+        }
+    })
+}
+
+export type Brand = {
+    label: string,
+    value: string
+}

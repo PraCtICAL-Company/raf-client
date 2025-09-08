@@ -1,10 +1,11 @@
-import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
+import { ChevronUpDownIcon, FunnelIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useTranslation } from 'react-i18next';
-import { useSearchRecommendations } from '../queries/queryHooks';
+import { useBrands, useSearchRecommendations, type Brand } from '../queries/queryHooks';
 import { useState, type ChangeEvent } from 'react';
 import { getTrackBackground, Range } from "react-range";
-import Select from 'react-select'
+import Select, { type MultiValue } from 'react-select'
+import clsx from 'clsx';
 
 const MIN_PRICE = 0;
 const MAX_PRICE = 10000;
@@ -12,13 +13,15 @@ const MAX_PRICE = 10000;
 export const Route = createFileRoute('/shop')({
   validateSearch: (search: Record<string, unknown>) => {
     return {
+      textQuery: search.textQuery,
+      sortBy: search.sortBy ?? "ByStock",
       page: Number(search.page ?? 1),
       minPrice: Number(search.minPrice ?? MIN_PRICE),
       maxPrice: Number(search.maxPrice ?? MAX_PRICE),
       hotPrice: Boolean(search.hotPrice ?? false),
       brands: Array.isArray(search.brands) ?
         // @ts-ignore
-        search.brands.map(Number)
+        search.brands.map(String)
         :
         search.brands
           ? search.brands
@@ -33,11 +36,25 @@ export const Route = createFileRoute('/shop')({
 function RouteComponent() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const filters = Route.useSearch();
+  const searchFilters = Route.useSearch();
+  const [queryText, setQueryText] = useState<string>(searchFilters.textQuery);
+  const [sortType, setSortType] = useState<SortType>(searchFilters.sortBy);
   const { isLoading, data } = useSearchRecommendations();
+
+  const [filtersOpen, setFiltersOpen] = useState<boolean>();
+
+  const SORT_TYPES = [
+    { label: "Sort by name", value: "ByName" },
+    { label: "Sort by name descending", value: "ByNameDescending" },
+    { label: "Cheap first", value: "ByPrice" },
+    { label: "Expensive first", value: "ByPriceDescending" },
+    { label: "In stock first", value: "ByStock" },
+  ]
 
   const search = (newFilters: ShopSearchFilters) => {
     console.log(newFilters);
+    newFilters.textQuery = queryText;
+    newFilters.sortBy = sortType;
     navigate({
       // @ts-ignore
       search: newFilters,
@@ -56,7 +73,7 @@ function RouteComponent() {
                 <div className="mr-3 ml-3">
                   <MagnifyingGlassIcon className='h-full size-6' />
                 </div>
-                <input id="username" type="text" name="username" placeholder={t("homepage.contact_form.input2.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3" />
+                <input id="username" type="text" onChange={(e) => setQueryText(e.target.value)} value={queryText} name="username" placeholder={t("homepage.contact_form.input2.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3" />
               </div>
             </div>
             {
@@ -66,17 +83,80 @@ function RouteComponent() {
                 <div className="flex flex-wrap pt-6 gap-2">
                   {
                     data!.map(rec => (
-                      <div className="px-3 py-2 border-(--foreground) border-[2px] rounded-lg bg-(--input-bg) w-fit">{rec}</div>
+                      <div onClick={() => setQueryText(rec)} className=" cursor-pointer px-3 py-2 border-(--foreground) border-[2px] rounded-lg bg-(--input-bg) w-fit">{rec}</div>
                     ))
                   }
                 </div>
             }
           </div>
           <div className="flex">
-            <div className="flex-1">
-              <FilterComponent onFilterApply={(f) => search(f)} initialFilters={filters} />
+            <div className={clsx({
+              "flex-1": filtersOpen,
+              "invisible": !filtersOpen
+            })}>
+              <FilterComponent onFilterApply={(f) => search(f)} initialFilters={searchFilters} />
             </div>
-            <div className="flex-3">2</div>
+            <div className="flex-3">
+              <div className="flex gap-x-4 justify-end cursor-pointer items-center">
+                <button onClick={() => setFiltersOpen(!filtersOpen)} className='flex gap-x-2 items-center font-semibold cursor-pointer'>
+                  {
+                    filtersOpen ?
+                      "Hide filters"
+                      :
+                      "Show filters"
+                  }
+                  <FunnelIcon className='size-4' />
+                </button>
+                <Select
+                  options={SORT_TYPES}
+                  defaultValue={SORT_TYPES.filter(tuple => tuple.value == sortType).at(0)}
+                  onChange={(val) => setSortType(val!.value as SortType)}
+                  styles={{
+                    container: (provided, state) => ({
+                      ...provided,
+                    }),
+                    dropdownIndicator: (provided, state) => ({
+                      // ...provided,
+                      // display: "flex",
+                      // backgroundColor: "transparent",
+                    }),
+                    control: (provided, state) => ({
+                      // ...provided,
+                      display: "flex",
+                      backgroundColor: "transparent",
+                    }),
+                    option: (provided, state) => ({
+                      //...provided,
+                      backgroundColor: "var(--background)",
+                      fontWeight: "500",
+                      padding: "5px 10px",
+                      cursor: "pointer"
+                    }),
+                    menu: (provided, state) => ({
+                      ...provided,
+                      backgroundColor: "var(--background)",
+                      minWidth: "200px",
+                    }),
+                    singleValue: (provided, state) => ({
+                      ...provided,
+                      backgroundColor: "transparent",
+                      borderRadius: "0.25rem",
+                      fontWeight: "600"
+                    }),
+                    valueContainer: (provided, state) => ({
+                      ...provided,
+                      paddingLeft: "3px"
+                    }),
+                    placeholder: (provided, state) => ({
+                      ...provided,
+                      paddingLeft: "5px"
+                    }),
+                    indicatorSeparator: (provided, state) => ({
+
+                    }),
+                  }} />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -94,12 +174,7 @@ function FilterComponent({ onFilterApply, initialFilters }:
   const { t } = useTranslation();
   const [filters, setFilters] = useState<ShopSearchFilters>(initialFilters)
   const [values, setValues] = useState([initialFilters.minPrice, initialFilters.maxPrice]);
-
-  const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
-  ]
+  const { data, isLoading } = useBrands(initialFilters.brands);
 
   const applyFilters = (): void => {
     // ...
@@ -131,6 +206,13 @@ function FilterComponent({ onFilterApply, initialFilters }:
     const oldFilters = filters;
     setFilters(oldFilters);
   };
+
+  const handleBrandChange = (newOptions: MultiValue<Brand>): void => {
+    const oldFilters = filters;
+    oldFilters.brands = newOptions.map(tuple => tuple.value);
+    console.log(newOptions);
+
+  }
 
   return (
     <div className="grid gap-y-4">
@@ -204,49 +286,62 @@ function FilterComponent({ onFilterApply, initialFilters }:
       <CustomCheckbox labelText='Hot price' onChange={(val) => { filters.hotPrice = val; handleFilterChange() }} isChecked={filters.hotPrice} />
       <div className="">
         <h3 className='block w-full font-semibold text-lg mb-2'>Brands</h3>
-        <Select options={options} isMulti styles={{
-          control: (provided, state) => ({
-            // ...provided,
-            display: "flex",
-            backgroundColor: "var(--background)",
-            border: "2px solid var(--foreground)",
-            borderRadius: "0.5rem",
-          }),
-          option: (provided, state) => ({
-            ...provided,
-            backgroundColor: "var(--background)",
-            fontWeight: "600",
-            cursor: "pointer"
-          }),
-          menu: (provided, state) => ({
-            ...provided,
-            backgroundColor: "var(--background)",
-          }),
-          multiValue: (provided, state) => ({
-            ...provided,
-            backgroundColor: "var(--foreground)",
-            color: "#ffffff",
-            borderRadius: "0.25rem",
-          }),
-          multiValueLabel: (provided, state) => ({
-            ...provided,
-            color: "#ffffff"
-          }),
-          valueContainer: (provided, state) => ({
-            ...provided,
-            paddingLeft: "3px"
-          }),
-          placeholder: (provided, state) => ({
-            ...provided,
-            paddingLeft: "5px"
-          }),
-        }} />
+        {
+          isLoading ?
+            <div className="">Loading...</div>
+            :
+            <div className="">
+              <Select
+                options={data?.options}
+                defaultValue={data!.activeOptionIndexes.map(idx => data!.options[idx])}
+                isMulti
+                onChange={(opt) => handleBrandChange(opt)}
+                styles={{
+                  control: (provided, state) => ({
+                    // ...provided,
+                    display: "flex",
+                    backgroundColor: "var(--background)",
+                    border: "2px solid var(--foreground)",
+                    borderRadius: "0.5rem",
+                  }),
+                  option: (provided, state) => ({
+                    ...provided,
+                    backgroundColor: "var(--background)",
+                    fontWeight: "600",
+                    cursor: "pointer"
+                  }),
+                  menu: (provided, state) => ({
+                    ...provided,
+                    backgroundColor: "var(--background)",
+                  }),
+                  multiValue: (provided, state) => ({
+                    ...provided,
+                    backgroundColor: "var(--foreground)",
+                    color: "#ffffff",
+                    borderRadius: "0.25rem",
+                  }),
+                  multiValueLabel: (provided, state) => ({
+                    ...provided,
+                    color: "#ffffff"
+                  }),
+                  valueContainer: (provided, state) => ({
+                    ...provided,
+                    paddingLeft: "3px"
+                  }),
+                  placeholder: (provided, state) => ({
+                    ...provided,
+                    paddingLeft: "5px"
+                  }),
+                }} />
+            </div>
+        }
+
 
       </div>
       <div className="">
         <h3 className='block w-full font-semibold text-lg mb-2'>Stock</h3>
-        <CustomCheckbox labelText='Show in stock' onChange={(val) => { filters.hotPrice = val; handleFilterChange() }} isChecked={filters.hotPrice} />
-        <CustomCheckbox labelText='Show out of stock' onChange={(val) => { filters.hotPrice = val; handleFilterChange() }} isChecked={filters.hotPrice} />
+        <CustomCheckbox labelText='Show in stock' onChange={(val) => { filters.showInStock = val; handleFilterChange() }} isChecked={filters.showInStock} />
+        <CustomCheckbox labelText='Show out of stock' onChange={(val) => { filters.showOutOfStock = val; handleFilterChange() }} isChecked={filters.showOutOfStock} />
       </div>
       <div className=""></div>
       <button onClick={applyFilters} className='bg-(--foreground) text-(--background) font-semibold rounded-xl h-[51px] cursor-pointer'>
@@ -257,6 +352,7 @@ function FilterComponent({ onFilterApply, initialFilters }:
 }
 
 export type ShopSearchFilters = {
+  textQuery: string,
   page: number,
   minPrice: number,
   maxPrice: number,
@@ -264,16 +360,24 @@ export type ShopSearchFilters = {
   brands: string[]
   showInStock: boolean,
   showOutOfStock: boolean,
+  sortBy: SortType
 }
 
+export type SortType =
+  "ByName" | "ByNameDescending" |
+  "ByPrice" | "byPriceDescending" |
+  "ByStock"
+
 export const defaultShopSearchFilters: ShopSearchFilters = {
+  textQuery: "",
   page: 1,
   minPrice: MIN_PRICE,
   maxPrice: MAX_PRICE,
   hotPrice: false,
-  brands: [],
+  brands: ["123", "222"],
   showInStock: true,
   showOutOfStock: true,
+  sortBy: "ByStock"
 }
 
 export default function CustomCheckbox({ onChange, labelText, isChecked }:
