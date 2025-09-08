@@ -66,7 +66,7 @@ function RouteComponent() {
 
 }
 
-function Pager({ totalPages, currentPage, onChange }:
+export function Pager({ totalPages, currentPage, onChange }:
   {
     totalPages: number;
     currentPage: number;
@@ -114,7 +114,7 @@ function Pager({ totalPages, currentPage, onChange }:
       <ChevronDoubleLeftIcon className='size-6 cursor-pointer' onClick={goFirst} />
       <ChevronLeftIcon className='size-6 cursor-pointer' onClick={goPrev} />
       <div className="font-semibold">
-        {page}
+        {page} of {totalPages}
       </div>
       <ChevronRightIcon className='size-6 cursor-pointer' onClick={goNext} />
       <ChevronDoubleRightIcon className='size-6 cursor-pointer' onClick={goLast} />

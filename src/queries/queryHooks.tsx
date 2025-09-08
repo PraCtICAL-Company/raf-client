@@ -1,18 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-
-const fetchCart = async () => {
-    return {
-        total: 0,
-        itemCount: 0
-    }
-}
-
-export const useCart = () => {
-    return useQuery({
-        queryKey: ['cart'],
-        queryFn: fetchCart
-    });
-}
+import type { ShopSearchFilters } from "../routes/shop";
 
 export const usePrivacyPolicy = (locale: string) => {
     return useQuery({
@@ -117,16 +104,6 @@ export interface UserAddress {
 }
 
 export const defaultAddress = () => {
-    // const address: UserAddress = {
-    //     id: -1,
-    //     city: "",
-    //     street: "",
-    //     building: -1,
-    //     floor: -1,
-    //     apartment: -1,
-    //     entrance: -1,
-    // }
-
     return {} as UserAddress;
 }
 
@@ -237,4 +214,81 @@ export const useBrands = (filterBrands: string[]) => {
 export type Brand = {
     label: string,
     value: string
+}
+
+export const useShopSearch = (filters: ShopSearchFilters) => {
+    return useQuery({
+        queryKey: ['useShopSearch'],
+        queryFn: () => {
+            return {
+                totalPages: 2,
+                currentPage: 1,
+                items: [
+                    {
+                        id: "234532",
+                        title: "XX1",
+                        description: "XX1",
+                        priceInEuro: 299.99,
+                        imgUrl: "img/worker_1.jpg",
+                        inStock: false,
+                    } as ShopItem,
+                    {
+                        id: "234532",
+                        title: "XX1",
+                        description: "XX1",
+                        priceInEuro: 299.99,
+                        imgUrl: "img/worker_1.jpg",
+                        inStock: true,
+                        hotPrice: {
+                            oldPrice: 299.99,
+                            newPrice: 100.02
+                        } as HotPriceDetails
+                    } as ShopItem,
+                    {
+                        id: "234532",
+                        title: "XX1",
+                        description: "XX1",
+                        priceInEuro: 299.99,
+                        imgUrl: "img/worker_1.jpg",
+                        inStock: false,
+                    } as ShopItem,
+                    {
+                        id: "234532",
+                        title: "XX1",
+                        description: "XX1",
+                        priceInEuro: 299.99,
+                        imgUrl: "img/worker_1.jpg",
+                        inStock: true,
+                    } as ShopItem,
+                    {
+                        id: "234532",
+                        title: "XX1",
+                        description: "XX1",
+                        priceInEuro: 299.99,
+                        imgUrl: "img/worker_1.jpg",
+                        inStock: true,
+                        hotPrice: {
+                            oldPrice: 299.99,
+                            newPrice: 100.02
+                        } as HotPriceDetails
+                    } as ShopItem,
+                ]
+            } as PaginatedItemList<ShopItem>
+        }
+    })
+}
+
+export type ShopItem = {
+    id: string,
+    title: string,
+    description: string,
+    priceInEuro: number,
+    imgUrl: string,
+    inStock: boolean,
+    hotPrice: HotPriceDetails | undefined
+}
+
+export type HotPriceDetails = {
+    oldPrice: number,
+    newPrice: number
 }

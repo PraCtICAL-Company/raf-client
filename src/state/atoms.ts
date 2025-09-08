@@ -1,5 +1,6 @@
 import { atom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils'
+import type { HotPriceDetails, ShopItem } from '../queries/queryHooks';
 
 export const localeAtom = atomWithStorage('locale', 'de', undefined, { getOnInit: true });
 
@@ -20,28 +21,44 @@ export const cartAtom = atomWithStorage<Cart>(
         items: [
             {
                 itemCount: 1,
-                id: 1,
-                title: "XX1",
-                description: "XX1",
-                priceInEuro: 299.99,
-                imgUrl: "img/worker_1.jpg"
+                itemType: {
+                    id: "2346",
+                    title: "XX1",
+                    description: "XX1",
+                    priceInEuro: 299.99,
+                    imgUrl: "img/worker_1.jpg",
+                    inStock: true,
+                } as ShopItem
+
             },
             {
-                itemCount: 2,
-                id: 2,
-                title: "XX2",
-                description: "XX2",
-                priceInEuro: 399.99,
-                imgUrl: "img/worker_2.jpg"
+                itemCount: 1,
+                itemType: {
+                    id: "223",
+                    title: "XX2",
+                    description: "XX2",
+                    priceInEuro: 59.99,
+                    imgUrl: "img/worker_2.jpg",
+                    inStock: true,
+                } as ShopItem
+
             },
             {
-                itemCount: 3,
-                id: 3,
-                title: "XX3",
-                description: "XX3",
-                priceInEuro: 99.99,
-                imgUrl: "img/worker_3.jpg"
-            }
+                itemCount: 1,
+                itemType: {
+                    id: "5246",
+                    title: "XX3",
+                    description: "XX3",
+                    priceInEuro: 99.99,
+                    imgUrl: "img/worker_3.jpg",
+                    inStock: false,
+                    hotPrice: {
+                        oldPrice: 299.99,
+                        newPrice: 100.02
+                    } as HotPriceDetails
+                } as ShopItem
+
+            },
         ],
     },
     undefined,
@@ -54,9 +71,5 @@ export type Cart = {
 
 export type CartItem = {
     itemCount: number,
-    id: number,
-    title: string,
-    description: string,
-    priceInEuro: number,
-    imgUrl: string
+    itemType: ShopItem
 }

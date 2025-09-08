@@ -1,4 +1,4 @@
-import { AtSymbolIcon, KeyIcon, MapPinIcon, PencilSquareIcon, PhoneIcon, TrashIcon, UserIcon, XMarkIcon } from "@heroicons/react/20/solid";
+import { ArchiveBoxIcon, AtSymbolIcon, ClockIcon, KeyIcon, MapPinIcon, PencilSquareIcon, PhoneIcon, TrashIcon, UserIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import { Link } from "@tanstack/react-router";
 import clsx from "clsx";
 import { useTranslation } from "react-i18next";
@@ -279,17 +279,42 @@ export default function ProfileCartComponent() {
                                                 <div className="flex-1 grid gap-y-(--default-padding)">
                                                     {
                                                         cart.items.map(cartItem => (
-                                                            <div key={cartItem.id} className="flex gap-x-4 items-start">
-                                                                <div className="overflow-hidden bg-center bg-cover w-[200px] h-[200px] rounded-4xl" style={{ backgroundImage: `url(../../src/assets/${cartItem.imgUrl})` }}>
+                                                            <div key={cartItem.itemType.id} className={clsx("flex gap-x-5 items-start", {
+                                                                "opacity-50 pointer-events-none": !cartItem.itemType.inStock
+                                                            })}>
+                                                                <div className="overflow-hidden bg-center bg-cover w-[200px] h-[200px] rounded-4xl" style={{ backgroundImage: `url(../../src/assets/${cartItem.itemType.imgUrl})` }}>
                                                                 </div>
                                                                 <div className="text-right min-w-[300px] h-full grid gap-y-2 relative">
-                                                                    <div className="">
-                                                                        <h2 className="text-lg">{cartItem.title}</h2>
-                                                                        <article className="font-normal">{cartItem.description}</article>
+                                                                    <div className="flex flex-col items-end">
+                                                                        <h2 className="text-lg">{cartItem.itemType.title}</h2>
+                                                                        {
+                                                                            cartItem.itemType.inStock ?
+                                                                                <div className="flex gap-x-2 items-center w-fit">
+                                                                                    <ArchiveBoxIcon className='size-4' />
+                                                                                    <span>In stock</span>
+                                                                                </div>
+                                                                                :
+                                                                                <div className="flex gap-x-2 items-center w-fit">
+                                                                                    <ClockIcon className='size-4' />
+                                                                                    <span className='font-normal'>Out of stock</span>
+                                                                                </div>
+                                                                        }
                                                                     </div>
-                                                                    <div className="absolute right-[0] bottom-[0] grid gap-y-3">
+                                                                    <div className="absolute right-[0] bottom-[0] flex flex-col items-end gap-y-3">
                                                                         <div className="">
-                                                                            <h2 className="text-2xl">{cartItem.priceInEuro}€</h2>
+                                                                            {
+                                                                                cartItem.itemType.hotPrice ?
+                                                                                    <div className="text-center">
+                                                                                        <div className='text-xl line-through decoration-[2px]'>{cartItem.itemType.hotPrice.oldPrice}€</div>
+                                                                                        <div className='text-3xl flex gap-x-3 underline decoration-[2px] items-center'>
+                                                                                            <img src="../../src/assets/svg/icons/hot-price.svg" className='w-[30px]' />
+                                                                                            {cartItem.itemType.hotPrice.newPrice}€
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    :
+                                                                                    <div className="text-3xl">{cartItem.itemType.priceInEuro}€</div>
+
+                                                                            }
                                                                         </div>
                                                                         <CartItemQuantityInput cartItem={cartItem} min={1} max={99} onChange={() => {
                                                                             setCart(cart);

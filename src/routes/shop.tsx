@@ -1,11 +1,14 @@
-import { ChevronUpDownIcon, FunnelIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid';
+import { ArchiveBoxIcon, ArchiveBoxXMarkIcon, ChevronUpDownIcon, ClockIcon, FunnelIcon, MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useTranslation } from 'react-i18next';
-import { useBrands, useSearchRecommendations, type Brand } from '../queries/queryHooks';
+import { useBrands, useSearchRecommendations, useShopSearch, type Brand, type ShopItem } from '../queries/queryHooks';
 import { useState, type ChangeEvent } from 'react';
 import { getTrackBackground, Range } from "react-range";
 import Select, { type MultiValue } from 'react-select'
 import clsx from 'clsx';
+import { Pager } from './services';
+import { useAtom } from 'jotai';
+import { cartAtom } from '../state/atoms';
 
 const MIN_PRICE = 0;
 const MAX_PRICE = 10000;
@@ -37,11 +40,12 @@ function RouteComponent() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const searchFilters = Route.useSearch();
+  const filterSave = searchFilters;
   const [queryText, setQueryText] = useState<string>(searchFilters.textQuery);
   const [sortType, setSortType] = useState<SortType>(searchFilters.sortBy);
   const { isLoading, data } = useSearchRecommendations();
 
-  const [filtersOpen, setFiltersOpen] = useState<boolean>();
+  const [filtersOpen, setFiltersOpen] = useState<boolean>(true);
 
   const SORT_TYPES = [
     { label: "Sort by name", value: "ByName" },
@@ -51,14 +55,14 @@ function RouteComponent() {
     { label: "In stock first", value: "ByStock" },
   ]
 
-  const search = (newFilters: ShopSearchFilters) => {
-    console.log(newFilters);
+  const search = (newFilters: ShopSearchFilters, page: number = 1) => {
     newFilters.textQuery = queryText;
     newFilters.sortBy = sortType;
+    newFilters.page = page;
     navigate({
       // @ts-ignore
       search: newFilters,
-      replace: false
+      replace: true,
     });
   };
 
@@ -92,11 +96,14 @@ function RouteComponent() {
           <div className="flex">
             <div className={clsx({
               "flex-1": filtersOpen,
-              "invisible": !filtersOpen
+              "hidden": !filtersOpen
             })}>
               <FilterComponent onFilterApply={(f) => search(f)} initialFilters={searchFilters} />
             </div>
-            <div className="flex-3">
+            <div className={clsx({
+              "flex-3": filtersOpen,
+              "w-full": !filtersOpen
+            })}>
               <div className="flex gap-x-4 justify-end cursor-pointer items-center">
                 <button onClick={() => setFiltersOpen(!filtersOpen)} className='flex gap-x-2 items-center font-semibold cursor-pointer'>
                   {
@@ -156,6 +163,7 @@ function RouteComponent() {
                     }),
                   }} />
               </div>
+              <ShopItemList filtersOpen={filtersOpen} filters={searchFilters} onPageChange={(page) => search(searchFilters, page)} />
             </div>
           </div>
         </div>
@@ -398,15 +406,12 @@ export default function CustomCheckbox({ onChange, labelText, isChecked }:
 
   return (
     <label className="flex items-center gap-2 cursor-pointer">
-      {/* Hidden native checkbox (still accessible) */}
       <input
         type="checkbox"
         checked={checked}
         onChange={change}
         className="hidden"
       />
-
-      {/* Custom box */}
       <span
         className={`w-5 h-5 flex items-center justify-center border-[2px] border-(--foreground) rounded transition relative bg-(--input-bg)`}
       >
@@ -420,4 +425,107 @@ export default function CustomCheckbox({ onChange, labelText, isChecked }:
       <span>{labelText}</span>
     </label>
   );
+}
+
+function ShopItemList({ filters, filtersOpen, onPageChange }:
+  {
+    filters: ShopSearchFilters;
+    filtersOpen: boolean;
+    onPageChange: (page: number) => void;
+  }
+) {
+  const { data, isLoading } = useShopSearch(filters);
+  const [cart, setCart] = useAtom(cartAtom);
+
+  const addToCart = (item: ShopItem): void => {
+    let copy = cart;
+
+    for (let i = 0; i < copy.items.length; i++) {
+      if (copy.items[i].itemType.id == item.id) {
+        copy.items[i].itemCount += 1;
+        return;
+      }
+    }
+
+    copy.items.push({ itemCount: 1, itemType: item })
+    setCart(copy);
+  }
+
+  return (
+    <div className={clsx({
+      "pl-[4rem]": filtersOpen
+    })}>
+      {
+        isLoading ?
+          <div className="">Loading...</div>
+          :
+          <div className="">
+            <div className="grid gap-y-(--default-padding)">
+              {
+                data!.items.map(item => (
+                  <div className={clsx("flex gap-x-(--default-padding)", {
+                    "opacity-50 pointer-events-none": !item.inStock
+                  })}>
+                    <div className="flex-1 flex items-center justify-start">
+                      <div className="w-[200px] h-[200px] bg-center bg-cover rounded-4xl" style={{ backgroundImage: `url("../../src/assets/${item.imgUrl}")` }}></div>
+                    </div>
+                    <div className="flex-3">
+                      <h2 className='font-semibold text-xl mb-3'>
+                        {
+                          item.title
+                        }
+                      </h2>
+                      <article className='font-normal text-lg'>
+                        {
+                          item.title
+                        }
+                      </article>
+                    </div>
+                    <div className="flex-2 flex items-center justify-end">
+                      <div className="flex flex-col justify-center items-center gap-y-4">
+                        {
+                          item.inStock ?
+                            <div className="flex gap-x-2 items-center">
+                              <ArchiveBoxIcon className='size-4' />
+                              <span>In stock</span>
+                            </div>
+                            :
+                            <div className="flex gap-x-2 items-center">
+                              <ClockIcon className='size-4' />
+                              <span className='font-normal'>Out of stock</span>
+                            </div>
+                        }
+                        <span className='font-semibold'>
+                          {
+                            item.hotPrice ?
+                              <div className="text-center">
+                                <div className='text-xl line-through decoration-[2px]'>{item.hotPrice.oldPrice}€</div>
+                                <div className='text-3xl flex gap-x-3 underline decoration-[2px] items-center'>
+                                  <img src="../../src/assets/svg/icons/hot-price.svg" className='w-[30px]' />
+                                  {item.hotPrice.newPrice}€
+                                </div>
+                              </div>
+                              :
+                              <div className="text-3xl">{item.priceInEuro}€</div>
+
+                          }
+                        </span>
+                        <button onClick={() => addToCart(item)} className='bg-(--foreground) text-(--background) font-semibold text-xl rounded-xl px-6 py-2 cursor-pointer'>
+                          Add to cart
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              }
+            </div>
+            <div className="flex justify-center pt-(--default-padding)">
+              <Pager totalPages={data!.totalPages} currentPage={filters.page} onChange={(page) => onPageChange(page)} />
+            </div>
+
+          </div>
+
+      }
+    </div>
+  )
 }

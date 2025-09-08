@@ -73,7 +73,7 @@ export default function Navbar() {
                         {t("home_navbar_text")}
                     </Link>
                     <Link
-                        to={"/services"} search={{ page: 0 }}
+                        to={"/services"} search={{ page: 1 }}
                     >
                         {t("services_navbar_text")}
                     </Link>
@@ -147,7 +147,7 @@ export default function Navbar() {
                             </div>
                             <div className="">
                                 <div className="font-bold">{totalItems(cart)} {t("item_count_text")}</div>
-                                <div className="font-bold">{totalPrice(cart)}€</div>
+                                <div className="font-bold">{totalPrice(cart).toFixed(2)}€</div>
                             </div>
                         </div>
                     </Link>
