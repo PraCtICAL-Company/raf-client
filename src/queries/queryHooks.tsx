@@ -278,6 +278,22 @@ export const useShopSearch = (filters: ShopSearchFilters) => {
     })
 }
 
+export const useShopItemRecommendation = () => {
+    return useQuery({
+        queryKey: ['useShopItemRecommendation'],
+        queryFn: () => {
+            return {
+                id: "234532",
+                title: "XX1",
+                description: "XX1",
+                priceInEuro: 299.99,
+                imgUrl: "img/worker_1.jpg",
+                inStock: true,
+            } as ShopItem
+        }
+    })
+}
+
 export type ShopItem = {
     id: string,
     title: string,

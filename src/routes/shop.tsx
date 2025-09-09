@@ -477,7 +477,7 @@ function ShopItemList({ filters, filtersOpen, onPageChange }:
                       </h2>
                       <article className='font-normal text-lg'>
                         {
-                          item.title
+                          item.description
                         }
                       </article>
                     </div>

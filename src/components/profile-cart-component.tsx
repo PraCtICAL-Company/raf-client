@@ -1,4 +1,4 @@
-import { ArchiveBoxIcon, AtSymbolIcon, ClockIcon, KeyIcon, MapPinIcon, PencilSquareIcon, PhoneIcon, TrashIcon, UserIcon, XMarkIcon } from "@heroicons/react/20/solid";
+import { ArchiveBoxIcon, AtSymbolIcon, BanknotesIcon, BuildingLibraryIcon, ClockIcon, CreditCardIcon, DeviceTabletIcon, KeyIcon, MapPinIcon, PencilSquareIcon, PhoneIcon, TrashIcon, UserIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import { Link } from "@tanstack/react-router";
 import clsx from "clsx";
 import { useTranslation } from "react-i18next";
@@ -26,7 +26,8 @@ const modalStyles: Modal.Styles = {
         transform: 'translate(-50%, -50%)',
         backgroundColor: 'var(--background)',
         borderRadius: '1.5rem',
-        padding: '2rem'
+        padding: '2rem',
+        overflow: "hidden"
     },
 };
 
@@ -328,18 +329,7 @@ export default function ProfileCartComponent() {
                                                     }
                                                 </div>
                                                 <div className="flex-1 flex justify-center">
-                                                    <div className="bg-(--accent) w-[80%] p-[2rem] rounded-4xl h-fit grid gap-y-4">
-                                                        <span className="text-3xl text-[#fff]">
-                                                            Total:&nbsp;
-                                                            {
-                                                                cartTotal.toFixed(2)
-                                                            }
-                                                            €
-                                                        </span>
-                                                        <button className="py-4 w-[100%] block cursor-pointer border-[3px] border-(--foreground) rounded-xl text-2xl flex items-center justify-center bg-(--background) text-(--background) bg-(--foreground)">
-                                                            Text
-                                                        </button>
-                                                    </div>
+                                                    <OrderComponent cartTotal={cartTotal} />
                                                 </div>
                                             </div>
 
@@ -355,6 +345,145 @@ export default function ProfileCartComponent() {
 
 
 }
+
+function OrderComponent({ cartTotal }: {
+    cartTotal: number;
+}) {
+    const { t } = useTranslation();
+    const [cart, setCart] = useAtom(cartAtom);
+    const [message, setMessage] = useState<string>("");
+    const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("CardOnline");
+    const [commentModalIsOpen, setCommentModalIsOpen] = useState<boolean>(false)
+    const [paymentMethodModalIsOpen, setPaymentMethodModalIsOpen] = useState<boolean>(false)
+
+    const handleCommit = (): void => {
+        console.log(paymentMethod);
+        console.log(message);
+
+        // let cartCopy = cart;
+        // cartCopy.items = [];
+        // setCart(cart);
+    }
+
+    return (
+        <div className="">
+            <Modal
+                isOpen={commentModalIsOpen}
+                closeTimeoutMS={200}
+                style={modalStyles}
+                onRequestClose={() => setCommentModalIsOpen(false)}
+            >
+                <button onClick={() => setCommentModalIsOpen(false)} className="absolute right-[2rem] top-[2rem] cursor-pointer">
+                    <XMarkIcon className='h-full size-7' />
+                </button>
+                <h1 className="text-4xl font-[Montserrat] font-semibold text-center mb-[2rem]">
+                    Details
+                </h1>
+                <div className="flex">
+                    <div className="flex-1 flex items-center justify-center">
+                        <img src="../../src/assets/png/delivery.png" alt="delivery" className="h-[200px]" />
+                    </div>
+                    <div className="flex-1">
+                        <div className='text-(--foreground) font-[Montserrat]'>
+                            <label className="block text-sm font-semibold">{t("homepage.contact_form.input3.label")}</label>
+                            <div className="mt-2 text-(--foreground) flex border-(--foreground) border-[2px] rounded-xl bg-[#E5E0D2]">
+                                <textarea onChange={(e) => setMessage(e.target.value)} id="message" name="message" placeholder={t("homepage.contact_form.input3.placeholder")} className="w-full outline-none p-3 resize-none h-[10em]" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="flex items-center justify-between font-[Montserrat] mt-[1rem]">
+                    <div className="px-6 py-3 bg-(--accent) rounded-2xl font-semibold text-3xl text-(--background)">
+                        Total:&nbsp;
+                        <span className="underline decoration-[1.5px]">
+                            {
+                                cartTotal
+                            }
+                            €
+                        </span>
+                    </div>
+                    <button onClick={() => setPaymentMethodModalIsOpen(true)} className="px-9 py-2 cursor-pointer rounded-xl text-lg flex items-center justify-center bg-(--foreground) text-(--background) font-semibold">Continue</button>
+                </div>
+            </Modal>
+            <Modal
+                isOpen={paymentMethodModalIsOpen}
+                closeTimeoutMS={200}
+                style={modalStyles}
+                onRequestClose={() => setPaymentMethodModalIsOpen(false)}
+            >
+                <div className=""></div>
+                <img src="../../src/assets/svg/wallet.svg" className="absolute z-[-1] opacity-50 left-[0] h-[350px]" />
+                <button onClick={() => setPaymentMethodModalIsOpen(false)} className="absolute right-[2rem] top-[2rem] cursor-pointer">
+                    <XMarkIcon className='h-full size-7' />
+                </button>
+                <h1 className="text-4xl font-[Montserrat] font-semibold text-center mb-[2rem]">
+                    Payment
+                </h1>
+                <div className="flex items-center justify-center min-h-[150px]">
+                    <PaymentSwitch onChange={(val) => setPaymentMethod(val)} />
+                </div>
+                <div className="flex items-center justify-between font-[Montserrat] mt-[1rem]">
+                    <div className="px-6 py-3 bg-(--accent) rounded-2xl font-semibold text-3xl text-(--background)">
+                        Total:&nbsp;
+                        <span className="underline decoration-[1.5px]">
+                            {
+                                cartTotal
+                            }
+                            €
+                        </span>
+                    </div>
+                    <button onClick={() => handleCommit()} className="px-9 py-2 cursor-pointer rounded-xl text-lg flex items-center justify-center bg-(--foreground) text-(--background) font-semibold">Continue</button>
+                </div>
+            </Modal>
+            <div className="bg-(--accent) p-[2rem] rounded-4xl h-fit grid gap-y-4">
+                <span className="text-3xl text-[#fff]">
+                    Total:&nbsp;
+                    {
+                        cartTotal.toFixed(2)
+                    }
+                    €
+                </span>
+                <button onClick={() => setCommentModalIsOpen(true)} className="py-4 w-[100%] block cursor-pointer border-[3px] border-(--foreground) rounded-xl text-2xl flex items-center justify-center bg-(--background) text-(--background) bg-(--foreground)">
+                    Text
+                </button>
+            </div>
+        </div>
+
+    );
+}
+
+function PaymentSwitch({ onChange }:
+    {
+        onChange: (newValue: PaymentMethod) => void;
+    }
+) {
+    const [methodIndex, setMethodIndex] = useState<number>(0)
+
+    const PAYMENT_METHODS = [
+        { value: "Card" as PaymentMethod, label: "Card", icon: <CreditCardIcon className="size-6" /> },
+        { value: "Cash" as PaymentMethod, label: "Cash", icon: <BanknotesIcon className="size-6" /> },
+        { value: "CardOnline" as PaymentMethod, label: "Card online", icon: <BuildingLibraryIcon className="size-6" /> },
+    ]
+
+    return (
+        <div className="flex flex-wrap gap-2 justify-center">
+            {
+                PAYMENT_METHODS.map((opt, index) => (
+                    <button
+                        onClick={() => { setMethodIndex(index); onChange(PAYMENT_METHODS[methodIndex].value) }}
+                        className={clsx("cursor-pointer px-3 py-2 flex gap-x-2 font-semibold font-[Montserrat] border-[2px] rounded-xl border-(--foreground) transition-colors duration-200", {
+                            "bg-(--foreground) text-(--background)": methodIndex == index
+                        })}>
+                        {opt.icon}
+                        < span > {opt.label}</span>
+                    </button >
+                ))
+            }
+        </div >
+    )
+}
+
+export type PaymentMethod = "CardOnline" | "Cash" | "Card"
 
 function AddressForm({ address, isInEditMode }:
     {
