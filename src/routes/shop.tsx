@@ -1,4 +1,4 @@
-import { ArchiveBoxIcon, ArchiveBoxXMarkIcon, ChevronUpDownIcon, ClockIcon, FunnelIcon, MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/20/solid';
+import { ArchiveBoxIcon, ClockIcon, FunnelIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useTranslation } from 'react-i18next';
 import { useBrands, useSearchRecommendations, useShopSearch, type Brand, type ShopItem } from '../queries/queryHooks';
