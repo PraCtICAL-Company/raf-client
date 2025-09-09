@@ -4,9 +4,10 @@ import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Modal from 'react-modal';
-import { localeAtom, supportedLocalesAtom } from '../state/atoms';
+import { cartAtom, localeAtom, supportedLocalesAtom } from '../state/atoms';
 import { useAtom } from 'jotai';
 import { defaultShopSearchFilters } from '../routes/shop';
+import { totalItems } from '../functions/cart';
 
 Modal.setAppElement('#root')
 
@@ -31,6 +32,7 @@ const modalStyles: Modal.Styles = {
 };
 
 export default function MobileNavbar() {
+    const [cart] = useAtom(cartAtom);
     const { t, i18n } = useTranslation();
     const [supportedLocales] = useAtom(supportedLocalesAtom)
     const [supportedLocalesCursor, setSupportedLocalesCursor] = useState(0)
@@ -66,13 +68,20 @@ export default function MobileNavbar() {
 
     return (
         <div className="">
-            <div className={clsx("fixed w-[100%] h-full z-[99] bottom-[0] right-[0] bg-(--foreground) transition-transform duration-200", {
+            <div className={clsx("fixed h-[100vh] bottom-[0] left-[0] z-[98] transition-transform duration-200", {
+                "-translate-x-full": !sidebarIsOpen,
+                "translate-x-[0]": sidebarIsOpen,
+            })}
+                style={{ width: "calc(100vw - 300px)", backdropFilter: "blur(10px)", backgroundColor: "rgba(0, 0, 0, .4)" }}>
+                s
+            </div>
+            <div className={clsx("fixed w-[100%] max-w-[300px] h-full z-[99] bottom-[0] right-[0] bg-(--foreground) transition-transform duration-200", {
                 "translate-x-full": !sidebarIsOpen,
                 "translate-x-[0]": sidebarIsOpen,
             })}>
                 <div className="">
                     <div className="w-full flex justify-center py-7">
-                        <img src="../../src/assets/svg/logo_mobile.svg" className='h-[70px]' alt="" />
+                        <img src="../../src/assets/svg/logo_mobile.svg" className='h-[60px]' alt="" />
                     </div>
                     <div className="font-[Montserrat] font-semibold text-2xl w-full" onClick={() => setSidebarIsOpen(false)}>
                         <Link to='/' className='block w-full text-(--background) text-right px-7 py-2'>{t("navbar.links.home")}</Link>
@@ -107,9 +116,14 @@ export default function MobileNavbar() {
                     <HomeIcon className='size-6 mb-1' />
                     <span className='font-[Montserrat] font-semibold text-sm'>Home</span>
                 </Link>
-                <Link to='/profile' className='flex flex-col  items-center justify-center text-(--background)'>
+                <Link to='/profile' className='relative flex flex-col  items-center justify-center text-(--background)'>
                     <ShoppingCartIcon className='size-6 mb-1' />
                     <span className='font-[Montserrat] font-semibold text-sm'>Cart</span>
+                    <div className="absolute right-[-5px] top-[-5px] bg-(--background) text-(--foreground) rounded-full w-5 h-5 flex items-center justify-center text-xs shadow-sm font-[Montserrat] font-semibold">
+                        {
+                            totalItems(cart)
+                        }
+                    </div>
                 </Link>
                 <button onClick={() => setSidebarIsOpen(!sidebarIsOpen)} className='flex flex-col items-center justify-center text-(--background)'>
                     <EllipsisHorizontalIcon className='size-6 mb-1' />

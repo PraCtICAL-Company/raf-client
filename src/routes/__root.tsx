@@ -23,10 +23,10 @@ function RootComponent() {
 
     return (
         <>
-            <div className="opacity-0 pointer-events-none lg:opacity-100 lg:pointer-events-auto">
+            <div className="hidden lg:block">
                 <Navbar />
             </div>
-            <div className="visible lg:hidden">
+            <div className="block lg:hidden">
                 <MobileNavbar />
             </div>
 

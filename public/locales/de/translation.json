@@ -91,6 +91,7 @@
             "button_text": "Karte anzeigen"
         },
         "contact_form": {
+            "title": "Kontakt",
             "name_input": {
                 "label": "Name",
                 "placeholder": "zB Sebastian Vettel"

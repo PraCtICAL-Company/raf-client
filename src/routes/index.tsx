@@ -13,15 +13,22 @@ function Index() {
 
     return (
         <div className='flex items-center flex-col'>
-            <div className="w-[100vw] absolute top-(--navbar-height) pt-6 flex justify-center">
+            <div className="w-[100vw] absolute md:top-(--navbar-height) pt-6 flex justify-center">
                 <span className='text-3xl text-(--background) font-[Montserrat] font-semibold'>
-                    {t("homepage.video.overlay_text")}
+                    <div className="hidden md:visible">
+                        {t("homepage.video.overlay_text")}
+                    </div>
+                    <div className="md:hidden visible flex w-full h-[100vh] items-center justify-center">
+                        <img src="../../src/assets/svg/logo_mobile_light.svg" className='h-[70px] z-[90]' alt="" />
+                    </div>
                 </span>
             </div>
-            <video src={homepageVideo} autoPlay muted className="w-full"></video>
+            <div className="overflow-hidden h-[100vh]">
+                <video src={homepageVideo} autoPlay muted className="h-[100vh] w-[100vw] object-cover"></video>
+            </div>
             <div className="max-w-[88rem]">
-                <div className="p-(--default-padding) font-[Montserrat] w-full">
-                    <p className='text-2xl font-semibold color-(--foreground) w-full'>
+                <div className="p-[2rem] md:p-(--default-padding) font-[Montserrat] w-full">
+                    <p className='text-xl md:text-2xl font-semibold color-(--foreground) w-full'>
                         {t("homepage.teaser.row1")}
                         <br />
                         {t("homepage.teaser.row2")}
@@ -33,7 +40,7 @@ function Index() {
                         {t("homepage.teaser.row5")}
                     </p>
                 </div>
-                <div className="grid grid-cols-6 py-[2em]">
+                <div className="grid grid-cols-2 gap-y-[5rem] md:grid-cols-3 lg:grid-cols-6 py-[2em]">
                     <div className="flex justify-center">
                         <img className='w-[100px]' src="../../src/assets/svg/volkswagen.svg" alt="" />
                     </div>
@@ -53,35 +60,37 @@ function Index() {
                         <img className='w-[100px]' src="../../src/assets/svg/lamborghini.svg" alt="" />
                     </div>
                 </div>
-                <div className='p-(--default-padding) font-[Montserrat]'>
-                    <div className="overflow-hidden relative w-full h-[400px] bg-(--foreground) rounded-4xl">
+                <div className='p-[2rem] md:p-(--default-padding) font-[Montserrat]'>
+                    <div className="overflow-hidden relative w-full h-[150px] md:h-[300px] lg:h-[400px] bg-(--foreground) rounded-3xl md:rounded-4xl">
                         <div className="absolute bottom-[0]">
-                            <img className='h-[400px]' src="../../src/assets/svg/wrench.svg" alt="" />
+                            <img className='h-[100px] md:h-[200px] lg:h-[300px]' src="../../src/assets/svg/wrench.svg" alt="" />
                         </div>
-                        <div className="absolute top-[4em] right-(--default-padding)">
-                            <span className='text-6xl text-(--background) font-semibold'>{t("homepage.service_panel.text")}</span>
+                        <div className="absolute top-[1.5rem] right-[1.5rem] md:top-[3rem] md:right-[3rem]">
+                            <span className='text-2xl md:text-4xl lg:text-6xl text-(--background) font-semibold'>{t("homepage.service_panel.text")}</span>
                         </div>
-                        <div className="absolute bottom-(--default-padding) right-(--default-padding)">
-                            <Link to='/services' search={{ page: 1 }} className='p-[0.5em] text-2xl font-semibold bg-(--background) rounded-xl'>{t("homepage.service_panel.button_text")}</Link>
-                        </div>
-                    </div>
-                </div>
-                <div className='p-(--default-padding) font-[Montserrat]'>
-                    <div className="overflow-hidden relative w-full h-[400px] bg-(--foreground) rounded-4xl">
-                        <div className="absolute top-[50%]" style={{ transform: "translateY(-50%)" }}>
-                            <img className='h-[300px]' src="../../src/assets/svg/route.svg" alt="" />
-                        </div>
-                        <div className="absolute top-[4em] right-(--default-padding)">
-                            <span className='text-6xl text-(--background) font-semibold'>{t("homepage.map_panel.text")}</span>
-                        </div>
-                        <div className="absolute bottom-(--default-padding) right-(--default-padding)">
-                            <Link to='/' className='p-[0.5em] text-2xl font-semibold bg-(--background) rounded-xl'>{t("homepage.map_panel.button_text")}</Link>
+                        <div className="absolute bottom-[1.5rem] right-[1.5rem] md:bottom-[3rem] md:right-[3rem]">
+                            <Link to='/services' search={{ page: 1 }} className='p-[0.5em] text-lg md:text-2xl font-semibold bg-(--background) rounded-xl'>{t("homepage.service_panel.button_text")}</Link>
                         </div>
                     </div>
                 </div>
-                <div className="p-(--default-padding) flex justify-between">
-                    <img src="../../src/assets/svg/contact.svg" alt="" className='w-[40%]' />
-                    <div className="w-[50%]">
+                <div className='p-[2rem] md:p-(--default-padding) font-[Montserrat]'>
+                    <div className="overflow-hidden relative w-full h-[150px] md:h-[300px] lg:h-[400px] bg-(--foreground) rounded-3xl md:rounded-4xl">
+                        <div className="absolute bottom-[0]">
+                            <img className='h-[100px] md:h-[200px] lg:h-[300px]' src="../../src/assets/svg/route.svg" alt="" />
+                        </div>
+                        <div className="absolute top-[1.5rem] right-[1.5rem] md:top-[3rem] md:right-[3rem]">
+                            <span className='text-2xl md:text-4xl lg:text-6xl text-(--background) font-semibold'>{t("homepage.map_panel.text")}</span>
+                        </div>
+                        <div className="absolute bottom-[1.5rem] right-[1.5rem] md:bottom-[3rem] md:right-[3rem]">
+                            <Link to='/' className='p-[0.5em] text-lg md:text-2xl font-semibold bg-(--background) rounded-xl'>{t("homepage.map_panel.button_text")}</Link>
+                        </div>
+                    </div>
+                </div>
+                <div className="p-[2rem] md:p-(--default-padding) flex justify-between">
+                    <div className='hidden md:flex md:flex-1 items-center justify-start'>
+                        <img src="../../src/assets/svg/contact.svg" className='w-[70%]' alt="" />
+                    </div>
+                    <div className="flex-1">
                         <ContactForm />
                     </div>
                 </div>
@@ -104,7 +113,8 @@ function ContactForm() {
     }
 
     return (
-        <form onSubmit={e => handleSubmit(e)} method="post">
+        <form onSubmit={e => handleSubmit(e)} method="post" className='mb-[1rem]'>
+            <h2 className='font-[Montserrat] font-semibold text-center text-3xl mb-[2rem]'>{t("homepage.contact_form.title")}</h2>
             <div className="grid gap-y-4">
                 <div className='text-(--foreground) font-[Montserrat]'>
                     <label className="block text-sm font-semibold">{t("homepage.contact_form.name_input.label")}</label>
@@ -134,10 +144,8 @@ function ContactForm() {
                     </div>
                 </div>
                 <div className="flex justify-end font-[Montserrat] font-semibold">
-                    <button type='submit' className='cursor-pointer py-3 px-5 bg-(--foreground) text-(--background) rounded-lg'>{t("homepage.contact_form.submit_btn.text")}</button>
+                    <button type='submit' className='cursor-pointer w-full md:w-fit py-3 px-5 bg-(--foreground) text-(--background) rounded-lg'>{t("homepage.contact_form.submit_btn.text")}</button>
                 </div>
-
-
             </div>
         </form>
     )

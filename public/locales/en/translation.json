@@ -91,6 +91,7 @@
             "button_text": "Open map"
         },
         "contact_form": {
+            "title": "Contact",
             "name_input": {
                 "label": "Name",
                 "placeholder": "e.g. Lewis Hamilton"
