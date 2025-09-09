@@ -1,11 +1,13 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { useProjects } from '../queries/queryHooks';
+import { useTranslation } from 'react-i18next';
 
 export const Route = createFileRoute('/projects')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
+  const { t } = useTranslation();
   const { data, isLoading } = useProjects();
 
   if (isLoading) {
@@ -15,7 +17,7 @@ function RouteComponent() {
   return (
     <div className="flex justify-center  font-[Montserrat]">
       <div className="w-[88rem] p-(--default-padding) pt-(--navbar-height) mt-(--default-padding) pb-(--default-padding)">
-        <h1 className='text-5xl text-center mb-[1em] font-semibold'>Projects</h1>
+        <h1 className='text-5xl text-center mb-[1em] font-semibold'>{t("projects.page_title")}</h1>
         <div className="grid gap-y-(--default-padding)">
           {
             data!.map(project => (

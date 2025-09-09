@@ -15,22 +15,22 @@ function Index() {
         <div className='flex items-center flex-col'>
             <div className="w-[100vw] absolute top-(--navbar-height) pt-6 flex justify-center">
                 <span className='text-3xl text-(--background) font-[Montserrat] font-semibold'>
-                    {t("video_overlay_text")}
+                    {t("homepage.video.overlay_text")}
                 </span>
             </div>
             <video src={homepageVideo} autoPlay muted className="w-full"></video>
             <div className="max-w-[88rem]">
-                <div className="p-(--default-padding) font-[Montserrat]">
-                    <p className='text-2xl font-semibold color-(--foreground)'>
-                        {t("homepage.teaser_text1")}
+                <div className="p-(--default-padding) font-[Montserrat] w-full">
+                    <p className='text-2xl font-semibold color-(--foreground) w-full'>
+                        {t("homepage.teaser.row1")}
                         <br />
-                        {t("homepage.teaser_text2")}
+                        {t("homepage.teaser.row2")}
                         <br />
-                        {t("homepage.teaser_text3")}
+                        {t("homepage.teaser.row3")}
                         <br />
-                        {t("homepage.teaser_text4")}
+                        {t("homepage.teaser.row4")}
                         <br />
-                        {t("homepage.teaser_text5")}
+                        {t("homepage.teaser.row5")}
                     </p>
                 </div>
                 <div className="grid grid-cols-6 py-[2em]">
@@ -59,10 +59,10 @@ function Index() {
                             <img className='h-[400px]' src="../../src/assets/svg/wrench.svg" alt="" />
                         </div>
                         <div className="absolute top-[4em] right-(--default-padding)">
-                            <span className='text-6xl text-(--background) font-semibold'>{t("homepage.panel1.text")}</span>
+                            <span className='text-6xl text-(--background) font-semibold'>{t("homepage.service_panel.text")}</span>
                         </div>
                         <div className="absolute bottom-(--default-padding) right-(--default-padding)">
-                            <Link to='/' className='p-[0.5em] text-2xl font-semibold bg-(--background) rounded-xl'>{t("homepage.panel1.button_text")}</Link>
+                            <Link to='/services' search={{ page: 1 }} className='p-[0.5em] text-2xl font-semibold bg-(--background) rounded-xl'>{t("homepage.service_panel.button_text")}</Link>
                         </div>
                     </div>
                 </div>
@@ -72,10 +72,10 @@ function Index() {
                             <img className='h-[300px]' src="../../src/assets/svg/route.svg" alt="" />
                         </div>
                         <div className="absolute top-[4em] right-(--default-padding)">
-                            <span className='text-6xl text-(--background) font-semibold'>{t("homepage.panel2.text")}</span>
+                            <span className='text-6xl text-(--background) font-semibold'>{t("homepage.map_panel.text")}</span>
                         </div>
                         <div className="absolute bottom-(--default-padding) right-(--default-padding)">
-                            <Link to='/' className='p-[0.5em] text-2xl font-semibold bg-(--background) rounded-xl'>{t("homepage.panel2.button_text")}</Link>
+                            <Link to='/' className='p-[0.5em] text-2xl font-semibold bg-(--background) rounded-xl'>{t("homepage.map_panel.button_text")}</Link>
                         </div>
                     </div>
                 </div>
@@ -107,34 +107,34 @@ function ContactForm() {
         <form onSubmit={e => handleSubmit(e)} method="post">
             <div className="grid gap-y-4">
                 <div className='text-(--foreground) font-[Montserrat]'>
-                    <label className="block text-sm font-semibold">{t("homepage.contact_form.input1.label")}</label>
+                    <label className="block text-sm font-semibold">{t("homepage.contact_form.name_input.label")}</label>
                     <div className="mt-2 text-(--foreground) flex border-(--foreground) border-[2px] rounded-xl bg-[#E5E0D2]">
                         <div className="mr-3 ml-3">
                             <UserIcon className='h-full size-6' />
                         </div>
-                        <input id="name" type="text" name="name" placeholder={t("homepage.contact_form.input1.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3" />
+                        <input id="name" type="text" name="name" placeholder={t("homepage.contact_form.name_input.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3" />
                     </div>
                 </div>
                 <div className='text-(--foreground) font-[Montserrat]'>
-                    <label className="block text-sm font-semibold">{t("homepage.contact_form.input2.label")}</label>
+                    <label className="block text-sm font-semibold">{t("homepage.contact_form.email_input.label")}</label>
                     <div className="mt-2 text-(--foreground) flex border-(--foreground) border-[2px] rounded-xl bg-[#E5E0D2]">
                         <div className="mr-3 ml-3">
                             <AtSymbolIcon className='h-full size-6' />
                         </div>
-                        <input id="email" type="text" name="email" placeholder={t("homepage.contact_form.input2.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3" />
+                        <input id="email" type="text" name="email" placeholder={t("homepage.contact_form.email_input.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3" />
                     </div>
                 </div>
                 <div className='text-(--foreground) font-[Montserrat]'>
-                    <label className="block text-sm font-semibold">{t("homepage.contact_form.input3.label")}</label>
+                    <label className="block text-sm font-semibold">{t("homepage.contact_form.message_input.label")}</label>
                     <div className="mt-2 text-(--foreground) flex border-(--foreground) border-[2px] rounded-xl bg-[#E5E0D2]">
                         <div className="mr-3 ml-3 mt-3">
                             <EnvelopeIcon className=' size-6' />
                         </div>
-                        <textarea id="message" name="message" placeholder={t("homepage.contact_form.input3.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3 resize-none h-[10em]" />
+                        <textarea id="message" name="message" placeholder={t("homepage.contact_form.message_input.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3 resize-none h-[10em]" />
                     </div>
                 </div>
                 <div className="flex justify-end font-[Montserrat] font-semibold">
-                    <button type='submit' className='cursor-pointer py-3 px-5 bg-(--foreground) text-(--background) rounded-lg'>{t("homepage.contact_form.button.text")}</button>
+                    <button type='submit' className='cursor-pointer py-3 px-5 bg-(--foreground) text-(--background) rounded-lg'>{t("homepage.contact_form.submit_btn.text")}</button>
                 </div>
 
 

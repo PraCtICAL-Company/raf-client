@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import clsx from "clsx";
-import { ShoppingCartIcon, UserIcon, XMarkIcon } from "@heroicons/react/20/solid";
+import { AtSymbolIcon, KeyIcon, ShoppingCartIcon, UserIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { useAtom } from "jotai";
@@ -15,7 +15,8 @@ Modal.setAppElement('#root')
 const modalStyles: Modal.Styles = {
     overlay: {
         backgroundColor: "rgba(0, 0, 0, .4)",
-        backdropFilter: "blur(20px)"
+        backdropFilter: "blur(20px)",
+        zIndex: 99
     },
     content: {
         top: '50%',
@@ -26,7 +27,8 @@ const modalStyles: Modal.Styles = {
         backgroundColor: 'var(--background)',
         borderRadius: '1.5rem',
         padding: '2rem',
-        overflow: "hidden"
+        overflow: "hidden",
+        zIndex: "100"
     },
 };
 
@@ -94,11 +96,11 @@ export default function Navbar() {
                 <button onClick={() => setLoginModalIsOpen(false)} className="absolute right-[2rem] top-[2rem] cursor-pointer">
                     <XMarkIcon className='h-full size-7' />
                 </button>
-                <h1 className="text-4xl font-[Montserrat] font-semibold text-left mb-[2rem]">
-                    Login
+                <h1 className="text-4xl font-[Montserrat] font-semibold text-center mb-[2rem]">
+                    {t("navbar.modals.login.title")}
                 </h1>
                 <div className="flex">
-                    <LoginForm />
+                    <LoginForm onModalModeChange={() => { setLoginModalIsOpen(false); setRegisterModalIsOpen(true) }} />
                 </div>
             </Modal>
             <Modal
@@ -111,11 +113,11 @@ export default function Navbar() {
                 <button onClick={() => setRegisterModalIsOpen(false)} className="absolute right-[2rem] top-[2rem] cursor-pointer">
                     <XMarkIcon className='h-full size-7' />
                 </button>
-                <h1 className="text-4xl font-[Montserrat] font-semibold text-left mb-[1rem]">
-                    Register
+                <h1 className="text-4xl font-[Montserrat] font-semibold text-center mb-[1rem]">
+                    {t("navbar.modals.register.title")}
                 </h1>
-                <div className="flex">
-
+                <div className="w-full">
+                    <RegisterForm onModalModeChange={() => { setRegisterModalIsOpen(false); setLoginModalIsOpen(true) }} />
                 </div>
             </Modal>
             <div key={routerState.location.href} className={clsx(
@@ -130,27 +132,27 @@ export default function Navbar() {
                         <Link
                             to={"/"}
                         >
-                            {t("home_navbar_text")}
+                            {t("navbar.links.home")}
                         </Link>
                         <Link
                             to={"/services"} search={{ page: 1 }}
                         >
-                            {t("services_navbar_text")}
+                            {t("navbar.links.services")}
                         </Link>
                         <Link
                             to={"/shop"} search={defaultShopSearchFilters}
                         >
-                            {t("catalog_navbar_text")}
+                            {t("navbar.links.shop")}
                         </Link>
                         <Link
                             to={"/info"}
                         >
-                            {t("about_navbar_text")}
+                            {t("navbar.links.about")}
                         </Link>
                         <Link
                             to={"/projects"}
                         >
-                            {t("projects_navbar_text")}
+                            {t("navbar.links.projects")}
                         </Link>
                     </div>
                     <div className="absolute left-[50%] top-[50%]" style={{ transform: "translate(-50%, -50%)" }}>
@@ -200,9 +202,9 @@ export default function Navbar() {
                                 "opacity-100": userMenuIsOpen,
                                 "opacity-0": !userMenuIsOpen,
                             })}>
-                                <div onClick={() => setLoginModalIsOpen(true)} className="p-3 cursor-pointer w-full text-left">Login</div>
-                                <div onClick={() => setRegisterModalIsOpen(true)} className="p-3 cursor-pointer w-full text-left">Register</div>
-                                <Link to="/profile" className="block p-3 cursor-pointer w-full text-left">Profile</Link>
+                                <div onClick={() => setLoginModalIsOpen(true)} className="p-3 cursor-pointer w-full text-left">{t("navbar.popup_menu.login")}</div>
+                                <div onClick={() => setRegisterModalIsOpen(true)} className="p-3 cursor-pointer w-full text-left">{t("navbar.popup_menu.register")}</div>
+                                <Link to="/profile" className="block p-3 cursor-pointer w-full text-left">{t("navbar.popup_menu.profile")}</Link>
                             </div>
                         </button>
                         <Link
@@ -214,7 +216,7 @@ export default function Navbar() {
                                     <ShoppingCartIcon className="size-7" />
                                 </div>
                                 <div className="">
-                                    <div className="font-bold">{totalItems(cart)} {t("item_count_text")}</div>
+                                    <div className="font-bold">{totalItems(cart)} {t("navbar.count_text")}</div>
                                     <div className="font-bold">{totalPrice(cart).toFixed(2)}€</div>
                                 </div>
                             </div>
@@ -223,7 +225,6 @@ export default function Navbar() {
                             style={{ cursor: "pointer" }}
                             className="max-w-[50px]"
                         >
-                            {/* <img src="icons/flags/germany.svg" alt="" className="h-[20px]" /> */}
                             <div className="" onClick={() => handleLocaleChange()}>
                                 <img className="w-[30px]" alt="Language icon" src={`../../src/assets/${localeIconPath}`} />
                             </div>
@@ -248,13 +249,13 @@ function NavbarScheduleComponent() {
                            `
 
         }}>
-            <div className="ext-left" style={{ gridArea: 'a1' }}>{t("work_schedule_navbar_text_name1")}</div>
-            <div className="text-right" style={{ gridArea: 'b1' }}>{t("work_schedule_navbar_text_value1")}</div>
-            <div className="ext-left" style={{ gridArea: 'a2' }}>{t("work_schedule_navbar_text_name2")}</div>
-            <div className="text-right" style={{ gridArea: 'b2' }}>{t("work_schedule_navbar_text_value2")}</div>
-            <div className="text-left" style={{ gridArea: 'a3' }}>{t("work_schedule_navbar_text_name3")}</div>
-            <div className="text-right" style={{ gridArea: 'b3' }}>{t("work_schedule_navbar_text_value3")}</div>
-            <div className="text-right" style={{ gridArea: 'a4' }}>{t("phone_navbar_text")}</div>
+            <div className="ext-left" style={{ gridArea: 'a1' }}>{t("navbar.work_schedule.row1.left")}</div>
+            <div className="text-right" style={{ gridArea: 'b1' }}>{t("navbar.work_schedule.row1.right")}</div>
+            <div className="ext-left" style={{ gridArea: 'a2' }}>{t("navbar.work_schedule.row2.left")}</div>
+            <div className="text-right" style={{ gridArea: 'b2' }}>{t("navbar.work_schedule.row2.right")}</div>
+            <div className="text-left" style={{ gridArea: 'a3' }}>{t("navbar.work_schedule.row3.left")}</div>
+            <div className="text-right" style={{ gridArea: 'b3' }}>{t("navbar.work_schedule.row3.right")}</div>
+            <div className="text-right" style={{ gridArea: 'a4' }}>{t("navbar.work_schedule.phone")}</div>
         </div>
     );
 }
@@ -264,37 +265,154 @@ type LoginInputs = {
     password: string
 }
 
-function LoginForm() {
+function LoginForm({ onModalModeChange }: {
+    onModalModeChange: () => void
+}) {
     const { t } = useTranslation();
-    const { register, handleSubmit } = useForm<LoginInputs>();
+    const { register, handleSubmit, formState: { errors } } = useForm<LoginInputs>();
 
     const onSubmit: SubmitHandler<LoginInputs> = (data) => {
         console.log(data);
+        console.log(errors);
     }
 
     return (
-        <div className=" w-full">
+        <div className="w-full">
             <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col items-center gap-y-4">
-                <div className='text-(--foreground) font-[Montserrat]'>
-                    <label className="block text-sm font-semibold">{t("homepage.contact_form.input2.label")}</label>
+                <div className='text-(--foreground) font-[Montserrat] w-full'>
+                    <label className="block text-sm font-semibold">{t("navbar.modals.login.username_input.label")}</label>
                     <div className="mt-2 text-(--foreground) h-[51px] flex border-(--foreground) border-[2px] rounded-xl bg-[#E5E0D2]">
                         <div className="mr-3 ml-3">
                             <UserIcon className='h-full size-6' />
                         </div>
-                        <input {...register('username')} type="text" placeholder={t("homepage.contact_form.input2.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3" />
+                        <input {...register('username', { required: "Username is required" })} type="text" placeholder={t("navbar.modals.login.username_input.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3" />
                     </div>
+                    <span className="text-xs mt-2 text-(--accent)">{errors.username?.message}</span>
                 </div>
-                <div className='text-(--foreground) font-[Montserrat]'>
-                    <label className="block text-sm font-semibold">{t("homepage.contact_form.input2.label")}</label>
+                <div className='text-(--foreground) font-[Montserrat] w-full'>
+                    <label className="block text-sm font-semibold">{t("navbar.modals.login.password_input.label")}</label>
                     <div className="mt-2 text-(--foreground) h-[51px] flex border-(--foreground) border-[2px] rounded-xl bg-[#E5E0D2]">
                         <div className="mr-3 ml-3">
-                            <UserIcon className='h-full size-6' />
+                            <KeyIcon className='h-full size-6' />
                         </div>
-                        <input {...register('password')} type="password" placeholder={t("homepage.contact_form.input2.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3" />
+                        <input {...register('password', { required: "Password is required" })} type="password" placeholder={t("navbar.modals.login.password_input.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3" />
                     </div>
+                    <span className="text-xs mt-2 text-(--accent)">{errors.password?.message}</span>
                 </div>
+                <span>{t("navbar.modals.login.modal_switch.text")} <span onClick={() => onModalModeChange()} className="cursor-pointer underline decoration-[1.5px]">{t("navbar.modals.login.modal_switch.trigger")}</span></span>
                 <div className="flex items-center justify-end font-[Montserrat] mt-[1rem]">
-                    <button type="submit" className="px-9 py-2 cursor-pointer rounded-xl text-lg flex items-center justify-center bg-(--foreground) text-(--background) font-semibold">Continue</button>
+                    <button type="submit" className="px-9 py-2 cursor-pointer rounded-xl text-lg flex items-center justify-center bg-(--foreground) text-(--background) font-semibold">
+                        {t("navbar.modals.login.button_text")}
+                    </button>
+                </div>
+            </form>
+        </div>
+    );
+}
+
+type RegisterInputs = {
+    username: string,
+    email: string,
+    password: string,
+    repeatPassword: string
+}
+
+function RegisterForm({ onModalModeChange }: {
+    onModalModeChange: () => void
+}) {
+    const { t } = useTranslation();
+    const { register, handleSubmit, formState: { errors }, watch } = useForm<RegisterInputs>();
+    const password = watch("password");
+
+    const onSubmit: SubmitHandler<RegisterInputs> = (data) => {
+        console.log(data);
+        console.log(errors);
+    }
+
+    return (
+        <div className="w-full">
+            <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col items-center gap-y-4">
+                <div className='text-(--foreground) font-[Montserrat] w-full'>
+                    <label className="block text-sm font-semibold">{t("navbar.modals.register.username_input.label")}</label>
+                    <div className="mt-2 text-(--foreground) h-[51px] flex border-(--foreground) border-[2px] rounded-xl bg-[#E5E0D2]">
+                        <div className="mr-3 ml-3">
+                            <UserIcon className='h-full size-6' />
+                        </div>
+                        <input {...register('username', {
+                            required: "Username is required",
+                            minLength: {
+                                value: 3,
+                                message: "Username should be between 3 adn 128 symbols"
+                            },
+                            maxLength: {
+                                value: 128,
+                                message: "Username should be between 3 adn 128 symbols"
+                            },
+                            pattern: {
+                                value: /[A-Za-z0-9]+/,
+                                message: "Invalid username format",
+                            },
+                        })} type="text" placeholder={t("navbar.modals.register.username_input.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3" />
+                    </div>
+                    <span className="text-xs mt-2 text-(--accent)">{errors.username?.message}</span>
+                </div>
+                <div className='text-(--foreground) font-[Montserrat] w-full'>
+                    <label className="block text-sm font-semibold">{t("navbar.modals.register.email_input.label")}</label>
+                    <div className="mt-2 text-(--foreground) h-[51px] flex border-(--foreground) border-[2px] rounded-xl bg-[#E5E0D2]">
+                        <div className="mr-3 ml-3">
+                            <AtSymbolIcon className='h-full size-6' />
+                        </div>
+                        <input {...register('email', {
+                            required: "Email is required",
+                            pattern: {
+                                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                                message: "Invalid email format",
+                            },
+                        })} type="text" placeholder={t("navbar.modals.register.email_input.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3" />
+                    </div>
+                    <span className="text-xs mt-2 text-(--accent)">{errors.email?.message}</span>
+                </div>
+                <div className='text-(--foreground) font-[Montserrat] w-full'>
+                    <label className="block text-sm font-semibold">{t("navbar.modals.register.password_input.label")}</label>
+                    <div className="mt-2 text-(--foreground) h-[51px] flex border-(--foreground) border-[2px] rounded-xl bg-[#E5E0D2]">
+                        <div className="mr-3 ml-3">
+                            <KeyIcon className='h-full size-6' />
+                        </div>
+                        <input {...register('password', {
+                            required: "Password is required",
+                            minLength: {
+                                value: 8,
+                                message: "Password should be between 8 and 128 characters"
+                            },
+                            maxLength: {
+                                value: 128,
+                                message: "Password should be between 8 and 128 characters"
+                            },
+                        })} type="password"
+                            placeholder={t("navbar.modals.register.password_input.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3" />
+                    </div>
+                    <span className="text-xs mt-2 text-(--accent)">{errors.password?.message}</span>
+                </div>
+                <div className='text-(--foreground) font-[Montserrat] w-full'>
+                    <label className="block text-sm font-semibold">{t("navbar.modals.register.confirm_password_input.placeholder")}</label>
+                    <div className="mt-2 text-(--foreground) h-[51px] flex border-(--foreground) border-[2px] rounded-xl bg-[#E5E0D2]">
+                        <div className="mr-3 ml-3">
+                            <KeyIcon className='h-full size-6' />
+                        </div>
+                        <input {...register('repeatPassword', {
+                            required: true,
+                            validate: (value) =>
+                                value === password || "Passwords do not match"
+                        })}
+                            type="password" placeholder={t("navbar.modals.register.confirm_password_input.label")} className="w-full outline-none pr-3 pb-3 pt-3" />
+                    </div>
+                    <span className="text-xs mt-2 text-(--accent)">{errors.repeatPassword?.message}</span>
+                </div>
+                <span>{t("navbar.modals.register.modal_switch.text")} <span onClick={() => onModalModeChange()} className="cursor-pointer underline decoration-[1.5px]">{t("navbar.modals.register.modal_switch.trigger")}</span></span>
+                <div className="flex items-center justify-end font-[Montserrat] mt-[1rem]">
+                    <button type="submit" className="px-9 py-2 cursor-pointer rounded-xl text-lg flex items-center justify-center bg-(--foreground) text-(--background) font-semibold">
+                        {t("navbar.modals.register.button_text")}
+                    </button>
                 </div>
             </form>
         </div>

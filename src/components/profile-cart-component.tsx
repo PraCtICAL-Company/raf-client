@@ -7,7 +7,7 @@ import Modal from 'react-modal';
 import { useEffect, useState } from "react";
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { useAtom } from "jotai";
-import { cartAtom, type Cart } from "../state/atoms";
+import { cartAtom, type Cart, type CartItem } from "../state/atoms";
 import CartItemQuantityInput from "./number-input";
 import { totalPrice } from "../functions/cart";
 
@@ -118,6 +118,13 @@ export default function ProfileCartComponent() {
 
     const handleDelete = (): void => {
         // handling logic
+    }
+
+    const removeFromCart = (item: CartItem): void => {
+        let cartCopy = cart;
+        cartCopy.items = cartCopy.items.filter(it => it.itemType.id != item.itemType.id);
+        setCart(cartCopy);
+        setCartTotal(totalPrice(cartCopy));
     }
 
     return (
@@ -292,16 +299,17 @@ export default function ProfileCartComponent() {
                                                                             cartItem.itemType.inStock ?
                                                                                 <div className="flex gap-x-2 items-center w-fit">
                                                                                     <ArchiveBoxIcon className='size-4' />
-                                                                                    <span>In stock</span>
+                                                                                    <span>{t("cart.stock.in_stock")}</span>
                                                                                 </div>
                                                                                 :
                                                                                 <div className="flex gap-x-2 items-center w-fit">
                                                                                     <ClockIcon className='size-4' />
-                                                                                    <span className='font-normal'>Out of stock</span>
+                                                                                    <span className='font-normal'>{t("cart.stock.out_of_stock")}</span>
                                                                                 </div>
                                                                         }
                                                                     </div>
-                                                                    <div className="absolute right-[0] bottom-[0] flex flex-col items-end gap-y-3">
+                                                                    <div className="absolute right-[0] bottom-[0] flex flex-col items-end gap-y-3 w-full">
+                                                                        <TrashIcon style={{ pointerEvents: "all" }} className="cursor-pointer size-6 absolute left-[0.5rem] bottom-[0.5rem]" onClick={() => removeFromCart(cartItem)} />
                                                                         <div className="">
                                                                             {
                                                                                 cartItem.itemType.hotPrice ?
@@ -377,7 +385,7 @@ function OrderComponent({ cartTotal }: {
                     <XMarkIcon className='h-full size-7' />
                 </button>
                 <h1 className="text-4xl font-[Montserrat] font-semibold text-center mb-[2rem]">
-                    Details
+                    {t("cart.modals.message.title")}
                 </h1>
                 <div className="flex">
                     <div className="flex-1 flex items-center justify-center">
@@ -385,16 +393,16 @@ function OrderComponent({ cartTotal }: {
                     </div>
                     <div className="flex-1">
                         <div className='text-(--foreground) font-[Montserrat]'>
-                            <label className="block text-sm font-semibold">{t("homepage.contact_form.input3.label")}</label>
+                            <label className="block text-sm font-semibold">{t("cart.modals.message.message_input.label")}</label>
                             <div className="mt-2 text-(--foreground) flex border-(--foreground) border-[2px] rounded-xl bg-[#E5E0D2]">
-                                <textarea onChange={(e) => setMessage(e.target.value)} id="message" name="message" placeholder={t("homepage.contact_form.input3.placeholder")} className="w-full outline-none p-3 resize-none h-[10em]" />
+                                <textarea onChange={(e) => setMessage(e.target.value)} id="message" name="message" placeholder={t("cart.modals.message.message_input.placeholder")} className="w-full outline-none p-3 resize-none h-[10em]" />
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className="flex items-center justify-between font-[Montserrat] mt-[1rem]">
                     <div className="px-6 py-3 bg-(--accent) rounded-2xl font-semibold text-3xl text-(--background)">
-                        Total:&nbsp;
+                        {t("cart.modals.message.total")}:&nbsp;
                         <span className="underline decoration-[1.5px]">
                             {
                                 cartTotal
@@ -402,7 +410,9 @@ function OrderComponent({ cartTotal }: {
                             €
                         </span>
                     </div>
-                    <button onClick={() => setPaymentMethodModalIsOpen(true)} className="px-9 py-2 cursor-pointer rounded-xl text-lg flex items-center justify-center bg-(--foreground) text-(--background) font-semibold">Continue</button>
+                    <button onClick={() => setPaymentMethodModalIsOpen(true)} className="px-9 py-2 cursor-pointer rounded-xl text-lg flex items-center justify-center bg-(--foreground) text-(--background) font-semibold">
+                        {t("cart.modals.message.continue_btn_text")}
+                    </button>
                 </div>
             </Modal>
             <Modal
@@ -417,14 +427,14 @@ function OrderComponent({ cartTotal }: {
                     <XMarkIcon className='h-full size-7' />
                 </button>
                 <h1 className="text-4xl font-[Montserrat] font-semibold text-center mb-[2rem]">
-                    Payment
+                    {t("cart.modals.payment_method.title")}
                 </h1>
                 <div className="flex items-center justify-center min-h-[150px]">
                     <PaymentSwitch onChange={(val) => setPaymentMethod(val)} />
                 </div>
                 <div className="flex items-center justify-between font-[Montserrat] mt-[1rem]">
                     <div className="px-6 py-3 bg-(--accent) rounded-2xl font-semibold text-3xl text-(--background)">
-                        Total:&nbsp;
+                        {t("cart.modals.payment_method.total")}:&nbsp;
                         <span className="underline decoration-[1.5px]">
                             {
                                 cartTotal
@@ -432,19 +442,21 @@ function OrderComponent({ cartTotal }: {
                             €
                         </span>
                     </div>
-                    <button onClick={() => handleCommit()} className="px-9 py-2 cursor-pointer rounded-xl text-lg flex items-center justify-center bg-(--foreground) text-(--background) font-semibold">Continue</button>
+                    <button onClick={() => handleCommit()} className="px-9 py-2 cursor-pointer rounded-xl text-lg flex items-center justify-center bg-(--foreground) text-(--background) font-semibold">
+                        {t("cart.modals.payment_method.continue_btn_text")}
+                    </button>
                 </div>
             </Modal>
             <div className="bg-(--accent) p-[2rem] rounded-4xl h-fit grid gap-y-4">
                 <span className="text-3xl text-[#fff]">
-                    Total:&nbsp;
+                    {t("cart.total")}:&nbsp;
                     {
                         cartTotal.toFixed(2)
                     }
                     €
                 </span>
                 <button onClick={() => setCommentModalIsOpen(true)} className="py-4 w-[100%] block cursor-pointer border-[3px] border-(--foreground) rounded-xl text-2xl flex items-center justify-center bg-(--background) text-(--background) bg-(--foreground)">
-                    Text
+                    {t("cart.total_btn_text")}
                 </button>
             </div>
         </div>
@@ -457,12 +469,13 @@ function PaymentSwitch({ onChange }:
         onChange: (newValue: PaymentMethod) => void;
     }
 ) {
+    const { t } = useTranslation();
     const [methodIndex, setMethodIndex] = useState<number>(0)
 
     const PAYMENT_METHODS = [
-        { value: "Card" as PaymentMethod, label: "Card", icon: <CreditCardIcon className="size-6" /> },
-        { value: "Cash" as PaymentMethod, label: "Cash", icon: <BanknotesIcon className="size-6" /> },
-        { value: "CardOnline" as PaymentMethod, label: "Card online", icon: <BuildingLibraryIcon className="size-6" /> },
+        { value: "Card" as PaymentMethod, label: t("cart.modals.payment_method.button_input.card"), icon: <CreditCardIcon className="size-6" /> },
+        { value: "Cash" as PaymentMethod, label: t("cart.modals.payment_method.button_input.cash"), icon: <BanknotesIcon className="size-6" /> },
+        { value: "CardOnline" as PaymentMethod, label: t("cart.modals.payment_method.button_input.card_online"), icon: <BuildingLibraryIcon className="size-6" /> },
     ]
 
     return (

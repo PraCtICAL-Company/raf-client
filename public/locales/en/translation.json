@@ -1,37 +1,224 @@
 {
-    "home_navbar_text": "Home",
-    "services_navbar_text": "Services",
-    "catalog_navbar_text": "Shop",
-    "about_navbar_text": "Info",
-    "projects_navbar_text": "Projects",
-    "work_schedule_navbar_text_name1": "Mo-Fri",
-    "work_schedule_navbar_text_value1": "8:00-18:00",
-    "work_schedule_navbar_text_name2": "Saturday",
-    "work_schedule_navbar_text_value2": "8:00-18:00",
-    "work_schedule_navbar_text_name3": "Sunday",
-    "work_schedule_navbar_text_value3": "Closed",
-    "phone_navbar_text": "+49 176 29187440",
-    "item_count_text": "items",
-    "video_overlay_text": "Automotive specialists in Lower Saxony",
-    "homepage.teaser_text1": "RAF Performance, a car specialist in Lower Saxony.",
-    "homepage.teaser_text2": "We specialize in Volkswagen Group vehicles (Audi, Volkswagen, Skoda, Seat, Lamborghini, and Porsche).",
-    "homepage.teaser_text3": "We offer engine repairs, bodywork, and special conversions and retrofits.",
-    "homepage.teaser_text4": "Simply contact us, and we'll find a solution.",
-    "homepage.teaser_text5": "Your qualified car mechanic will always find a solution.",
-    "homepage.panel1.text": "Services",
-    "homepage.panel1.button_text": "More",
-    "homepage.panel2.text": "How to find us",
-    "homepage.panel2.button_text": "Open map",
-    "homepage.contact_form.input1.label": "Name",
-    "homepage.contact_form.input1.placeholder": "e.g. Lewis Hamilton",
-    "homepage.contact_form.input2.label": "Email",
-    "homepage.contact_form.input2.placeholder": "you@example.com",
-    "homepage.contact_form.input3.label": "Message",
-    "homepage.contact_form.input3.placeholder": "Any questions you may have about our services",
-    "homepage.contact_form.button.text": "Send message",
-    "footer.socials.text1": "Imprint",
-    "footer.socials.text2": "Privacy Policy",
-    "footer.address.row1": "Address: Max Planck Street 9",
-    "footer.address.row2": "31135 Hildesheim",
-    "footer.address.row3": "+49 176 29187440"
+    "navbar": {
+        "links": {
+            "home": "Home",
+            "services": "Services",
+            "shop": "Shop",
+            "about": "Info",
+            "projects": "Projects"
+        },
+        "work_schedule": {
+            "row1": {
+                "left": "Mo-Fri",
+                "right": "8:00-18:00"
+            },
+            "row2": {
+                "left": "Saturday",
+                "right": "8:00-18:00"
+            },
+            "row3": {
+                "left": "Sunday",
+                "right": "Closed"
+            },
+            "phone": "+49 176 29187440"
+        },
+        "count_text": "items",
+        "popup_menu": {
+            "login": "Login",
+            "register": "Register",
+            "profile": "Profile"
+        },
+        "modals": {
+            "login": {
+                "title": "Login",
+                "username_input": {
+                    "label": "Username",
+                    "placeholder": "Your username"
+                },
+                "password_input": {
+                    "label": "Password",
+                    "placeholder": "Your password"
+                },
+                "modal_switch": {
+                    "text": "Don't have an account?",
+                    "trigger": "Register"
+                },
+                "button_text": "Submit"
+            },
+            "register": {
+                "title": "Register",
+                "username_input": {
+                    "label": "Username",
+                    "placeholder": "derek227"
+                },
+                "email_input": {
+                    "label": "Email",
+                    "placeholder": "you@example.com"
+                },
+                "password_input": {
+                    "label": "Password",
+                    "placeholder": "Your password"
+                },
+                "confirm_password_input": {
+                    "label": "Confirm password",
+                    "placeholder": "Repeat the password above"
+                },
+                "modal_switch": {
+                    "text": "Already have an account?",
+                    "trigger": "Log in"
+                },
+                "button_text": "Submit"
+            }
+        }
+    },
+    "homepage": {
+        "video": {
+            "overlay_text": "Automotive specialists in Lower Saxony"
+        },
+        "teaser": {
+            "row1": "RAF Performance, a car specialist in Lower Saxony.",
+            "row2": "We specialize in Volkswagen Group vehicles (Audi, Volkswagen, Skoda, Seat, Lamborghini, and Porsche).",
+            "row3": "We offer engine repairs, bodywork, and special conversions and retrofits.",
+            "row4": "Simply contact us, and we'll find a solution.",
+            "row5": "Your qualified car mechanic will always find a solution."
+        },
+        "service_panel": {
+            "text": "Services",
+            "button_text": "More"
+        },
+        "map_panel": {
+            "text": "How to find us",
+            "button_text": "Open map"
+        },
+        "contact_form": {
+            "name_input": {
+                "label": "Name",
+                "placeholder": "e.g. Lewis Hamilton"
+            },
+            "email_input": {
+                "label": "Email",
+                "placeholder": "you@example.com"
+            },
+            "message_input": {
+                "label": "Message",
+                "placeholder": "Any questions you may have about our services"
+            },
+            "submit_btn": {
+                "text": "Send message"
+            }
+        }
+    },
+    "footer": {
+        "socials": {
+            "text1": "Imprint",
+            "text2": "Privacy Policy"
+        },
+        "address": {
+            "row1": "Address: Max Planck Street 9",
+            "row2": "31135 Hildesheim",
+            "row3": "+49 176 29187440"
+        }
+    },
+    "services": {
+        "page_title": "Services",
+        "recommendation_title": "Hot offer",
+        "info_modal": {
+            "button_text": "Continue"
+        },
+        "order_modal": {
+            "name_input": {
+                "label": "Name",
+                "placeholder": "Robert"
+            },
+            "phone_input": {
+                "label": "Phone number",
+                "placeholder": "+XX XXX XXXXXXXX"
+            },
+            "button_text": "Send"
+        }
+    },
+    "shop": {
+        "page_title": "Shop",
+        "search_bar": {
+            "placeholder": "Find anything..."
+        },
+        "filters": {
+            "price": {
+                "title": "Cost, €"
+            },
+            "hot_price": {
+                "title": "Hot price"
+            },
+            "brands": {
+                "title": "Brands"
+            },
+            "stock": {
+                "title": "Brands",
+                "in_stock_title": "Show in stock",
+                "out_of_stock_title": "Show out of stock"
+            },
+            "apply_button": {
+                "text": "Apply"
+            }
+        },
+        "control_panel": {
+            "filter_toggle_btn": {
+                "hide": "Hide filters",
+                "show": "Show filters"
+            },
+            "sort_types": {
+                "by_name": "Sort by name",
+                "by_name_desc": "Sort by name descending",
+                "by_price": "Cheap first",
+                "by_price_desc": "Expensive first",
+                "by_stock": "In stock first"
+            }
+        },
+        "list_item": {
+            "stock": {
+                "in_stock": "In stock",
+                "out_of_stock": "Out of stock"
+            },
+            "add_to_cart_btn_text": "Add to cart"
+        }
+    },
+    "projects": {
+        "page_title": "Projects"
+    },
+    "about": {
+        "page_title": "Info",
+        "paragraph1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+        "paragraph2": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos. Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis ",
+        "paragraph3": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos. Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos. Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos. Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos. Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos. Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos. Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos. Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae"
+    },
+    "cart": {
+        "page_title": "Cart",
+        "total": "Total",
+        "total_btn_text": "Order",
+        "stock": {
+            "in_stock": "In stock",
+            "out_of_stock": "Out of stock"
+        },
+        "modals": {
+            "message": {
+                "title": "Details",
+                "message_input": {
+                    "label": "Message",
+                    "placeholder": "Anything you want us to know about the delivery"
+                },
+                "total": "Total",
+                "continue_btn_text": "Continue"
+            },
+            "payment_method": {
+                "title": "Payment method",
+                "button_input": {
+                    "card": "Card",
+                    "cash": "Cash",
+                    "card_online": "Card online"
+                },
+                "total": "Total",
+                "continue_btn_text": "Continue"
+            }
+        }
+    }
 }

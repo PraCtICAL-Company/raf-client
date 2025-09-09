@@ -94,7 +94,9 @@ function RouteComponent() {
                 </div>
               </div>
               <div className="flex items-center justify-end font-[Montserrat] mt-[1rem]">
-                <button onClick={() => setOrderModalIsOpen(true)} className="px-9 py-2 cursor-pointer rounded-xl text-lg flex items-center justify-center bg-(--foreground) text-(--background) font-semibold">Continue</button>
+                <button onClick={() => setOrderModalIsOpen(true)} className="px-9 py-2 cursor-pointer rounded-xl text-lg flex items-center justify-center bg-(--foreground) text-(--background) font-semibold">
+                  {t("services.info_modal.button_text")}
+                </button>
               </div>
             </Modal>
             <Modal
@@ -124,25 +126,27 @@ function RouteComponent() {
                 <div className="flex-1">
                   <div className="grid gap-y-4">
                     <div className='text-(--foreground) font-[Montserrat]'>
-                      <label className="block text-sm font-semibold">{t("homepage.contact_form.input2.label")}</label>
+                      <label className="block text-sm font-semibold">{t("services.order_modal.name_input.label")}</label>
                       <div className="mt-2 text-(--foreground) h-[51px] flex border-(--foreground) border-[2px] rounded-xl bg-[#E5E0D2]">
                         <div className="mr-3 ml-3">
                           <UserIcon className='h-full size-6' />
                         </div>
-                        <input onChange={(e) => setName(e.target.value)} id="username" type="text" name="username" placeholder={t("homepage.contact_form.input2.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3" />
+                        <input onChange={(e) => setName(e.target.value)} id="username" type="text" name="username" placeholder={t("services.order_modal.name_input.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3" />
                       </div>
                     </div>
                     <div className='text-(--foreground) font-[Montserrat]'>
-                      <label className="block text-sm font-semibold">{t("homepage.contact_form.input2.label")}</label>
+                      <label className="block text-sm font-semibold">{t("services.order_modal.phone_input.label")}</label>
                       <div className="mt-2 text-(--foreground) h-[51px] flex border-(--foreground) border-[2px] rounded-xl bg-[#E5E0D2]">
                         <div className="mr-3 ml-3">
                           <PhoneIcon className='h-full size-6' />
                         </div>
-                        <input onChange={(e) => setPhone(e.target.value)} id="username" type="text" name="username" placeholder={t("homepage.contact_form.input2.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3" />
+                        <input onChange={(e) => setPhone(e.target.value)} id="username" type="text" name="username" placeholder={t("services.order_modal.phone_input.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3" />
                       </div>
                     </div>
                     <div className="flex justify-end">
-                      <button onClick={() => handleCommit()} className="w-fit font-[Montserrat] px-9 py-2 cursor-pointer rounded-xl text-lg flex items-center justify-center bg-(--foreground) text-(--background) font-semibold">Continue</button>
+                      <button onClick={() => handleCommit()} className="w-fit font-[Montserrat] px-9 py-2 cursor-pointer rounded-xl text-lg flex items-center justify-center bg-(--foreground) text-(--background) font-semibold">
+                        {t("services.order_modal.button_text")}
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -154,7 +158,7 @@ function RouteComponent() {
 
       <div className="flex justify-center font-[Montserrat]">
         <div className="w-6xl p-(--default-padding) pt-(--navbar-height) mt-(--default-padding) pb-(--default-padding)">
-          <h1 className='text-5xl text-center mb-[1em] font-semibold'>Services</h1>
+          <h1 className='text-5xl text-center mb-[1em] font-semibold'>{t("services.page_title")}</h1>
           <div className="grid gap-y-(--default-padding)">
             {
               isLoading ?
@@ -180,7 +184,7 @@ function RouteComponent() {
                     <Pager totalPages={data!.totalPages} currentPage={page} onChange={(page) => goToPage(page)} />
                   </div>
                   <div className="">
-                    <h1 className='font-[Montserrat] text-4xl font-semibold text-center my-[3rem]'>Recommended</h1>
+                    <h1 className='font-[Montserrat] text-4xl font-semibold text-center my-[3rem]'>{t("services.recommendation_title")}</h1>
                     <RecommendationComponent />
                   </div>
                 </div>

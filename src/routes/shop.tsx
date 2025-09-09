@@ -40,7 +40,6 @@ function RouteComponent() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const searchFilters = Route.useSearch();
-  const filterSave = searchFilters;
   const [queryText, setQueryText] = useState<string>(searchFilters.textQuery);
   const [sortType, setSortType] = useState<SortType>(searchFilters.sortBy);
   const { isLoading, data } = useSearchRecommendations();
@@ -48,11 +47,11 @@ function RouteComponent() {
   const [filtersOpen, setFiltersOpen] = useState<boolean>(true);
 
   const SORT_TYPES = [
-    { label: "Sort by name", value: "ByName" },
-    { label: "Sort by name descending", value: "ByNameDescending" },
-    { label: "Cheap first", value: "ByPrice" },
-    { label: "Expensive first", value: "ByPriceDescending" },
-    { label: "In stock first", value: "ByStock" },
+    { label: t("shop.control_panel.sort_types.by_name"), value: "ByName" },
+    { label: t("shop.control_panel.sort_types.by_name_desc"), value: "ByNameDescending" },
+    { label: t("shop.control_panel.sort_types.by_price"), value: "ByPrice" },
+    { label: t("shop.control_panel.sort_types.by_price_desc"), value: "ByPriceDescending" },
+    { label: t("shop.control_panel.sort_types.by_stock"), value: "ByStock" },
   ]
 
   const search = (newFilters: ShopSearchFilters, page: number = 1) => {
@@ -69,7 +68,7 @@ function RouteComponent() {
   return (
     <div className="flex justify-center  font-[Montserrat]">
       <div className="w-[88rem] p-(--default-padding) pt-(--navbar-height) mt-(--default-padding) pb-(--default-padding)">
-        <h1 className='text-5xl text-center mb-[1em] font-semibold'>Shop</h1>
+        <h1 className='text-5xl text-center mb-[1em] font-semibold'>{t("shop.page_title")}</h1>
         <div className="grid gap-y-(--default-padding)">
           <div className="">
             <div className='text-(--foreground) font-[Montserrat]'>
@@ -77,12 +76,18 @@ function RouteComponent() {
                 <div className="mr-3 ml-3">
                   <MagnifyingGlassIcon className='h-full size-6' />
                 </div>
-                <input id="username" type="text" onChange={(e) => setQueryText(e.target.value)} value={queryText} name="username" placeholder={t("homepage.contact_form.input2.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3" />
+                <input id="username" type="text"
+                  onKeyDown={(e) => {
+                    if (e.key == "Enter") {
+                      search(searchFilters);
+                    }
+                  }}
+                  onChange={(e) => setQueryText(e.target.value)} value={queryText} name="username" placeholder={t("shop.search_bar.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3" />
               </div>
             </div>
             {
               isLoading ?
-                <div className="">Loading</div>
+                <div className="">Loading...</div>
                 :
                 <div className="flex flex-wrap pt-6 gap-2">
                   {
@@ -108,9 +113,9 @@ function RouteComponent() {
                 <button onClick={() => setFiltersOpen(!filtersOpen)} className='flex gap-x-2 items-center font-semibold cursor-pointer'>
                   {
                     filtersOpen ?
-                      "Hide filters"
+                      t("shop.control_panel.filter_toggle_btn.hide")
                       :
-                      "Show filters"
+                      t("shop.control_panel.filter_toggle_btn.show")
                   }
                   <FunnelIcon className='size-4' />
                 </button>
@@ -225,17 +230,17 @@ function FilterComponent({ onFilterApply, initialFilters }:
   return (
     <div className="grid gap-y-4">
       <div className="flex flex-col items-center">
-        <h3 className='block w-full font-semibold text-lg'>Cost, €</h3>
+        <h3 className='block w-full font-semibold text-lg'>{t("shop.filters.price.title")}</h3>
         <div className="">
           <div className="flex gap-x-2">
             <div className='text-(--foreground) font-[Montserrat]'>
               <div className="mt-2 text-(--foreground) flex border-(--foreground) border-[2px] rounded-lg bg-(--input-bg)">
-                <input id="username" type="number" onChange={(e) => handlePriceInputChange(0, e)} value={values[0]} name="username" placeholder={t("homepage.contact_form.input2.placeholder")} className="w-full outline-none px-3 py-2" />
+                <input type="number" onChange={(e) => handlePriceInputChange(0, e)} value={values[0]} name="username" className="w-full outline-none px-3 py-2" />
               </div>
             </div>
             <div className='text-(--foreground) font-[Montserrat]'>
               <div className="mt-2 text-(--foreground) flex border-(--foreground) border-[2px] rounded-lg bg-(--input-bg)">
-                <input id="username" type="number" onChange={(e) => handlePriceInputChange(1, e)} value={values[1]} name="username" placeholder={t("homepage.contact_form.input2.placeholder")} className="w-full outline-none px-3 py-2" />
+                <input type="number" onChange={(e) => handlePriceInputChange(1, e)} value={values[1]} name="username" className="w-full outline-none px-3 py-2" />
               </div>
             </div>
           </div>
@@ -291,9 +296,12 @@ function FilterComponent({ onFilterApply, initialFilters }:
           )}
         />
       </div>
-      <CustomCheckbox labelText='Hot price' onChange={(val) => { filters.hotPrice = val; handleFilterChange() }} isChecked={filters.hotPrice} />
+      <div className="flex gap-x-2">
+        <CustomCheckbox labelText={t("shop.filters.hot_price.title")} onChange={(val) => { filters.hotPrice = val; handleFilterChange() }} isChecked={filters.hotPrice} />
+        <img src="../../src/assets/svg/icons/hot-price.svg" className='w-[20px]' />
+      </div>
       <div className="">
-        <h3 className='block w-full font-semibold text-lg mb-2'>Brands</h3>
+        <h3 className='block w-full font-semibold text-lg mb-2'>{t("shop.filters.brands.title")}</h3>
         {
           isLoading ?
             <div className="">Loading...</div>
@@ -347,13 +355,13 @@ function FilterComponent({ onFilterApply, initialFilters }:
 
       </div>
       <div className="">
-        <h3 className='block w-full font-semibold text-lg mb-2'>Stock</h3>
-        <CustomCheckbox labelText='Show in stock' onChange={(val) => { filters.showInStock = val; handleFilterChange() }} isChecked={filters.showInStock} />
-        <CustomCheckbox labelText='Show out of stock' onChange={(val) => { filters.showOutOfStock = val; handleFilterChange() }} isChecked={filters.showOutOfStock} />
+        <h3 className='block w-full font-semibold text-lg mb-2'>{t("shop.filters.stock.title")}</h3>
+        <CustomCheckbox labelText={t("shop.filters.stock.in_stock_title")} onChange={(val) => { filters.showInStock = val; handleFilterChange() }} isChecked={filters.showInStock} />
+        <CustomCheckbox labelText={t("shop.filters.stock.out_of_stock_title")} onChange={(val) => { filters.showOutOfStock = val; handleFilterChange() }} isChecked={filters.showOutOfStock} />
       </div>
       <div className=""></div>
       <button onClick={applyFilters} className='bg-(--foreground) text-(--background) font-semibold rounded-xl h-[51px] cursor-pointer'>
-        Apply
+        {t("shop.filters.apply_button.text")}
       </button>
     </div>
   );
@@ -434,6 +442,7 @@ function ShopItemList({ filters, filtersOpen, onPageChange }:
     onPageChange: (page: number) => void;
   }
 ) {
+  const { t } = useTranslation();
   const { data, isLoading } = useShopSearch(filters);
   const [cart, setCart] = useAtom(cartAtom);
 
@@ -487,12 +496,12 @@ function ShopItemList({ filters, filtersOpen, onPageChange }:
                           item.inStock ?
                             <div className="flex gap-x-2 items-center">
                               <ArchiveBoxIcon className='size-4' />
-                              <span>In stock</span>
+                              <span>{t("shop.list_item.stock.in_stock")}</span>
                             </div>
                             :
                             <div className="flex gap-x-2 items-center">
                               <ClockIcon className='size-4' />
-                              <span className='font-normal'>Out of stock</span>
+                              <span className='font-normal'>{t("shop.list_item.stock.out_of_stock")}</span>
                             </div>
                         }
                         <span className='font-semibold'>
@@ -511,7 +520,7 @@ function ShopItemList({ filters, filtersOpen, onPageChange }:
                           }
                         </span>
                         <button onClick={() => addToCart(item)} className='bg-(--foreground) text-(--background) font-semibold text-xl rounded-xl px-6 py-2 cursor-pointer'>
-                          Add to cart
+                          {t("shop.list_item.add_to_cart_btn_text")}
                         </button>
                       </div>
                     </div>
