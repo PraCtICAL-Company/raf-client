@@ -165,13 +165,13 @@ function RouteComponent() {
                 <div className="">Loading...</div>
                 :
                 <div className="grid gap-y-9">
-                  <div className="flex flex-wrap justify-center gap-y-[5rem]">
+                  <div className="flex flex-wrap justify-center gap-y-[2.5rem] md:gap-y-[5rem]">
                     {
                       data!.items!.map(service => (
                         <div onClick={() => { setService(service); setAboutModalIsOpen(true) }} className="flex justify-center items-center cursor-pointer" style={{ width: "calc(100% / 3)" }}>
                           <div className="">
-                            <h2 className='font-semibold text-3xl text-center mb-[1.5rem]'>{service.name}</h2>
-                            <div className="bg-center bg-cover h-[300px] w-[300px] rounded-2xl" style={{ backgroundImage: `url("../../src/assets/${service.imageUrl}")` }}>
+                            <h2 className='font-semibold text-lg sm:text-xl md:text-2xl lg:text-3xl text-center mb-[0.5rem] md:mb-[1rem] lg:mb-[1.5rem]'>{service.name}</h2>
+                            <div className="bg-center bg-cover h-[100px] w-[100px] sm:h-[150px] sm:w-[150px] md:h-[200px] md:w-[200px] lg:h-[300px] lg:w-[300px] rounded-2xl" style={{ backgroundImage: `url("../../src/assets/${service.imageUrl}")` }}>
 
                             </div>
                           </div>

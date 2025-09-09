@@ -19,10 +19,10 @@ function InfoComponent() {
             {t("about.paragraph1")}
           </p>
           <p>
-            <img src="../../src/assets/svg/info/_1.svg" className='float-right pl-6' alt="" />
+            <img src="../../src/assets/svg/info/_1.svg" className='hidden md:visible float-right pl-6' alt="" />
             {t("about.paragraph2")}</p>
           <p>
-            <img src="../../src/assets/svg/info/_2.svg" className='float-left pr-6' alt="" />
+            <img src="../../src/assets/svg/info/_2.svg" className='hidden md:visible float-left pr-6' alt="" />
             {t("about.paragraph3")}</p>
         </article>
         <div className="w-full flex justify-center mt-(--default-padding)">

@@ -139,14 +139,14 @@ export default function ProfileCartComponent() {
                             onRequestClose={closeDeleteModal}
                             style={deleteModalStyles}>
                             <h1 className="text-2xl font-[Montserrat] font-semibold text-center">
-                                Delete  {activeAddress.city} {activeAddress.street} {activeAddress.building} {activeAddress.entrance} {activeAddress.floor} {activeAddress.apartment}?
+                                {t("profile.modals.delete.title")}  {activeAddress.city} {activeAddress.street} {activeAddress.building} {activeAddress.entrance} {activeAddress.floor} {activeAddress.apartment}?
                             </h1>
                             <button onClick={closeDeleteModal} className="absolute right-[2rem] top-[2rem] cursor-pointer">
                                 <XMarkIcon className='h-full size-7' />
                             </button>
                             <div className="flex justify-center mt-(--default-padding) font-[Montserrat] font-semibold">
                                 <button onClick={handleDelete} className="h-[51px] w-[33%] block cursor-pointer rounded-xl text-lg flex items-center justify-center text-(--background) bg-(--accent)">
-                                    Text
+                                    {t("profile.modals.delete.submit_btn_text")}
                                 </button>
                             </div>
 
@@ -162,9 +162,9 @@ export default function ProfileCartComponent() {
                             <h1 className="text-4xl font-[Montserrat] font-semibold text-center mb-[2rem]">
                                 {
                                     modalEdit ?
-                                        <div className="">Edit</div>
+                                        <div className="">{t("profile.modals.add_edit.title.edit")}</div>
                                         :
-                                        <div className="">Add</div>
+                                        <div className="">{t("profile.modals.add_edit.title.add")}</div>
                                 }
                             </h1>
                             <AddressForm address={activeAddress} isInEditMode={modalEdit} />
@@ -176,8 +176,8 @@ export default function ProfileCartComponent() {
                 <h1 className='text-5xl text-center mb-[1em]'>
                     {
                         tabName == '/profile' ?
-                            "Profile" :
-                            "Cart"
+                            t("profile.page_title") :
+                            t("cart.page_title")
                     }
                 </h1>
                 <div className="flex ">
@@ -187,13 +187,15 @@ export default function ProfileCartComponent() {
                                 {
                                     "bg-(--foreground) text-(--background)": tabName === '/profile',
                                     "bg-(--background) text-(--foreground)": tabName === '/cart',
-                                })}>Text 1</Link>
+                                })}>{t("cart_profile_switch.profile_tab_text")}</Link>
                             <Link to="/cart" className={clsx('h-[51px] w-[150px] block cursor-pointer border-[3px] border-(--foreground) rounded-xl text-lg flex items-center justify-center',
                                 {
                                     "bg-(--foreground) text-(--background)": tabName === '/cart',
                                     "bg-(--background) text-(--foreground)": tabName === '/profile',
-                                })}>Text 1</Link>
-                            <Link to="/" className='h-[51px] w-[150px] block cursor-pointer border-[3px] border-(--foreground) rounded-xl text-lg flex items-center justify-center bg-(--background) text-(--foreground)'>Text 1</Link>
+                                })}>{t("cart_profile_switch.cart_tab_text")}</Link>
+                            <Link to="/" className='h-[51px] w-[150px] block cursor-pointer border-[3px] border-(--foreground) rounded-xl text-lg flex items-center justify-center bg-(--background) text-(--foreground)'>
+                                {t("cart_profile_switch.exit_tab_text")}
+                            </Link>
                         </div>
                     </div>
                     <div className="flex-3">
@@ -206,18 +208,18 @@ export default function ProfileCartComponent() {
                                         tabName === '/profile' ?
                                             <div className="">
                                                 <form action="" method="post" className="grid gap-y-4">
-                                                    <h2>Personal data</h2>
+                                                    <h2>{t("profile.personal_data.title")}</h2>
                                                     <div className='text-(--foreground) font-[Montserrat]'>
-                                                        <label className="block text-sm font-semibold">{t("homepage.contact_form.input2.label")}</label>
+                                                        <label className="block text-sm font-semibold">{t("profile.personal_data.username_input.label")}</label>
                                                         <div className="mt-2 text-(--foreground) h-[51px] flex border-(--foreground) border-[2px] rounded-xl bg-[#E5E0D2]">
                                                             <div className="mr-3 ml-3">
                                                                 <UserIcon className='h-full size-6' />
                                                             </div>
-                                                            <input id="username" type="text" name="username" placeholder={t("homepage.contact_form.input2.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3"
+                                                            <input id="username" type="text" name="username" className="w-full outline-none pr-3 pb-3 pt-3"
                                                                 value={data!.username} readOnly />
                                                         </div>
                                                     </div>
-                                                    <div className='text-(--foreground) font-[Montserrat]'>
+                                                    {/* <div className='text-(--foreground) font-[Montserrat]'>
                                                         <label className="block text-sm font-semibold">{t("homepage.contact_form.input2.label")}</label>
                                                         <div className="mt-2 text-(--foreground) h-[51px] flex border-(--foreground) border-[2px] rounded-xl bg-[#E5E0D2]">
                                                             <div className="mr-3 ml-3">
@@ -225,24 +227,24 @@ export default function ProfileCartComponent() {
                                                             </div>
                                                             <input id="password" type="password" name="password" placeholder={t("homepage.contact_form.input2.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3" />
                                                         </div>
-                                                    </div>
+                                                    </div> */}
                                                     <div className='text-(--foreground) font-[Montserrat]'>
-                                                        <label className="block text-sm font-semibold">{t("homepage.contact_form.input2.label")}</label>
+                                                        <label className="block text-sm font-semibold">{t("profile.personal_data.phone_input.label")}</label>
                                                         <div className="mt-2 text-(--foreground) h-[51px] flex border-(--foreground) border-[2px] rounded-xl bg-[#E5E0D2]">
                                                             <div className="mr-3 ml-3">
                                                                 <PhoneIcon className='h-full size-6' />
                                                             </div>
-                                                            <input id="phone" type="text" name="phone" placeholder={t("homepage.contact_form.input2.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3"
+                                                            <input id="phone" type="text" name="phone" className="w-full outline-none pr-3 pb-3 pt-3"
                                                                 value={data!.phone} readOnly />
                                                         </div>
                                                     </div>
                                                     <div className='text-(--foreground) font-[Montserrat]'>
-                                                        <label className="block text-sm font-semibold">{t("homepage.contact_form.input2.label")}</label>
+                                                        <label className="block text-sm font-semibold">{t("profile.personal_data.email_input.label")}</label>
                                                         <div className="mt-2 text-(--foreground) h-[51px] flex border-(--foreground) border-[2px] rounded-xl bg-[#E5E0D2]">
                                                             <div className="mr-3 ml-3">
                                                                 <AtSymbolIcon className='h-full size-6' />
                                                             </div>
-                                                            <input id="email" type="text" name="email" placeholder={t("homepage.contact_form.input2.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3"
+                                                            <input id="email" type="text" name="email" className="w-full outline-none pr-3 pb-3 pt-3"
                                                                 value={data!.email} readOnly />
                                                         </div>
                                                     </div>
@@ -250,11 +252,11 @@ export default function ProfileCartComponent() {
                                                 <div className="mt-(--default-padding)">
                                                     <div className="flex justify-between items-center">
                                                         <div className="">
-                                                            <span className="block text-lg">Big text</span>
-                                                            <span className="block text-sm/3 font-normal">Small text text text</span>
+                                                            <span className="block text-lg">{t("profile.personal_data.addresses.big_text")}</span>
+                                                            <span className="block text-sm/3 font-normal">{t("profile.personal_data.addresses.small_text")}</span>
                                                         </div>
                                                         <button onClick={() => { openAddModal() }} className="h-[51px] w-[33%] block cursor-pointer border-[3px] border-(--foreground) rounded-xl text-lg flex items-center justify-center bg-(--background) text-(--background) bg-(--foreground)">
-                                                            Text
+                                                            {t("profile.personal_data.add_address_button_text")}
                                                         </button>
                                                     </div>
                                                     <div className="mt-[1rem] font-[Montserrat]">
@@ -528,62 +530,63 @@ function AddressForm({ address, isInEditMode }:
             }}>
                 <div className="" style={{ gridArea: 'a1' }}>
                     <div className='text-(--foreground) font-[Montserrat]'>
-                        <label className="block text-sm font-semibold">{t("homepage.contact_form.input2.label")}</label>
+                        <label className="block text-sm font-semibold">{t("profile.modals.add_edit.city_input.label")}</label>
                         <div className="mt-2 text-(--foreground) h-[51px] flex border-(--foreground) border-[2px] rounded-xl bg-[#E5E0D2]">
-
-                            <input key={address.floor} id="city" type="text" {...register("city")} placeholder={t("homepage.contact_form.input2.placeholder")} className="w-full outline-none p-3"
+                            <input key={address.floor} id="city" type="text" {...register("city")} placeholder={t("profile.modals.add_edit.city_input.placeholder")} className="w-full outline-none p-3"
                                 defaultValue={address.city} />
                         </div>
                     </div>
                 </div>
                 <div className="" style={{ gridArea: 'a2' }}>
                     <div className='text-(--foreground) font-[Montserrat]'>
-                        <label className="block text-sm font-semibold">{t("homepage.contact_form.input2.label")}</label>
+                        <label className="block text-sm font-semibold">{t("profile.modals.add_edit.street_input.label")}</label>
                         <div className="mt-2 text-(--foreground) h-[51px] flex border-(--foreground) border-[2px] rounded-xl bg-[#E5E0D2]">
-                            <input id="username" type="text" {...register("street")} placeholder={t("homepage.contact_form.input2.placeholder")} className="w-full outline-none p-3"
+                            <input id="username" type="text" {...register("street")} placeholder={t("profile.modals.add_edit.street_input.placeholder")} className="w-full outline-none p-3"
                                 defaultValue={address.street} />
                         </div>
                     </div>
                 </div>
                 <div className="" style={{ gridArea: 'a3' }}>
                     <div className='text-(--foreground) font-[Montserrat]'>
-                        <label className="block text-sm font-semibold">{t("homepage.contact_form.input2.label")}</label>
+                        <label className="block text-sm font-semibold">{t("profile.modals.add_edit.building_input.label")}</label>
                         <div className="mt-2 text-(--foreground) h-[51px] flex border-(--foreground) border-[2px] rounded-xl bg-[#E5E0D2]">
-                            <input id="username" type="text" {...register("building")} placeholder={t("homepage.contact_form.input2.placeholder")} className="w-full outline-none p-3"
+                            <input id="username" type="text" {...register("building")} placeholder={t("profile.modals.add_edit.building_input.placeholder")} className="w-full outline-none p-3"
                                 defaultValue={address.building} />
                         </div>
                     </div>
                 </div>
                 <div className="" style={{ gridArea: 'a4' }}>
                     <div className='text-(--foreground) font-[Montserrat]'>
-                        <label className="block text-sm font-semibold">{t("homepage.contact_form.input2.label")}</label>
+                        <label className="block text-sm font-semibold">{t("profile.modals.add_edit.floor_input.label")}</label>
                         <div className="mt-2 text-(--foreground) h-[51px] flex border-(--foreground) border-[2px] rounded-xl bg-[#E5E0D2]">
-                            <input id="username" type="text" {...register("floor")} placeholder={t("homepage.contact_form.input2.placeholder")} className="w-full outline-none p-3"
+                            <input id="username" type="text" {...register("floor")} placeholder={t("profile.modals.add_edit.floor_input.placeholder")} className="w-full outline-none p-3"
                                 defaultValue={address.floor} />
                         </div>
                     </div>
                 </div>
                 <div className="" style={{ gridArea: 'a5' }}>
                     <div className='text-(--foreground) font-[Montserrat]'>
-                        <label className="block text-sm font-semibold">{t("homepage.contact_form.input2.label")}</label>
+                        <label className="block text-sm font-semibold">{t("profile.modals.add_edit.entrance_input.label")}</label>
                         <div className="mt-2 text-(--foreground) h-[51px] flex border-(--foreground) border-[2px] rounded-xl bg-[#E5E0D2]">
-                            <input id="username" type="text" {...register("entrance")} placeholder={t("homepage.contact_form.input2.placeholder")} className="w-full outline-none p-3"
+                            <input id="username" type="text" {...register("entrance")} placeholder={t("profile.modals.add_edit.entrance_input.placeholder")} className="w-full outline-none p-3"
                                 defaultValue={address.entrance} />
                         </div>
                     </div>
                 </div>
                 <div className="" style={{ gridArea: 'a6' }}>
                     <div className='text-(--foreground) font-[Montserrat]'>
-                        <label className="block text-sm font-semibold">{t("homepage.contact_form.input2.label")}</label>
+                        <label className="block text-sm font-semibold">{t("profile.modals.add_edit.apartment_input.label")}</label>
                         <div className="mt-2 text-(--foreground) h-[51px] flex border-(--foreground) border-[2px] rounded-xl bg-[#E5E0D2]">
-                            <input id="username" type="text" {...register("apartment")} placeholder={t("homepage.contact_form.input2.placeholder")} className="w-full outline-none p-3"
+                            <input id="username" type="text" {...register("apartment")} placeholder={t("profile.modals.add_edit.apartment_input.placeholder")} className="w-full outline-none p-3"
                                 defaultValue={address.apartment} />
                         </div>
                     </div>
                 </div>
             </div>
             <div className="flex justify-center">
-                <button type="submit" className="font-[Montserrat] font-semibold text-2xl mt-9 h-[51px] w-[33%] block cursor-pointer border-[3px] border-(--foreground) rounded-xl text-lg flex items-center justify-center bg-(--background) text-(--background) bg-(--foreground)">Text</button>
+                <button type="submit" className="font-[Montserrat] font-semibold text-2xl mt-9 h-[51px] w-[33%] block cursor-pointer border-[3px] border-(--foreground) rounded-xl text-lg flex items-center justify-center bg-(--background) text-(--background) bg-(--foreground)">
+                    {t("profile.modals.add_edit.submit_btn_text")}
+                </button>
             </div>
         </form>
     );
