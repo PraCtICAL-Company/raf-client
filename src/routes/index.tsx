@@ -2,7 +2,10 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import homepageVideo from '../assets/video/homepage_video5.mp4'
 import { useTranslation } from 'react-i18next'
 import { AtSymbolIcon, EnvelopeIcon, UserIcon } from '@heroicons/react/20/solid';
-import type { FormEvent, MouseEvent } from 'react';
+import type { FormEvent } from 'react';
+import { useForm, type SubmitHandler } from 'react-hook-form';
+import type { ContactMessage } from '../types';
+import { useSendMessage } from '../api/requests';
 
 export const Route = createFileRoute('/')({
     component: Index,
@@ -101,19 +104,19 @@ function Index() {
 }
 
 function ContactForm() {
+    const { register, handleSubmit } = useForm<ContactMessage>();
+    const sendMessage = useSendMessage();
     const { t } = useTranslation();
 
-    const handleSubmit = (event: FormEvent) => {
-        event.preventDefault();
-        const form = event.target as HTMLFormElement
-        const formData = new FormData(form)
 
-        // send to api later
-        // ...
+    const onSubmit: SubmitHandler<ContactMessage> = (data) => {
+        sendMessage.mutate({
+            message: data
+        })
     }
 
     return (
-        <form onSubmit={e => handleSubmit(e)} method="post" className='mb-[1rem]'>
+        <form onSubmit={() => handleSubmit(onSubmit)} method="post" className='mb-[1rem]'>
             <h2 className='font-[Montserrat] font-semibold text-center text-3xl mb-[2rem]'>{t("homepage.contact_form.title")}</h2>
             <div className="grid gap-y-4">
                 <div className='text-(--foreground) font-[Montserrat]'>
@@ -122,7 +125,7 @@ function ContactForm() {
                         <div className="mr-3 ml-3">
                             <UserIcon className='h-full size-6' />
                         </div>
-                        <input id="name" type="text" name="name" placeholder={t("homepage.contact_form.name_input.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3" />
+                        <input type="text" {...register("name")} placeholder={t("homepage.contact_form.name_input.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3" />
                     </div>
                 </div>
                 <div className='text-(--foreground) font-[Montserrat]'>
@@ -131,7 +134,7 @@ function ContactForm() {
                         <div className="mr-3 ml-3">
                             <AtSymbolIcon className='h-full size-6' />
                         </div>
-                        <input id="email" type="text" name="email" placeholder={t("homepage.contact_form.email_input.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3" />
+                        <input type="text" {...register("email")} placeholder={t("homepage.contact_form.email_input.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3" />
                     </div>
                 </div>
                 <div className='text-(--foreground) font-[Montserrat]'>
@@ -140,7 +143,7 @@ function ContactForm() {
                         <div className="mr-3 ml-3 mt-3">
                             <EnvelopeIcon className=' size-6' />
                         </div>
-                        <textarea id="message" name="message" placeholder={t("homepage.contact_form.message_input.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3 resize-none h-[10em]" />
+                        <textarea {...register("message")} placeholder={t("homepage.contact_form.message_input.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3 resize-none h-[10em]" />
                     </div>
                 </div>
                 <div className="flex justify-end font-[Montserrat] font-semibold">

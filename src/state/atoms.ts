@@ -1,23 +1,31 @@
 import { atom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils'
-import type { HotPriceDetails, ShopItem, User, UserAddress } from '../queries/queryHooks';
+import { atomWithQuery } from 'jotai-tanstack-query'
+import type { Cart, HotPriceDetails, ShopItem, User, UserAddress } from '../types';
 
-export const userAtom = atom<User>({
-    username: "aboba",
-    email: "raf.gmbh@raf.com",
-    phone: "+49 176 29187440",
-    addresses: [
-        {
-            id: 12345,
-            city: "XXXX",
-            street: "XXXX",
-            building: 2,
-            floor: 3,
-            apartment: 45,
-            entrance: 1,
-        } as UserAddress
-    ]
-} as User);
+export const errorAtom = atom<string | null>(null);
+
+export const userAtom = atomWithQuery(() => ({
+    queryKey: ['user'],
+    queryFn: async (): Promise<User | null> => {
+        return {
+            username: "aboba",
+            email: "raf.gmbh@raf.com",
+            phone: "+49 176 29187440",
+            addresses: [
+                {
+                    id: 12345,
+                    city: "XXXX",
+                    street: "XXXX",
+                    building: 2,
+                    floor: 3,
+                    apartment: 45,
+                    entrance: 1,
+                } as UserAddress
+            ]
+        } as User
+    }
+}));
 
 export const localeAtom = atomWithStorage('locale', 'de', undefined, { getOnInit: true });
 
@@ -81,12 +89,3 @@ export const cartAtom = atomWithStorage<Cart>(
     undefined,
     { getOnInit: true }
 );
-
-export type Cart = {
-    items: CartItem[]
-}
-
-export type CartItem = {
-    itemCount: number,
-    itemType: ShopItem
-}

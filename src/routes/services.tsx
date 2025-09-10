@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
-import { useServices, useShopItemRecommendation, type Service, type ShopItem } from '../queries/queryHooks';
+import { useServices, useShopItemRecommendation, type Service, type ShopItem } from '../api/queries';
 import { ArchiveBoxIcon, ChevronDoubleLeftIcon, ChevronDoubleRightIcon, ChevronLeftIcon, ChevronRightIcon, ClockIcon, PhoneIcon, UserIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import { useState } from 'react';
 import Modal from 'react-modal';

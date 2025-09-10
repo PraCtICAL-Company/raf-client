@@ -4,7 +4,7 @@ import { AtSymbolIcon, KeyIcon, ShoppingCartIcon, UserIcon, XMarkIcon } from "@h
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { useAtom } from "jotai";
-import { cartAtom, localeAtom, supportedLocalesAtom } from "../state/atoms";
+import { cartAtom, localeAtom, supportedLocalesAtom, userAtom } from "../state/atoms";
 import { totalItems, totalPrice } from "../functions/cart";
 import { defaultShopSearchFilters } from "../routes/shop";
 import Modal from 'react-modal';
@@ -47,6 +47,8 @@ export default function Navbar() {
     const [userMenuIsOpen, setUserMenuIsOpen] = useState<boolean>(false);
     const [loginModalIsOpen, setLoginModalIsOpen] = useState<boolean>(false);
     const [registerModalIsOpen, setRegisterModalIsOpen] = useState<boolean>(false);
+
+    const [{ data, isLoading }] = useAtom(userAtom);
 
 
     useEffect(() => {
@@ -194,17 +196,30 @@ export default function Navbar() {
                             <NavbarScheduleComponent />
                         </div>
                         <button
-                            onClick={(e) => setUserMenuIsOpen(!userMenuIsOpen)}
+                            onClick={() => setUserMenuIsOpen(!userMenuIsOpen)}
                             className="max-w-[50px] relative"
                         >
                             <UserIcon className="size-7 cursor-pointer" />
-                            <div className={clsx("absolute top-[2.5rem] rounded-lg bg-(--foreground) transition-opacity duration-200", {
-                                "opacity-100": userMenuIsOpen,
-                                "opacity-0": !userMenuIsOpen,
+                            <div className={clsx("absolute top-[2.5rem] rounded-lg bg-(--foreground) transition-opacity duration-200 min-w-[80px]", {
+                                "opacity-100 pointer-events-auto": userMenuIsOpen,
+                                "opacity-0 pointer-events-none": !userMenuIsOpen,
                             })}>
-                                <div onClick={() => setLoginModalIsOpen(true)} className="p-3 cursor-pointer w-full text-left">{t("navbar.popup_menu.login")}</div>
-                                <div onClick={() => setRegisterModalIsOpen(true)} className="p-3 cursor-pointer w-full text-left">{t("navbar.popup_menu.register")}</div>
-                                <Link to="/profile" className="block p-3 cursor-pointer w-full text-left">{t("navbar.popup_menu.profile")}</Link>
+                                {
+                                    !isLoading && (
+                                        data ?
+                                            <div className="block w-full">
+                                                <Link to="/profile" className="block p-3 cursor-pointer w-full text-left">{t("navbar.popup_menu.profile")}</Link>
+                                                <div onClick={() => {/* handle logout */ }} className="block p-3 cursor-pointer w-full text-left break-keep">{t("navbar.popup_menu.logout")}</div>
+
+                                            </div>
+
+                                            :
+                                            <div className="block w-full">
+                                                <div onClick={() => setLoginModalIsOpen(true)} className="p-3 cursor-pointer w-full text-left">{t("navbar.popup_menu.login")}</div>
+                                                <div onClick={() => setRegisterModalIsOpen(true)} className="p-3 cursor-pointer w-full text-left">{t("navbar.popup_menu.register")}</div>
+                                            </div>
+                                    )
+                                }
                             </div>
                         </button>
                         <Link

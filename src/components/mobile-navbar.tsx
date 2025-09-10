@@ -33,7 +33,7 @@ const modalStyles: Modal.Styles = {
 };
 
 export default function MobileNavbar() {
-    const [isAtTop, setIsAtTop] = useState(false);
+    const [isAtTop] = useState(false);
     const [cart] = useAtom(cartAtom);
     const { t, i18n } = useTranslation();
     const [supportedLocales] = useAtom(supportedLocalesAtom)
@@ -44,16 +44,6 @@ export default function MobileNavbar() {
 
     const [loginModalIsOpen, setLoginModalIsOpen] = useState<boolean>(false);
     const [registerModalIsOpen, setRegisterModalIsOpen] = useState<boolean>(false);
-
-    // useEffect(() => {
-    //     if (window.location.pathname == '/') {
-    //         window.addEventListener('scroll', () => {
-    //             setIsAtTop(window.scrollY == 0);
-    //         })
-    //     } else {
-    //         setIsAtTop(false);
-    //     }
-    // });
 
     function handleLocaleChange() {
         const newCursor = supportedLocalesCursor + 1;

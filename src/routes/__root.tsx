@@ -1,11 +1,10 @@
 import { createRootRoute, Outlet } from '@tanstack/react-router'
 import Navbar from '../components/navbar'
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useAtom } from 'jotai';
-import { localeAtom } from '../state/atoms';
+import { errorAtom, localeAtom } from '../state/atoms';
 import { useTranslation } from 'react-i18next';
 import MobileNavbar from '../components/mobile-navbar';
-import clsx from 'clsx';
 import Footer from '../components/footer';
 import MobileFooter from '../components/mobile-footer';
 
@@ -16,24 +15,10 @@ export const Route = createRootRoute({
 function RootComponent() {
     const [locale] = useAtom(localeAtom);
     const { i18n } = useTranslation();
-    const [atBottom, setAtBottom] = useState<boolean>(false);
 
     useEffect(() => {
         i18n.changeLanguage(locale);
-
-        // window.addEventListener("scroll", () => {
-        //     if (isAtBottom()) {
-        //         console.log("At bottom");
-        //         setAtBottom(true)
-        //     } else {
-        //         setAtBottom(false)
-        //     }
-        // });
     }, []);
-
-    const isAtBottom = (): boolean => {
-        return window.innerHeight + window.scrollY >= document.body.offsetHeight - 90;
-    }
 
     return (
         <>
@@ -54,6 +39,25 @@ function RootComponent() {
                     <MobileFooter />
                 </div>
             </div>
+
+            <ErrorPopup />
         </>
+    );
+}
+
+function ErrorPopup() {
+    const [error, setError] = useAtom(errorAtom);
+
+    return (
+        <div className="">
+            {
+                error && (
+                    <div className="fixed right-[2rem] bottom-[2rem] bg-(--accent) rounded-lg p-4 font-[Montserrat] fontnt-semibold text-xl z-[120]">
+                        {error}
+                    </div>
+                )
+            }
+        </div>
+
     );
 }

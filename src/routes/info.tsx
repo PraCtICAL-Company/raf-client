@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { useWorkers } from '../queries/queryHooks';
+import { useWorkers } from '../api/queries';
 import { useTranslation } from 'react-i18next';
 
 export const Route = createFileRoute('/info')({

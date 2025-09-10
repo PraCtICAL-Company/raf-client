@@ -26,7 +26,8 @@
         "popup_menu": {
             "login": "Login",
             "register": "Register",
-            "profile": "Profile"
+            "profile": "Profile",
+            "logout": "Log out"
         },
         "modals": {
             "login": {
@@ -195,7 +196,8 @@
     "cart_profile_switch": {
         "profile_tab_text": "Profile",
         "cart_tab_text": "Cart",
-        "exit_tab_text": "Home"
+        "exit_tab_text": "Home",
+        "no_login_title": "Not logged in"
     },
     "cart": {
         "page_title": "Cart",

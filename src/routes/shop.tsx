@@ -1,7 +1,7 @@
 import { ArchiveBoxIcon, ClockIcon, FunnelIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useTranslation } from 'react-i18next';
-import { useBrands, useSearchRecommendations, useShopSearch, type Brand, type ShopItem } from '../queries/queryHooks';
+import { useBrands, useSearchRecommendations, useShopSearch, type Brand, type ShopItem } from '../api/queries';
 import { useState, type ChangeEvent } from 'react';
 import { getTrackBackground, Range } from "react-range";
 import Select, { type MultiValue } from 'react-select'

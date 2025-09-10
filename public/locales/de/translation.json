@@ -26,7 +26,8 @@
         "popup_menu": {
             "login": "Login",
             "register": "Anmeldung",
-            "profile": "Profil"
+            "profile": "Profil",
+            "logout": "Log out"
         },
         "modals": {
             "login": {
@@ -195,7 +196,8 @@
     "cart_profile_switch": {
         "profile_tab_text": "Profil",
         "cart_tab_text": "Warenkorb",
-        "exit_tab_text": "Home"
+        "exit_tab_text": "Home",
+        "no_login_title": "Nicht eingeloggt"
     },
     "cart": {
         "page_title": "Warenkorb",

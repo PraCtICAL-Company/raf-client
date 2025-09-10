@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import type { ShopSearchFilters } from "../routes/shop";
+import type { HotPriceDetails, PaginatedItemList, Service, ShopItem } from "../types";
 
 export const usePrivacyPolicy = (locale: string) => {
     return useQuery({
@@ -58,29 +59,6 @@ export const useWorkers = () => {
     })
 }
 
-export interface User {
-    username: string,
-    email: string,
-    phone: string,
-    addresses: UserAddress[]
-}
-
-
-
-export interface UserAddress {
-    id: number,
-    city: string,
-    street: string,
-    building: number,
-    floor: number,
-    apartment: number,
-    entrance: number,
-}
-
-export const defaultAddress = () => {
-    return {} as UserAddress;
-}
-
 export const useServices = (page: number) => {
     return useQuery({
         queryKey: ['useServices'],
@@ -118,18 +96,6 @@ export const useServices = (page: number) => {
             } as PaginatedItemList<Service>;
         }
     })
-}
-
-export type Service = {
-    name: string,
-    description: string,
-    imageUrl: string
-}
-
-export type PaginatedItemList<T> = {
-    totalPages: number,
-    currentPage: number,
-    items: T[]
 }
 
 export const useSearchRecommendations = () => {
@@ -266,19 +232,4 @@ export const useShopItemRecommendation = () => {
             } as ShopItem
         }
     })
-}
-
-export type ShopItem = {
-    id: string,
-    title: string,
-    description: string,
-    priceInEuro: number,
-    imgUrl: string,
-    inStock: boolean,
-    hotPrice: HotPriceDetails | undefined
-}
-
-export type HotPriceDetails = {
-    oldPrice: number,
-    newPrice: number
 }

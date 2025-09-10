@@ -1,6 +1,6 @@
 import { MinusIcon, PlusIcon } from "@heroicons/react/20/solid";
 import { useEffect, useState } from "react";
-import type { CartItem } from "../state/atoms";
+import type { CartItem } from "../types";
 
 export default function CartItemQuantityInput({ onChange, cartItem, min, max }:
     { onChange: () => void; cartItem: CartItem; min: number; max: number }
