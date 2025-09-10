@@ -2,12 +2,12 @@ import { ArchiveBoxIcon, AtSymbolIcon, BanknotesIcon, BuildingLibraryIcon, Clock
 import { Link } from "@tanstack/react-router";
 import clsx from "clsx";
 import { useTranslation } from "react-i18next";
-import { defaultAddress, useUser, type UserAddress } from "../queries/queryHooks";
+import { defaultAddress, type User, type UserAddress } from "../queries/queryHooks";
 import Modal from 'react-modal';
 import { useEffect, useState } from "react";
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { useAtom } from "jotai";
-import { cartAtom, type Cart, type CartItem } from "../state/atoms";
+import { cartAtom, userAtom, type Cart, type CartItem } from "../state/atoms";
 import CartItemQuantityInput from "./number-input";
 import { totalPrice } from "../functions/cart";
 
@@ -63,14 +63,13 @@ export default function ProfileCartComponent() {
 
     const { t } = useTranslation();
 
-    const { data, isLoading } = useUser();
-
     const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
     const [modalEdit, setModalEdit] = useState<boolean>(false);
 
     const [activeAddress, setActiveAddress] = useState<UserAddress>(defaultAddress());
 
     const [cart, setCart] = useAtom<Cart>(cartAtom);
+    const [user, setUser] = useAtom<User>(userAtom);
     const [cartTotal, setCartTotal] = useState<number>(0);
 
     const [deleteModalIsOpen, setDeleteModalIsOpen] = useState<boolean>(false);
@@ -129,50 +128,49 @@ export default function ProfileCartComponent() {
 
     return (
         <div className="flex justify-center font-[Montserrat] font-semibold min-h-[100vh]">
-            {
-                isLoading ?
-                    <div className="">Loading...</div>
-                    : <div className="">
+            <div className="">
 
-                        <Modal isOpen={deleteModalIsOpen}
-                            closeTimeoutMS={200}
-                            onRequestClose={closeDeleteModal}
-                            style={deleteModalStyles}>
-                            <h1 className="text-2xl font-[Montserrat] font-semibold text-center">
-                                {t("profile.modals.delete.title")}  {activeAddress.city} {activeAddress.street} {activeAddress.building} {activeAddress.entrance} {activeAddress.floor} {activeAddress.apartment}?
-                            </h1>
-                            <button onClick={closeDeleteModal} className="absolute right-[2rem] top-[2rem] cursor-pointer">
-                                <XMarkIcon className='h-full size-7' />
-                            </button>
-                            <div className="flex justify-center mt-(--default-padding) font-[Montserrat] font-semibold">
-                                <button onClick={handleDelete} className="h-[51px] w-[33%] block cursor-pointer rounded-xl text-lg flex items-center justify-center text-(--background) bg-(--accent)">
-                                    {t("profile.modals.delete.submit_btn_text")}
-                                </button>
-                            </div>
-
-                        </Modal>
-                        <Modal
-                            closeTimeoutMS={200}
-                            isOpen={modalIsOpen}
-                            onRequestClose={closeEditModal}
-                            style={modalStyles}>
-                            <button onClick={closeEditModal} className="absolute right-[2rem] top-[2rem] cursor-pointer">
-                                <XMarkIcon className='h-full size-7' />
-                            </button>
-                            <h1 className="text-4xl font-[Montserrat] font-semibold text-center mb-[2rem]">
-                                {
-                                    modalEdit ?
-                                        <div className="">{t("profile.modals.add_edit.title.edit")}</div>
-                                        :
-                                        <div className="">{t("profile.modals.add_edit.title.add")}</div>
-                                }
-                            </h1>
-                            <AddressForm address={activeAddress} isInEditMode={modalEdit} />
-                        </Modal>
+                <Modal
+                    isOpen={deleteModalIsOpen}
+                    closeTimeoutMS={200}
+                    onRequestClose={closeDeleteModal}
+                    style={deleteModalStyles}>
+                    <h1 className="text-2xl font-[Montserrat] font-semibold text-center">
+                        {t("profile.modals.delete.title")}
+                        <br />
+                        {activeAddress.city} {activeAddress.street} {activeAddress.building} {activeAddress.entrance} {activeAddress.floor} {activeAddress.apartment}?
+                    </h1>
+                    <button onClick={closeDeleteModal} className="absolute right-[2rem] top-[2rem] cursor-pointer">
+                        <XMarkIcon className='h-full size-7' />
+                    </button>
+                    <div className="flex justify-center mt-(--default-padding) font-[Montserrat] font-semibold">
+                        <button onClick={handleDelete} className="h-[51px] w-[33%] block cursor-pointer rounded-xl text-lg flex items-center justify-center text-(--background) bg-(--accent)">
+                            {t("profile.modals.delete.submit_btn_text")}
+                        </button>
                     </div>
-            }
 
-            <div className="w-[88rem] p-(--default-padding)  pt-(--navbar-height) mt-(--default-padding) pb-(--default-padding)">
+                </Modal>
+                <Modal
+                    closeTimeoutMS={200}
+                    isOpen={modalIsOpen}
+                    onRequestClose={closeEditModal}
+                    style={modalStyles}>
+                    <button onClick={closeEditModal} className="absolute right-[2rem] top-[2rem] cursor-pointer">
+                        <XMarkIcon className='h-full size-7' />
+                    </button>
+                    <h1 className="text-4xl font-[Montserrat] font-semibold text-center mb-[2rem]">
+                        {
+                            modalEdit ?
+                                <div className="">{t("profile.modals.add_edit.title.edit")}</div>
+                                :
+                                <div className="">{t("profile.modals.add_edit.title.add")}</div>
+                        }
+                    </h1>
+                    <AddressForm address={activeAddress} isInEditMode={modalEdit} />
+                </Modal>
+            </div>
+
+            <div className="w-[88rem] p-[2rem] lg:p-(--default-padding) lg:pt-(--navbar-height) lg:mt-(--default-padding) pb-(--default-padding)">
                 <h1 className='text-5xl text-center mb-[1em]'>
                     {
                         tabName == '/profile' ?
@@ -180,9 +178,9 @@ export default function ProfileCartComponent() {
                             t("cart.page_title")
                     }
                 </h1>
-                <div className="flex ">
-                    <div className="flex-1 flex justify-start">
-                        <div className="flex flex-col gap-y-4 mt-[4.25rem]">
+                <div className="flex flex-col xl:flex-row">
+                    <div className="flex-1 flex justify-center items-center xl:items-start xl:justify-start">
+                        <div className="flex flex-col gap-y-4 mb-(--default-padding) xl:mt-[4.25rem]">
                             <Link to="/profile" className={clsx('h-[51px] w-[150px] block cursor-pointer border-[3px] border-(--foreground) rounded-xl text-lg flex items-center justify-center',
                                 {
                                     "bg-(--foreground) text-(--background)": tabName === '/profile',
@@ -199,27 +197,23 @@ export default function ProfileCartComponent() {
                         </div>
                     </div>
                     <div className="flex-3">
-                        {
-                            isLoading ?
-                                <div className="">Loading...</div>
-                                :
-                                <div className="">
-                                    {
-                                        tabName === '/profile' ?
-                                            <div className="">
-                                                <form action="" method="post" className="grid gap-y-4">
-                                                    <h2>{t("profile.personal_data.title")}</h2>
-                                                    <div className='text-(--foreground) font-[Montserrat]'>
-                                                        <label className="block text-sm font-semibold">{t("profile.personal_data.username_input.label")}</label>
-                                                        <div className="mt-2 text-(--foreground) h-[51px] flex border-(--foreground) border-[2px] rounded-xl bg-[#E5E0D2]">
-                                                            <div className="mr-3 ml-3">
-                                                                <UserIcon className='h-full size-6' />
-                                                            </div>
-                                                            <input id="username" type="text" name="username" className="w-full outline-none pr-3 pb-3 pt-3"
-                                                                value={data!.username} readOnly />
-                                                        </div>
+                        <div className="">
+                            {
+                                tabName === '/profile' ?
+                                    <div className="">
+                                        <form action="" method="post" className="grid gap-y-4">
+                                            <h2>{t("profile.personal_data.title")}</h2>
+                                            <div className='text-(--foreground) font-[Montserrat]'>
+                                                <label className="block text-sm font-semibold">{t("profile.personal_data.username_input.label")}</label>
+                                                <div className="mt-2 text-(--foreground) h-[51px] flex border-(--foreground) border-[2px] rounded-xl bg-[#E5E0D2]">
+                                                    <div className="mr-3 ml-3">
+                                                        <UserIcon className='h-full size-6' />
                                                     </div>
-                                                    {/* <div className='text-(--foreground) font-[Montserrat]'>
+                                                    <input id="username" type="text" name="username" className="w-full outline-none pr-3 pb-3 pt-3"
+                                                        value={user.username} readOnly />
+                                                </div>
+                                            </div>
+                                            {/* <div className='text-(--foreground) font-[Montserrat]'>
                                                         <label className="block text-sm font-semibold">{t("homepage.contact_form.input2.label")}</label>
                                                         <div className="mt-2 text-(--foreground) h-[51px] flex border-(--foreground) border-[2px] rounded-xl bg-[#E5E0D2]">
                                                             <div className="mr-3 ml-3">
@@ -228,124 +222,122 @@ export default function ProfileCartComponent() {
                                                             <input id="password" type="password" name="password" placeholder={t("homepage.contact_form.input2.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3" />
                                                         </div>
                                                     </div> */}
-                                                    <div className='text-(--foreground) font-[Montserrat]'>
-                                                        <label className="block text-sm font-semibold">{t("profile.personal_data.phone_input.label")}</label>
-                                                        <div className="mt-2 text-(--foreground) h-[51px] flex border-(--foreground) border-[2px] rounded-xl bg-[#E5E0D2]">
-                                                            <div className="mr-3 ml-3">
-                                                                <PhoneIcon className='h-full size-6' />
-                                                            </div>
-                                                            <input id="phone" type="text" name="phone" className="w-full outline-none pr-3 pb-3 pt-3"
-                                                                value={data!.phone} readOnly />
-                                                        </div>
+                                            <div className='text-(--foreground) font-[Montserrat]'>
+                                                <label className="block text-sm font-semibold">{t("profile.personal_data.phone_input.label")}</label>
+                                                <div className="mt-2 text-(--foreground) h-[51px] flex border-(--foreground) border-[2px] rounded-xl bg-[#E5E0D2]">
+                                                    <div className="mr-3 ml-3">
+                                                        <PhoneIcon className='h-full size-6' />
                                                     </div>
-                                                    <div className='text-(--foreground) font-[Montserrat]'>
-                                                        <label className="block text-sm font-semibold">{t("profile.personal_data.email_input.label")}</label>
-                                                        <div className="mt-2 text-(--foreground) h-[51px] flex border-(--foreground) border-[2px] rounded-xl bg-[#E5E0D2]">
-                                                            <div className="mr-3 ml-3">
-                                                                <AtSymbolIcon className='h-full size-6' />
-                                                            </div>
-                                                            <input id="email" type="text" name="email" className="w-full outline-none pr-3 pb-3 pt-3"
-                                                                value={data!.email} readOnly />
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                                <div className="mt-(--default-padding)">
-                                                    <div className="flex justify-between items-center">
-                                                        <div className="">
-                                                            <span className="block text-lg">{t("profile.personal_data.addresses.big_text")}</span>
-                                                            <span className="block text-sm/3 font-normal">{t("profile.personal_data.addresses.small_text")}</span>
-                                                        </div>
-                                                        <button onClick={() => { openAddModal() }} className="h-[51px] w-[33%] block cursor-pointer border-[3px] border-(--foreground) rounded-xl text-lg flex items-center justify-center bg-(--background) text-(--background) bg-(--foreground)">
-                                                            {t("profile.personal_data.add_address_button_text")}
-                                                        </button>
-                                                    </div>
-                                                    <div className="mt-[1rem] font-[Montserrat]">
-                                                        {
-                                                            data?.addresses.map(address => (
-                                                                <div key={address.street} className="flex items-center">
-                                                                    <div className="mr-3">
-                                                                        <MapPinIcon className='h-full size-6' />
-                                                                    </div>
-                                                                    <div className="w-full">
-                                                                        {address.city} {address.street} {address.building} {address.entrance} {address.floor} {address.apartment}
-                                                                    </div>
-                                                                    <div className="flex gap-x-2">
-                                                                        <button onClick={() => { openEditModal(address) }}>
-                                                                            <PencilSquareIcon className='h-full size-6 cursor-pointer' />
-                                                                        </button>
-                                                                        <button onClick={() => { openDeleteModal(address) }}>
-                                                                            <TrashIcon className='h-full size-6 cursor-pointer' />
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            ))
-                                                        }
-                                                    </div>
+                                                    <input id="phone" type="text" name="phone" className="w-full outline-none pr-3 pb-3 pt-3"
+                                                        value={user.phone} readOnly />
                                                 </div>
                                             </div>
-
-                                            :
-                                            <div className="flex">
-                                                <div className="flex-1 grid gap-y-(--default-padding)">
-                                                    {
-                                                        cart.items.map(cartItem => (
-                                                            <div key={cartItem.itemType.id} className={clsx("flex gap-x-5 items-start", {
-                                                                "opacity-50 pointer-events-none": !cartItem.itemType.inStock
-                                                            })}>
-                                                                <div className="overflow-hidden bg-center bg-cover w-[200px] h-[200px] rounded-4xl" style={{ backgroundImage: `url(../../src/assets/${cartItem.itemType.imgUrl})` }}>
-                                                                </div>
-                                                                <div className="text-right min-w-[300px] h-full grid gap-y-2 relative">
-                                                                    <div className="flex flex-col items-end">
-                                                                        <h2 className="text-lg">{cartItem.itemType.title}</h2>
-                                                                        {
-                                                                            cartItem.itemType.inStock ?
-                                                                                <div className="flex gap-x-2 items-center w-fit">
-                                                                                    <ArchiveBoxIcon className='size-4' />
-                                                                                    <span>{t("cart.stock.in_stock")}</span>
-                                                                                </div>
-                                                                                :
-                                                                                <div className="flex gap-x-2 items-center w-fit">
-                                                                                    <ClockIcon className='size-4' />
-                                                                                    <span className='font-normal'>{t("cart.stock.out_of_stock")}</span>
-                                                                                </div>
-                                                                        }
-                                                                    </div>
-                                                                    <div className="absolute right-[0] bottom-[0] flex flex-col items-end gap-y-3 w-full">
-                                                                        <TrashIcon style={{ pointerEvents: "all" }} className="cursor-pointer size-6 absolute left-[0.5rem] bottom-[0.5rem]" onClick={() => removeFromCart(cartItem)} />
-                                                                        <div className="">
-                                                                            {
-                                                                                cartItem.itemType.hotPrice ?
-                                                                                    <div className="text-center">
-                                                                                        <div className='text-xl line-through decoration-[2px]'>{cartItem.itemType.hotPrice.oldPrice}€</div>
-                                                                                        <div className='text-3xl flex gap-x-3 underline decoration-[2px] items-center'>
-                                                                                            <img src="../../src/assets/svg/icons/hot-price.svg" className='w-[30px]' />
-                                                                                            {cartItem.itemType.hotPrice.newPrice}€
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    :
-                                                                                    <div className="text-3xl">{cartItem.itemType.priceInEuro}€</div>
-
-                                                                            }
+                                            <div className='text-(--foreground) font-[Montserrat]'>
+                                                <label className="block text-sm font-semibold">{t("profile.personal_data.email_input.label")}</label>
+                                                <div className="mt-2 text-(--foreground) h-[51px] flex border-(--foreground) border-[2px] rounded-xl bg-[#E5E0D2]">
+                                                    <div className="mr-3 ml-3">
+                                                        <AtSymbolIcon className='h-full size-6' />
+                                                    </div>
+                                                    <input id="email" type="text" name="email" className="w-full outline-none pr-3 pb-3 pt-3"
+                                                        value={user.email} readOnly />
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <div className="mt-(--default-padding)">
+                                            <div className="flex flex-col md:flex-row gap-y-6 justify-between items-center">
+                                                <div className="w-full">
+                                                    <span className="block text-lg">{t("profile.personal_data.addresses.big_text")}</span>
+                                                    <span className="block text-sm/3 font-normal">{t("profile.personal_data.addresses.small_text")}</span>
+                                                </div>
+                                                <button onClick={() => { openAddModal() }} className="h-[51px] w-full md:max-w-[33%] block cursor-pointer border-[3px] border-(--foreground) rounded-xl text-lg flex items-center justify-center bg-(--background) text-(--background) bg-(--foreground)">
+                                                    {t("profile.personal_data.add_address_button_text")}
+                                                </button>
+                                            </div>
+                                            <div className="mt-[1rem] font-[Montserrat]">
+                                                {
+                                                    user.addresses.map(address => (
+                                                        <div key={address.street} className="flex items-center">
+                                                            <div className="mr-3">
+                                                                <MapPinIcon className='h-full size-6' />
+                                                            </div>
+                                                            <div className="w-full">
+                                                                {address.city} {address.street} {address.building} {address.entrance} {address.floor} {address.apartment}
+                                                            </div>
+                                                            <div className="flex gap-x-2">
+                                                                <button onClick={() => { openEditModal(address) }}>
+                                                                    <PencilSquareIcon className='h-full size-6 cursor-pointer' />
+                                                                </button>
+                                                                <button onClick={() => { openDeleteModal(address) }}>
+                                                                    <TrashIcon className='h-full size-6 cursor-pointer' />
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    ))
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                    :
+                                    <div className="flex flex-col xl:flex-row">
+                                        <div className="flex-1 grid gap-y-(--default-padding) mb-(--default-padding) xl:mb-[0rem]">
+                                            {
+                                                cart.items.map(cartItem => (
+                                                    <div key={cartItem.itemType.id} className={clsx("flex flex-col xl:flex-row gap-x-5 items-center xl:items-start", {
+                                                        "opacity-50 pointer-events-none": !cartItem.itemType.inStock
+                                                    })}>
+                                                        <div className="overflow-hidden bg-center bg-cover w-[300px] h-[300px] xl:w-[200px] xl:h-[200px] rounded-4xl" style={{ backgroundImage: `url(../../src/assets/${cartItem.itemType.imgUrl})` }}>
+                                                        </div>
+                                                        <div className="text-center xl:text-right min-w-[300px] h-full grid gap-y-2 relative">
+                                                            <div className="flex flex-col items-center py-[2rem] xl:py-[0] xl:items-end">
+                                                                <h2 className="text-lg">{cartItem.itemType.title}</h2>
+                                                                {
+                                                                    cartItem.itemType.inStock ?
+                                                                        <div className="flex gap-x-2 items-center w-fit">
+                                                                            <ArchiveBoxIcon className='size-4' />
+                                                                            <span>{t("cart.stock.in_stock")}</span>
                                                                         </div>
-                                                                        <CartItemQuantityInput cartItem={cartItem} min={1} max={99} onChange={() => {
-                                                                            setCart(cart);
-                                                                            setCartTotal(totalPrice(cart));
-                                                                        }} />
-                                                                    </div>
-
-                                                                </div>
+                                                                        :
+                                                                        <div className="flex gap-x-2 items-center w-fit">
+                                                                            <ClockIcon className='size-4' />
+                                                                            <span className='font-normal'>{t("cart.stock.out_of_stock")}</span>
+                                                                        </div>
+                                                                }
                                                             </div>
-                                                        ))
-                                                    }
-                                                </div>
-                                                <div className="flex-1 flex justify-center">
-                                                    <OrderComponent cartTotal={cartTotal} />
-                                                </div>
-                                            </div>
+                                                            <div className="absolute right-[0] bottom-[0] flex flex-col items-center xl:items-end gap-y-3 w-full">
+                                                                <TrashIcon style={{ pointerEvents: "all" }} className="cursor-pointer size-6 absolute left-[0.5rem] bottom-[0.5rem]" onClick={() => removeFromCart(cartItem)} />
+                                                                <div className="">
+                                                                    {
+                                                                        cartItem.itemType.hotPrice ?
+                                                                            <div className="text-center">
+                                                                                <div className='text-xl line-through decoration-[2px]'>{cartItem.itemType.hotPrice.oldPrice}€</div>
+                                                                                <div className='text-3xl flex gap-x-3 underline decoration-[2px] items-center'>
+                                                                                    <img src="../../src/assets/svg/icons/hot-price.svg" className='w-[30px]' />
+                                                                                    {cartItem.itemType.hotPrice.newPrice}€
+                                                                                </div>
+                                                                            </div>
+                                                                            :
+                                                                            <div className="text-3xl">{cartItem.itemType.priceInEuro}€</div>
 
-                                    }
-                                </div>
-                        }
+                                                                    }
+                                                                </div>
+                                                                <CartItemQuantityInput cartItem={cartItem} min={1} max={99} onChange={() => {
+                                                                    setCart(cart);
+                                                                    setCartTotal(totalPrice(cart));
+                                                                }} />
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                ))
+                                            }
+                                        </div>
+                                        <div className="flex-1 flex justify-center">
+                                            <OrderComponent cartTotal={cartTotal} />
+                                        </div>
+                                    </div>
+
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
@@ -390,8 +382,8 @@ function OrderComponent({ cartTotal }: {
                     {t("cart.modals.message.title")}
                 </h1>
                 <div className="flex">
-                    <div className="flex-1 flex items-center justify-center">
-                        <img src="../../src/assets/png/delivery.png" alt="delivery" className="h-[200px]" />
+                    <div className="flex-1 hidden md:flex items-center justify-center">
+                        <img src="../../src/assets/png/delivery.png" alt="delivery" className="w-[80%]" />
                     </div>
                     <div className="flex-1">
                         <div className='text-(--foreground) font-[Montserrat]'>
@@ -403,18 +395,34 @@ function OrderComponent({ cartTotal }: {
                     </div>
                 </div>
                 <div className="flex items-center justify-between font-[Montserrat] mt-[1rem]">
-                    <div className="px-6 py-3 bg-(--accent) rounded-2xl font-semibold text-3xl text-(--background)">
-                        {t("cart.modals.message.total")}:&nbsp;
-                        <span className="underline decoration-[1.5px]">
-                            {
-                                cartTotal
-                            }
-                            €
-                        </span>
+                    <div className="md:flex flex-col lg:flex-row w-full hidden justify-between gap-y-4">
+                        <div className="px-6 py-3 bg-(--accent) rounded-2xl font-semibold text-3xl text-(--background)">
+                            {t("cart.modals.message.total")}:&nbsp;
+                            <span className="underline decoration-[1.5px]">
+                                {
+                                    cartTotal
+                                }
+                                €
+                            </span>
+                        </div>
+                        <button onClick={() => setPaymentMethodModalIsOpen(true)} className="px-9 py-2 cursor-pointer rounded-xl text-lg flex items-center justify-center bg-(--foreground) text-(--background) font-semibold">
+                            {t("cart.modals.message.continue_btn_text")}
+                        </button>
                     </div>
-                    <button onClick={() => setPaymentMethodModalIsOpen(true)} className="px-9 py-2 cursor-pointer rounded-xl text-lg flex items-center justify-center bg-(--foreground) text-(--background) font-semibold">
-                        {t("cart.modals.message.continue_btn_text")}
-                    </button>
+                    <div className="md:hidden rounded-3xl bg-(--accent) p-4 flex w-full justify-between">
+                        <div className="font-semibold text-xl md:text-3xl text-(--background)">
+                            <div className="">{t("cart.modals.message.total")}:&nbsp;</div>
+                            <span className="underline decoration-[1.5px]">
+                                {
+                                    cartTotal
+                                }
+                                €
+                            </span>
+                        </div>
+                        <button onClick={() => setPaymentMethodModalIsOpen(true)} className="px-4 cursor-pointer rounded-2xl text-lg flex items-center justify-center bg-(--foreground) text-(--background) font-semibold">
+                            {t("cart.modals.message.continue_btn_text")}
+                        </button>
+                    </div>
                 </div>
             </Modal>
             <Modal
@@ -423,18 +431,17 @@ function OrderComponent({ cartTotal }: {
                 style={modalStyles}
                 onRequestClose={() => setPaymentMethodModalIsOpen(false)}
             >
-                <div className=""></div>
                 <img src="../../src/assets/svg/wallet.svg" className="absolute z-[-1] opacity-50 left-[0] h-[350px]" />
                 <button onClick={() => setPaymentMethodModalIsOpen(false)} className="absolute right-[2rem] top-[2rem] cursor-pointer">
                     <XMarkIcon className='h-full size-7' />
                 </button>
-                <h1 className="text-4xl font-[Montserrat] font-semibold text-center mb-[2rem]">
+                <h1 className="text-2xl md:text-4xl font-[Montserrat] font-semibold text-center mb-[2rem]">
                     {t("cart.modals.payment_method.title")}
                 </h1>
                 <div className="flex items-center justify-center min-h-[150px]">
                     <PaymentSwitch onChange={(val) => setPaymentMethod(val)} />
                 </div>
-                <div className="flex items-center justify-between font-[Montserrat] mt-[1rem]">
+                {/* <div className="flex items-center justify-between font-[Montserrat] mt-[1rem]">
                     <div className="px-6 py-3 bg-(--accent) rounded-2xl font-semibold text-3xl text-(--background)">
                         {t("cart.modals.payment_method.total")}:&nbsp;
                         <span className="underline decoration-[1.5px]">
@@ -447,9 +454,39 @@ function OrderComponent({ cartTotal }: {
                     <button onClick={() => handleCommit()} className="px-9 py-2 cursor-pointer rounded-xl text-lg flex items-center justify-center bg-(--foreground) text-(--background) font-semibold">
                         {t("cart.modals.payment_method.continue_btn_text")}
                     </button>
+                </div> */}
+                <div className="flex items-center justify-between font-[Montserrat] mt-[1rem]">
+                    <div className="md:flex flex-col lg:flex-row w-full hidden justify-between gap-y-4">
+                        <div className="px-6 py-3 bg-(--accent) rounded-2xl font-semibold text-3xl text-(--background)">
+                            {t("cart.modals.message.total")}:&nbsp;
+                            <span className="underline decoration-[1.5px]">
+                                {
+                                    cartTotal
+                                }
+                                €
+                            </span>
+                        </div>
+                        <button onClick={() => setPaymentMethodModalIsOpen(true)} className="px-9 py-2 cursor-pointer rounded-xl text-lg flex items-center justify-center bg-(--foreground) text-(--background) font-semibold">
+                            {t("cart.modals.message.continue_btn_text")}
+                        </button>
+                    </div>
+                    <div className="md:hidden rounded-3xl bg-(--accent) p-4 flex w-full justify-between">
+                        <div className="font-semibold text-xl md:text-3xl text-(--background)">
+                            <div className="">{t("cart.modals.message.total")}:&nbsp;</div>
+                            <span className="underline decoration-[1.5px]">
+                                {
+                                    cartTotal
+                                }
+                                €
+                            </span>
+                        </div>
+                        <button onClick={() => setPaymentMethodModalIsOpen(true)} className="px-4 cursor-pointer rounded-2xl text-lg flex items-center justify-center bg-(--foreground) text-(--background) font-semibold">
+                            {t("cart.modals.message.continue_btn_text")}
+                        </button>
+                    </div>
                 </div>
             </Modal>
-            <div className="bg-(--accent) p-[2rem] rounded-4xl h-fit grid gap-y-4">
+            <div className="bg-(--accent) p-[1.5rem] rounded-4xl h-fit grid gap-y-4">
                 <span className="text-3xl text-[#fff]">
                     {t("cart.total")}:&nbsp;
                     {

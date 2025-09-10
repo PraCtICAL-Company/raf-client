@@ -83,17 +83,17 @@ function RouteComponent() {
                   service!.name
                 }
               </h1>
-              <div className="flex">
-                <div className="flex-1">
-                  <div className="h-[150px] w-[150px] bg-cover bg-center rounded-3xl" style={{ backgroundImage: `url("../../src/assets/${service!.imageUrl}")` }}></div>
+              <div className="flex flex-col md:flex-row items-center md:items-start">
+                <div className="flex-1 flex md:block items-center justify-center mb-[2rem] md:mb-[0]">
+                  <div className="h-[250px] w-[250px] md:h-[150px] md:w-[150px] bg-cover bg-center rounded-3xl" style={{ backgroundImage: `url("../../src/assets/${service!.imageUrl}")` }}></div>
                 </div>
-                <div className="flex-2 font-[Montserrat] text-lg">
+                <div className="flex-2 font-[Montserrat] text-lg max-w-[250px] md:max-w-[100%]">
                   {
                     service!.description
                   }
                 </div>
               </div>
-              <div className="flex items-center justify-end font-[Montserrat] mt-[1rem]">
+              <div className="flex items-center justify-center md:justify-end font-[Montserrat] mt-[1rem]">
                 <button onClick={() => setOrderModalIsOpen(true)} className="px-9 py-2 cursor-pointer rounded-xl text-lg flex items-center justify-center bg-(--foreground) text-(--background) font-semibold">
                   {t("services.info_modal.button_text")}
                 </button>
@@ -120,7 +120,7 @@ function RouteComponent() {
                 }
               </div>
               <div className="flex">
-                <div className="flex-1 flex items-center justify-start">
+                <div className="flex-1 hidden md:flex items-center justify-start">
                   <img src="../../src/assets/svg/frame-wrench.svg" className=" h-[200px]" />
                 </div>
                 <div className="flex-1">
@@ -143,7 +143,7 @@ function RouteComponent() {
                         <input onChange={(e) => setPhone(e.target.value)} id="username" type="text" name="username" placeholder={t("services.order_modal.phone_input.placeholder")} className="w-full outline-none pr-3 pb-3 pt-3" />
                       </div>
                     </div>
-                    <div className="flex justify-end">
+                    <div className="flex justify-center md:justify-end">
                       <button onClick={() => handleCommit()} className="w-fit font-[Montserrat] px-9 py-2 cursor-pointer rounded-xl text-lg flex items-center justify-center bg-(--foreground) text-(--background) font-semibold">
                         {t("services.order_modal.button_text")}
                       </button>

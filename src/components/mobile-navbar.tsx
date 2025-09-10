@@ -33,7 +33,7 @@ const modalStyles: Modal.Styles = {
 };
 
 export default function MobileNavbar() {
-    const [isAtTop, setIsAtTop] = useState(true);
+    const [isAtTop, setIsAtTop] = useState(false);
     const [cart] = useAtom(cartAtom);
     const { t, i18n } = useTranslation();
     const [supportedLocales] = useAtom(supportedLocalesAtom)
@@ -45,15 +45,15 @@ export default function MobileNavbar() {
     const [loginModalIsOpen, setLoginModalIsOpen] = useState<boolean>(false);
     const [registerModalIsOpen, setRegisterModalIsOpen] = useState<boolean>(false);
 
-    useEffect(() => {
-        if (window.location.pathname == '/') {
-            window.addEventListener('scroll', () => {
-                setIsAtTop(window.scrollY == 0);
-            })
-        } else {
-            setIsAtTop(false);
-        }
-    });
+    // useEffect(() => {
+    //     if (window.location.pathname == '/') {
+    //         window.addEventListener('scroll', () => {
+    //             setIsAtTop(window.scrollY == 0);
+    //         })
+    //     } else {
+    //         setIsAtTop(false);
+    //     }
+    // });
 
     function handleLocaleChange() {
         const newCursor = supportedLocalesCursor + 1;
@@ -128,7 +128,7 @@ export default function MobileNavbar() {
                 "translate-x-full": !sidebarIsOpen,
                 "translate-x-[0]": sidebarIsOpen,
             })}>
-                <div className="scroll">
+                <div className="">
                     <div className="w-full flex justify-center py-7">
                         <img src="../../src/assets/svg/logo_mobile.svg" className='h-[60px]' alt="" />
                     </div>
@@ -143,15 +143,15 @@ export default function MobileNavbar() {
                         <Link to='/cart' className='block w-full text-(--background) text-right px-7 py-2'>{t("cart.page_title")}</Link>
                     </div>
                     <div className="font-[Montserrat] font-semibold text-2xl w-full">
-                        <Link to='/privacy-policy' className='block w-full text-(--background) text-right px-7 py-2'>{t("footer.socials.text2")}</Link>
-                        <Link to='/' className='block w-full text-(--background) text-right px-7 py-2'>{t("footer.socials.text1")}</Link>
+                        {/* <Link to='/privacy-policy' className='block w-full text-(--background) text-right px-7 py-2'>{t("footer.socials.text2")}</Link>
+                        <Link to='/' className='block w-full text-(--background) text-right px-7 py-2'>{t("footer.socials.text1")}</Link> */}
                         <div className="flex justify-end px-7 py-2" onClick={() => handleLocaleChange()}>
                             <img className="w-[30px]" alt="Language icon" src={`../../src/assets/${localeIconPath}`} />
                         </div>
                     </div>
                 </div>
             </div>
-            <div className={clsx("fixed w-full z-[100] bottom-[0] right-[0] py-5 flex justify-around transition-colors duration-300 text-sm", {
+            <div className={clsx("fixed w-full z-[100] bottom-[0] right-[0] h-(--mobile-navbar-height) flex justify-around transition-colors duration-300 text-sm", {
                 "bg-(--foreground)": !isAtTop,
                 "bg-transparent": isAtTop,
             })}>
@@ -168,10 +168,10 @@ export default function MobileNavbar() {
                     <HomeIcon className='size-6 mb-1' />
                     <span className='font-[Montserrat] font-semibold'>Home</span>
                 </Link>
-                <Link to='/cart' className='relative flex flex-col  items-center justify-center text-(--background)'>
+                <Link to='/cart' className='relative flex flex-col items-center justify-center text-(--background)'>
                     <ShoppingCartIcon className='size-6 mb-1' />
                     <span className='font-[Montserrat] font-semibold'>Cart</span>
-                    <div className="absolute right-[-5px] top-[-5px] bg-(--background) text-(--foreground) rounded-full w-5 h-5 flex items-center justify-center text-xs shadow-sm font-[Montserrat] font-semibold">
+                    <div className="absolute right-[-5px] top-[10px] bg-(--background) text-(--foreground) rounded-full w-5 h-5 flex items-center justify-center text-xs shadow-sm font-[Montserrat] font-semibold">
                         {
                             totalItems(cart)
                         }

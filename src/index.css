@@ -9,6 +9,8 @@
   --foreground: #0F212D;
   --accent: #F55139;
   --navbar-height: 80px;
+  --mobile-navbar-height: 90px;
+  --mobile-footer-height: 200px;
   --default-padding: 4em;
   --input-bg: #E5E0D2;
 }
@@ -19,6 +21,7 @@
 
 body {
   background-color: var(--background);
+  min-height: 100vh;
 }
 
 .ReactModal__Overlay {

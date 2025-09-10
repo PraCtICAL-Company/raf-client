@@ -58,32 +58,6 @@ export const useWorkers = () => {
     })
 }
 
-export const useUser = () => {
-    return useQuery({
-        queryKey: ['useUser'],
-        queryFn: () => {
-            const user: User = {
-                username: "aboba",
-                email: "raf.gmbh@raf.com",
-                phone: "+49 176 29187440",
-                addresses: [
-                    {
-                        id: 12345,
-                        city: "XXXX",
-                        street: "XXXX",
-                        building: 2,
-                        floor: 3,
-                        apartment: 45,
-                        entrance: 1,
-                    }
-                ]
-            };
-
-            return user;
-        }
-    })
-}
-
 export interface User {
     username: string,
     email: string,

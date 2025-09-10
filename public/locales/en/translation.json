@@ -286,5 +286,8 @@
                 "submit_btn_text": "Submit"
             }
         }
+    },
+    "privacy_policy": {
+        "page_title": "Raf Performance GmbH privacy policy"
     }
 }

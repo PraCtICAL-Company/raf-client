@@ -237,7 +237,7 @@ export default function Navbar() {
     )
 }
 
-function NavbarScheduleComponent() {
+export function NavbarScheduleComponent() {
     const { t } = useTranslation();
 
     return (
