@@ -157,21 +157,21 @@ function RouteComponent() {
       }
 
       <div className="flex justify-center font-[Montserrat]">
-        <div className="w-6xl p-(--default-padding) pt-(--navbar-height) mt-(--default-padding) pb-(--default-padding)">
-          <h1 className='text-5xl text-center mb-[1em] font-semibold'>{t("services.page_title")}</h1>
+        <div className="w-6xl p-[2rem] lg:p-(--default-padding) lg:pt-(--navbar-height) lg:mt-(--default-padding) pb-(--default-padding)">
+          <h1 className='text-5xl text-center mt-[1rem] lg:mt-[0] mb-[1em] font-semibold'>{t("services.page_title")}</h1>
           <div className="grid gap-y-(--default-padding)">
             {
               isLoading ?
                 <div className="">Loading...</div>
                 :
                 <div className="grid gap-y-9">
-                  <div className="flex flex-wrap justify-center gap-y-[2.5rem] md:gap-y-[5rem]">
+                  <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-y-[4rem] md:gap-y-[5rem]">
                     {
                       data!.items!.map(service => (
-                        <div onClick={() => { setService(service); setAboutModalIsOpen(true) }} className="flex justify-center items-center cursor-pointer" style={{ width: "calc(100% / 3)" }}>
+                        <div onClick={() => { setService(service); setAboutModalIsOpen(true) }} className="flex justify-center items-center cursor-pointer min-w-[33.33333333333%]">
                           <div className="">
-                            <h2 className='font-semibold text-lg sm:text-xl md:text-2xl lg:text-3xl text-center mb-[0.5rem] md:mb-[1rem] lg:mb-[1.5rem]'>{service.name}</h2>
-                            <div className="bg-center bg-cover h-[100px] w-[100px] sm:h-[150px] sm:w-[150px] md:h-[200px] md:w-[200px] lg:h-[300px] lg:w-[300px] rounded-2xl" style={{ backgroundImage: `url("../../src/assets/${service.imageUrl}")` }}>
+                            <h2 className='font-semibold text-2xl sm:text-xl md:text-2xl lg:text-3xl text-center mb-[1rem] md:mb-[1rem] lg:mb-[1.5rem]'>{service.name}</h2>
+                            <div className="bg-center bg-cover h-[250px] w-[250px] sm:h-[150px] sm:w-[150px] md:h-[200px] md:w-[200px] lg:h-[300px] lg:w-[300px] rounded-2xl" style={{ backgroundImage: `url("../../src/assets/${service.imageUrl}")` }}>
 
                             </div>
                           </div>
@@ -279,57 +279,65 @@ function RecommendationComponent() {
         isLoading ?
           <div className="">Loading...</div>
           :
-          <div className="flex gap-x-(--default-padding)">
-            <div className="flex-1 flex items-center justify-start">
-              <div className="w-[200px] h-[200px] bg-center bg-cover rounded-4xl" style={{ backgroundImage: `url("../../src/assets/${data!.imgUrl}")` }}></div>
-            </div>
-            <div className="flex-3">
-              <h2 className='font-semibold text-xl mb-3'>
-                {
-                  data!.title
-                }
-              </h2>
-              <article className='font-normal text-lg'>
-                {
-                  data!.description
-                }
-              </article>
-            </div>
-            <div className="flex-2 flex items-center justify-end">
-              <div className="flex flex-col justify-center items-center gap-y-4">
-                {
-                  data!.inStock ?
-                    <div className="flex gap-x-2 items-center">
-                      <ArchiveBoxIcon className='size-4' />
-                      <span>In stock</span>
-                    </div>
-                    :
-                    <div className="flex gap-x-2 items-center">
-                      <ClockIcon className='size-4' />
-                      <span className='font-normal'>Out of stock</span>
-                    </div>
-                }
-                <span className='font-semibold'>
+          <div className="">
+            <div className="flex flex-col sm:flex-row gap-x-(--default-padding)">
+              <div className="flex-1 flex items-center justify-center sm:justify-start">
+                <div className="w-[250px] h-[250px] sm:w-[150px] sm:h-[150px] md:w-[200px] md:h-[200px] bg-center bg-cover rounded-2xl md:rounded-4xl" style={{ backgroundImage: `url("../../src/assets/${data!.imgUrl}")` }}></div>
+              </div>
+              <div className="flex-3 pt-[2rem] sm:pt-[0] flex flex-col items-center sm:block">
+                <h2 className='block font-semibold text-xl mb-3 max-w-[200px] sm:max-w-auto'>
                   {
-                    data!.hotPrice ?
-                      <div className="text-center">
-                        <div className='text-xl line-through decoration-[2px]'>{data!.hotPrice.oldPrice}€</div>
-                        <div className='text-3xl flex gap-x-3 underline decoration-[2px] items-center'>
-                          <img src="../../src/assets/svg/icons/hot-price.svg" className='w-[30px]' />
-                          {data!.hotPrice.newPrice}€
-                        </div>
+                    data!.title
+                  }
+                </h2>
+                <article className='block font-normal text-lg max-w-[200px] sm:max-w-auto mb-[2rem] sm:mb-[0]'>
+                  {
+                    data!.description
+                  }
+                </article>
+              </div>
+              <div className="flex-2 flex items-center justify-center sm:justify-end">
+                <div className="flex flex-col justify-center items-center gap-y-4">
+                  {
+                    data!.inStock ?
+                      <div className="flex gap-x-2 items-center">
+                        <ArchiveBoxIcon className='size-4' />
+                        <span>In stock</span>
                       </div>
                       :
-                      <div className="text-3xl">{data!.priceInEuro}€</div>
-
+                      <div className="flex gap-x-2 items-center">
+                        <ClockIcon className='size-4' />
+                        <span className='font-normal'>Out of stock</span>
+                      </div>
                   }
-                </span>
-                <button onClick={() => addToCart(data!)} className='bg-(--foreground) text-(--background) font-semibold text-xl rounded-xl px-6 py-2 cursor-pointer'>
-                  Add to cart
-                </button>
+                  <span className='font-semibold'>
+                    {
+                      data!.hotPrice ?
+                        <div className="text-center">
+                          <div className='text-xl line-through decoration-[2px]'>{data!.hotPrice.oldPrice}€</div>
+                          <div className='text-3xl flex gap-x-3 underline decoration-[2px] items-center'>
+                            <img src="../../src/assets/svg/icons/hot-price.svg" className='w-[30px]' />
+                            {data!.hotPrice.newPrice}€
+                          </div>
+                        </div>
+                        :
+                        <div className="text-3xl">{data!.priceInEuro}€</div>
+
+                    }
+                  </span>
+                  <button onClick={() => addToCart(data!)} className='hidden sm:block bg-(--foreground) text-(--background) font-semibold text-xl rounded-xl px-6 py-2 cursor-pointer'>
+                    Add to cart
+                  </button>
+                </div>
               </div>
             </div>
+            <div className="sm:hidden pt-[2rem] flex justify-center">
+              <button onClick={() => addToCart(data!)} className='bg-(--foreground) text-(--background) font-semibold text-xl rounded-xl px-6 py-3 cursor-pointer w-full max-w-[250px]'>
+                Add to cart
+              </button>
+            </div>
           </div>
+
       }
     </div>
 

@@ -265,7 +265,7 @@ type LoginInputs = {
     password: string
 }
 
-function LoginForm({ onModalModeChange }: {
+export function LoginForm({ onModalModeChange }: {
     onModalModeChange: () => void
 }) {
     const { t } = useTranslation();
@@ -317,7 +317,7 @@ type RegisterInputs = {
     repeatPassword: string
 }
 
-function RegisterForm({ onModalModeChange }: {
+export function RegisterForm({ onModalModeChange }: {
     onModalModeChange: () => void
 }) {
     const { t } = useTranslation();

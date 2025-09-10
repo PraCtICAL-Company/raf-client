@@ -32,7 +32,7 @@ function RootComponent() {
 
             <Outlet />
 
-            <Footer />
+            {/* <Footer /> */}
         </>
     );
 }

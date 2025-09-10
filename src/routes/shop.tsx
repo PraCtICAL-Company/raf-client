@@ -67,8 +67,8 @@ function RouteComponent() {
 
   return (
     <div className="flex justify-center  font-[Montserrat]">
-      <div className="w-[88rem] p-(--default-padding) pt-(--navbar-height) mt-(--default-padding) pb-(--default-padding)">
-        <h1 className='text-5xl text-center mb-[1em] font-semibold'>{t("shop.page_title")}</h1>
+      <div className="w-[88rem] p-[2rem] lg:p-(--default-padding) lg:pt-(--navbar-height) lg:mt-(--default-padding) pb-(--default-padding)">
+        <h1 className='text-5xl mt-[1rem] lg:mt-[0] text-center mb-[1em] font-semibold'>{t("shop.page_title")}</h1>
         <div className="grid gap-y-(--default-padding)">
           <div className="">
             <div className='text-(--foreground) font-[Montserrat]'>
@@ -76,7 +76,7 @@ function RouteComponent() {
                 <div className="mr-3 ml-3">
                   <MagnifyingGlassIcon className='h-full size-6' />
                 </div>
-                <input id="username" type="text"
+                <input type="text"
                   onKeyDown={(e) => {
                     if (e.key == "Enter") {
                       search(searchFilters);
@@ -97,8 +97,19 @@ function RouteComponent() {
                   }
                 </div>
             }
+            {/* <div className="flex p-[2rem] justify-center">
+              <button onClick={() => setFiltersOpen(!filtersOpen)} className='md:hidden flex gap-x-2 items-center font-semibold cursor-pointer'>
+                {
+                  filtersOpen ?
+                    t("shop.control_panel.filter_toggle_btn.hide")
+                    :
+                    t("shop.control_panel.filter_toggle_btn.show")
+                }
+                <FunnelIcon className='size-4' />
+              </button>
+            </div> */}
           </div>
-          <div className="flex">
+          <div className="flex flex-col md:flex-row">
             <div className={clsx({
               "flex-1": filtersOpen,
               "hidden": !filtersOpen
@@ -109,7 +120,7 @@ function RouteComponent() {
               "flex-3": filtersOpen,
               "w-full": !filtersOpen
             })}>
-              <div className="flex gap-x-4 justify-end cursor-pointer items-center">
+              <div className="flex flex-col md:flex-row gap-x-4 justify-end cursor-pointer items-center py-6">
                 <button onClick={() => setFiltersOpen(!filtersOpen)} className='flex gap-x-2 items-center font-semibold cursor-pointer'>
                   {
                     filtersOpen ?
@@ -462,69 +473,77 @@ function ShopItemList({ filters, filtersOpen, onPageChange }:
 
   return (
     <div className={clsx({
-      "pl-[4rem]": filtersOpen
+      "md:pl-[4rem]": filtersOpen
     })}>
       {
         isLoading ?
           <div className="">Loading...</div>
           :
           <div className="">
-            <div className="grid gap-y-(--default-padding)">
+            <div className="flex flex-col gap-y-(--default-padding)">
               {
                 data!.items.map(item => (
-                  <div className={clsx("flex gap-x-(--default-padding)", {
+                  <div className={clsx({
                     "opacity-50 pointer-events-none": !item.inStock
                   })}>
-                    <div className="flex-1 flex items-center justify-start">
-                      <div className="w-[200px] h-[200px] bg-center bg-cover rounded-4xl" style={{ backgroundImage: `url("../../src/assets/${item.imgUrl}")` }}></div>
-                    </div>
-                    <div className="flex-3">
-                      <h2 className='font-semibold text-xl mb-3'>
-                        {
-                          item.title
-                        }
-                      </h2>
-                      <article className='font-normal text-lg'>
-                        {
-                          item.description
-                        }
-                      </article>
-                    </div>
-                    <div className="flex-2 flex items-center justify-end">
-                      <div className="flex flex-col justify-center items-center gap-y-4">
-                        {
-                          item.inStock ?
-                            <div className="flex gap-x-2 items-center">
-                              <ArchiveBoxIcon className='size-4' />
-                              <span>{t("shop.list_item.stock.in_stock")}</span>
-                            </div>
-                            :
-                            <div className="flex gap-x-2 items-center">
-                              <ClockIcon className='size-4' />
-                              <span className='font-normal'>{t("shop.list_item.stock.out_of_stock")}</span>
-                            </div>
-                        }
-                        <span className='font-semibold'>
+                    <div className="flex flex-col sm:flex-row gap-x-(--default-padding)">
+                      <div className="flex-1 flex items-center justify-center sm:justify-start">
+                        <div className="w-[250px] h-[250px] sm:w-[150px] sm:h-[150px] md:w-[200px] md:h-[200px] bg-center bg-cover rounded-2xl md:rounded-4xl" style={{ backgroundImage: `url("../../src/assets/${item.imgUrl}")` }}></div>
+                      </div>
+                      <div className="flex-3 pt-[2rem] sm:pt-[0] flex flex-col items-center sm:block">
+                        <h2 className='block font-semibold text-xl mb-3 max-w-[200px] sm:max-w-auto'>
                           {
-                            item.hotPrice ?
-                              <div className="text-center">
-                                <div className='text-xl line-through decoration-[2px]'>{item.hotPrice.oldPrice}€</div>
-                                <div className='text-3xl flex gap-x-3 underline decoration-[2px] items-center'>
-                                  <img src="../../src/assets/svg/icons/hot-price.svg" className='w-[30px]' />
-                                  {item.hotPrice.newPrice}€
-                                </div>
+                            item.title
+                          }
+                        </h2>
+                        <article className='block font-normal text-lg max-w-[200px] sm:max-w-auto mb-[2rem] sm:mb-[0]'>
+                          {
+                            item.description
+                          }
+                        </article>
+                      </div>
+                      <div className="flex-2 flex items-center justify-center sm:justify-end">
+                        <div className="flex flex-col justify-center items-center gap-y-4">
+                          {
+                            item.inStock ?
+                              <div className="flex gap-x-2 items-center">
+                                <ArchiveBoxIcon className='size-4' />
+                                <span>{t("shop.list_item.stock.in_stock")}</span>
                               </div>
                               :
-                              <div className="text-3xl">{item.priceInEuro}€</div>
-
+                              <div className="flex gap-x-2 items-center">
+                                <ClockIcon className='size-4' />
+                                <span className='font-normal'>{t("shop.list_item.stock.out_of_stock")}</span>
+                              </div>
                           }
-                        </span>
-                        <button onClick={() => addToCart(item)} className='bg-(--foreground) text-(--background) font-semibold text-xl rounded-xl px-6 py-2 cursor-pointer'>
-                          {t("shop.list_item.add_to_cart_btn_text")}
-                        </button>
+                          <span className='font-semibold'>
+                            {
+                              item.hotPrice ?
+                                <div className="text-center">
+                                  <div className='text-xl line-through decoration-[2px]'>{item.hotPrice.oldPrice}€</div>
+                                  <div className='text-3xl flex gap-x-3 underline decoration-[2px] items-center'>
+                                    <img src="../../src/assets/svg/icons/hot-price.svg" className='w-[30px]' />
+                                    {item.hotPrice.newPrice}€
+                                  </div>
+                                </div>
+                                :
+                                <div className="text-3xl">{item.priceInEuro}€</div>
+
+                            }
+                          </span>
+                          <button onClick={() => addToCart(item)} className='hidden sm:block bg-(--foreground) text-(--background) font-semibold text-xl rounded-xl px-6 py-2 cursor-pointer'>
+                            {t("shop.list_item.add_to_cart_btn_text")}
+                          </button>
+                        </div>
                       </div>
                     </div>
+                    <div className="sm:hidden pt-[2rem] flex justify-center">
+                      <button onClick={() => addToCart(item)} className='bg-(--foreground) text-(--background) font-semibold text-xl rounded-xl px-6 py-3 cursor-pointer w-full max-w-[250px]'>
+                        Add to cart
+                      </button>
+                    </div>
                   </div>
+
                 ))
               }
             </div>

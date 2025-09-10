@@ -12,17 +12,17 @@ function InfoComponent() {
 
   return (
     <div className="flex justify-center font-[Montserrat] font-semibold">
-      <div className="pt-(--navbar-height) mt-(--default-padding) p-(--default-padding)">
-        <h1 className='text-5xl text-center mb-[1em]'>{t("about.page_title")}</h1>
+      <div className="lg:mt-(--default-padding) p-[2rem] lg:p-(--default-padding)">
+        <h1 className='text-5xl text-center mb-[1em] pt-[1rem] lg:pt-[0]'>{t("about.page_title")}</h1>
         <article className='text-justify'>
           <p className='pb-(--default-padding)'>
             {t("about.paragraph1")}
           </p>
           <p>
-            <img src="../../src/assets/svg/info/_1.svg" className='hidden md:visible float-right pl-6' alt="" />
+            <img src="../../src/assets/svg/info/_1.svg" className='hidden lg:block float-right pl-6' alt="" />
             {t("about.paragraph2")}</p>
           <p>
-            <img src="../../src/assets/svg/info/_2.svg" className='hidden md:visible float-left pr-6' alt="" />
+            <img src="../../src/assets/svg/info/_2.svg" className='hidden lg:block float-left pr-6' alt="" />
             {t("about.paragraph3")}</p>
         </article>
         <div className="w-full flex justify-center mt-(--default-padding)">
@@ -30,7 +30,7 @@ function InfoComponent() {
             isLoading ?
               <div className="">Loading...</div>
               :
-              <div className="flex justify-center gap-x-(--default-padding)">
+              <div className="flex justify-center flex-col md:flex-row gap-(--default-padding)">
                 {
                   data!.map(worker => (
                     <div className="w-[200px]">
