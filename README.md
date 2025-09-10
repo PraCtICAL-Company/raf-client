@@ -1,69 +1,35 @@
-# React + TypeScript + Vite
+# RAF Perfomance web client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+First usable version of the client is finally out of the basement, check it out.
 
-Currently, two official plugins are available:
+## Stack
+### Major libararies
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [React 19](https://github.com/facebook/react)
+- [Tanstack Router 1.1](https://tanstack.com/router/latest)
+- [Tanstack Query 5.8](https://tanstack.com/query/latest)
+- [Jotai 2.1](https://github.com/pmndrs/jotai)
+- [Tailwindcss 4.1](https://github.com/tailwindlabs/tailwindcss)
 
-## Expanding the ESLint configuration
+### Minor libararies
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- [i18next](https://github.com/i18next/react-i18next)
+- [react-hook-form](https://github.com/react-hook-form/react-hook-form)
+- [react-modal](https://github.com/reactjs/react-modal)
+- [react-range](https://github.com/tajo/react-range)
+- [react-select](https://github.com/JedWatson/react-select)
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Installation
+1) Open the base directory (containing `package.json`)
+2) Run `npm install`
+3) Wait for installation
+4) Run with `npm run dev`
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## Important remarks
+- All queries and mutations can be found and changed in `src/api/queries.ts` and `src/api/requests.ts`. Api path prefix can be configired in `src/config.ts`
+- Every static string in the app is stored in `public/locales/` and is delivered via **react-i18next** library.
+- Privacy policies are stored in the same directory with other static text content.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## To consider at integraion process
+- App is currently very static in terms of image delivery as every image is tied to `src/assets` directory. This needs to change during integraion with api because images are mostly served in server static files. The way to untie the images is to remove `../../src/assets` prefix from all the images and deliver full image path from the server.
+- Not a polished client version either, so minor errors/flaws are to be expected.
