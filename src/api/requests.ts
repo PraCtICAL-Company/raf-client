@@ -1,141 +1,131 @@
 import { useMutation } from "@tanstack/react-query";
 import type { ContactMessage, Order, User, UserAddress } from "../types";
 import { API_PREFIX, DEFAULT_JSON_HEADERS } from "../config";
+import axios from "axios";
 
 export const useOrderFromCart = () => {
-    return useMutation({
-        mutationKey: ["orderFromCart"],
-        mutationFn: async ({ order }: {
-            order: Order;
-        }) => {
-            const res: Response = await fetch(`${API_PREFIX}/...`, {
-                method: 'POST',
-                headers: DEFAULT_JSON_HEADERS,
-                body: JSON.stringify(order)
-            });
+  return useMutation({
+    mutationKey: ["orderFromCart"],
+    mutationFn: async ({ order }: { order: Order }) => {
+      const res: Response = await fetch(`${API_PREFIX}/...`, {
+        method: "POST",
+        headers: DEFAULT_JSON_HEADERS,
+        body: JSON.stringify(order),
+      });
 
-            if (!res.ok) {
-                let errorMessage = "Failed to order";
-                const data = await res.json();
+      if (!res.ok) {
+        let errorMessage = "Failed to order";
+        const data = await res.json();
 
-                if (data?.message) {
-                    errorMessage += `: ${data.message}`
-                }
-
-                throw new Error(errorMessage);
-            }
+        if (data?.message) {
+          errorMessage += `: ${data.message}`;
         }
-    })
-}
 
+        throw new Error(errorMessage);
+      }
+    },
+  });
+};
 
 export const useAddAddress = () => {
-    return useMutation({
-        mutationKey: ["addAddress"],
-        mutationFn: async ({ address, user }:
-            {
-                address: UserAddress;
-                user: User
-            }) => {
-            const res: Response = await fetch(`${API_PREFIX}/...`, {
-                method: 'PATCH',
-                headers: DEFAULT_JSON_HEADERS,
-                body: JSON.stringify({ address, user })
-            });
+  return useMutation({
+    mutationKey: ["addAddress"],
+    mutationFn: async ({ address }: { address: UserAddress }) => {
+      console.log(address);
+      const token = localStorage.getItem("access_token");
+      const user_id = localStorage.getItem("user_id");
 
-            if (!res.ok) {
-                let errorMessage = "Failed to add address";
-                const data = await res.json();
+      if (!user_id) {
+        throw new Error("User ID not found in localStorage");
+      }
 
-                if (data?.message) {
-                    errorMessage += `: ${data.message}`
-                }
-
-                throw new Error(errorMessage);
-            }
+      try {
+        await axios.post(`${API_PREFIX}/addresses/${user_id}`, address, {
+          headers: {
+            "Content-Type": "application/json",
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
+        });
+      } catch (error: any) {
+        let errorMessage = "Failed to add address";
+        if (error.response?.data?.message) {
+          errorMessage += `: ${error.response.data.message}`;
         }
-    })
-}
+        throw new Error(errorMessage);
+      }
+    },
+  });
+};
 
 export const useEditAddress = () => {
-    return useMutation({
-        mutationKey: ["editAddress"],
-        mutationFn: async ({ address, user }:
-            {
-                address: UserAddress;
-                user: User
-            }) => {
-            const res: Response = await fetch(`${API_PREFIX}/...`, {
-                method: 'PATCH',
-                headers: DEFAULT_JSON_HEADERS,
-                body: JSON.stringify({ address, user })
-            });
+  return useMutation({
+    mutationKey: ["editAddress"],
+    mutationFn: async ({ address }: { address: UserAddress }) => {
+      const token = localStorage.getItem("access_token");
+      console.log(address);
 
-            if (!res.ok) {
-                let errorMessage = "Failed to edit address";
-                const data = await res.json();
-
-                if (data?.message) {
-                    errorMessage += `: ${data.message}`
-                }
-
-                throw new Error(errorMessage);
-            }
+      try {
+        await axios.put(`${API_PREFIX}/addresses/${address.id}`, address, {
+          headers: {
+            "Content-Type": "application/json",
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
+        });
+      } catch (err: any) {
+        let errorMessage = "Failed to edit address";
+        if (err.response?.data?.message) {
+          errorMessage += `: ${err.response.data.message}`;
         }
-    })
-}
+        throw new Error(errorMessage);
+      }
+    },
+  });
+};
 
 export const useDeleteAddress = () => {
-    return useMutation({
-        mutationKey: ["deleteAddress"],
-        mutationFn: async ({ address, user }:
-            {
-                address: UserAddress;
-                user: User
-            }) => {
-            const res: Response = await fetch(`${API_PREFIX}/...`, {
-                method: 'DELETE',
-                headers: DEFAULT_JSON_HEADERS,
-                body: JSON.stringify({ address, user })
-            });
+  return useMutation({
+    mutationKey: ["deleteAddress"],
+    mutationFn: async ({ address }: { address: UserAddress }) => {
+      const token = localStorage.getItem("access_token");
 
-            if (!res.ok) {
-                let errorMessage = "Failed to delete address";
-                const data = await res.json();
-
-                if (data?.message) {
-                    errorMessage += `: ${data.message}`
-                }
-
-                throw new Error(errorMessage);
-            }
+      try {
+        await axios.delete(`${API_PREFIX}/addresses/${address.id}`, {
+          headers: {
+            "Content-Type": "application/json",
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
+        });
+      } catch (err: any) {
+        let errorMessage = "Failed to delete address";
+        if (err.response?.data?.message) {
+          errorMessage += `: ${err.response.data.message}`;
         }
-    })
-}
+        throw new Error(errorMessage);
+      }
+    },
+  });
+};
 
 export const useSendMessage = () => {
-    return useMutation({
-        mutationKey: ["sendMessage"],
-        mutationFn: async ({ message }:
-            {
-                message: ContactMessage
-            }) => {
-            const res: Response = await fetch(`${API_PREFIX}/...`, {
-                method: 'POST',
-                headers: DEFAULT_JSON_HEADERS,
-                body: JSON.stringify({ message })
-            });
+  return useMutation({
+    mutationKey: ["sendMessage"],
+    mutationFn: async ({ message }: { message: ContactMessage }) => {
+      const res: Response = await fetch(`${API_PREFIX}/...`, {
+        method: "POST",
+        headers: DEFAULT_JSON_HEADERS,
+        body: JSON.stringify({ message }),
+      });
 
-            if (!res.ok) {
-                let errorMessage = "Failed to send message";
-                const data = await res.json();
+      if (!res.ok) {
+        let errorMessage = "Failed to send message";
+        const data = await res.json();
 
-                if (data?.message) {
-                    errorMessage += `: ${data.message}`
-                }
-
-                throw new Error(errorMessage);
-            }
+        if (data?.message) {
+          errorMessage += `: ${data.message}`;
         }
-    })
-}
+
+        throw new Error(errorMessage);
+      }
+    },
+  });
+};

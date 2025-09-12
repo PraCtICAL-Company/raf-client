@@ -1,235 +1,233 @@
-import { useQuery } from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query";
 import type { ShopSearchFilters } from "../routes/shop";
-import type { HotPriceDetails, PaginatedItemList, Service, ShopItem } from "../types";
+import type {
+  PaginatedItemList,
+  ServerProduct,
+  Service,
+  ShopItem,
+} from "../types";
 
 export const usePrivacyPolicy = (locale: string) => {
-    return useQuery({
-        queryKey: ['privacy-policy'],
-        queryFn: async () => {
-            const response = await fetch(`/locales/${locale}/privacy-policy.txt`)
-            return response.text();
-        }
-    });
-}
+  return useQuery({
+    queryKey: ["privacy-policy"],
+    queryFn: async () => {
+      const response = await fetch(`/locales/${locale}/privacy-policy.txt`);
+      return response.text();
+    },
+  });
+};
 
 export const useProjects = () => {
-    return useQuery({
-        queryKey: ['useProjects'],
-        queryFn: () => {
-            return [
-                {
-                    imageUrl: 'svg/projects/_1.svg',
-                    text: 'Wir bauen ein rs6 Sedan aus einem normalen a6',
-                    clickUrl: 'https://google.com'
-                },
-                {
-                    imageUrl: 'svg/projects/_2.svg',
-                    text: 'Lassen sitze neu beziehen',
-                    clickUrl: 'https://google.com'
-                },
-                {
-                    imageUrl: 'svg/projects/_3.svg',
-                    text: 'Da verbreitern wir selber die kotflügeln',
-                    clickUrl: 'https://google.com'
-                },
-            ]
-        }
-    })
-}
+  return useQuery({
+    queryKey: ["useProjects"],
+    queryFn: () => {
+      return [
+        {
+          imageUrl: "svg/projects/_1.svg",
+          text: "Wir bauen ein rs6 Sedan aus einem normalen a6",
+          clickUrl: "https://google.com",
+        },
+        {
+          imageUrl: "svg/projects/_2.svg",
+          text: "Lassen sitze neu beziehen",
+          clickUrl: "https://google.com",
+        },
+        {
+          imageUrl: "svg/projects/_3.svg",
+          text: "Da verbreitern wir selber die kotflügeln",
+          clickUrl: "https://google.com",
+        },
+      ];
+    },
+  });
+};
 
 export const useWorkers = () => {
-    return useQuery({
-        queryKey: ['useWorkers'],
-        queryFn: () => {
-            return [
-                {
-                    imageUrl: 'img/worker_1.jpg',
-                    description: 'S. Vettel, CEO',
-                },
-                {
-                    imageUrl: 'img/worker_2.jpg',
-                    description: 'M. Schumacher, GOAT',
-                },
-                {
-                    imageUrl: 'img/worker_3.jpg',
-                    description: 'N. Rosberg, in equal machinery',
-                },
-            ]
-        }
-    })
-}
+  return useQuery({
+    queryKey: ["useWorkers"],
+    queryFn: () => {
+      return [
+        {
+          imageUrl: "img/worker_1.jpg",
+          description: "S. Vettel, CEO",
+        },
+        {
+          imageUrl: "img/worker_2.jpg",
+          description: "M. Schumacher, GOAT",
+        },
+        {
+          imageUrl: "img/worker_3.jpg",
+          description: "N. Rosberg, in equal machinery",
+        },
+      ];
+    },
+  });
+};
 
 export const useServices = (page: number) => {
-    return useQuery({
-        queryKey: ['useServices'],
-        queryFn: () => {
-            return {
-                totalPages: 2,
-                currentPage: page,
-                items: [
-                    {
-                        name: "Service 1",
-                        description: "description 1",
-                        imageUrl: "img/worker_1.jpg"
-                    } as Service,
-                    {
-                        name: "Service 2",
-                        description: "description 2",
-                        imageUrl: "img/worker_2.jpg"
-                    } as Service,
-                    {
-                        name: "Service 3",
-                        description: "description 3",
-                        imageUrl: "img/worker_3.jpg"
-                    } as Service,
-                    {
-                        name: "Service 4",
-                        description: "description 4",
-                        imageUrl: "img/worker_3.jpg"
-                    } as Service,
-                    {
-                        name: "Service 5",
-                        description: "description 5",
-                        imageUrl: "img/worker_2.jpg"
-                    } as Service,
-                ]
-            } as PaginatedItemList<Service>;
-        }
-    })
-}
+  return useQuery({
+    queryKey: ["useServices"],
+    queryFn: () => {
+      return {
+        totalPages: 2,
+        currentPage: page,
+        items: [
+          {
+            name: "Service 1",
+            description: "description 1",
+            imageUrl: "img/worker_1.jpg",
+          } as Service,
+          {
+            name: "Service 2",
+            description: "description 2",
+            imageUrl: "img/worker_2.jpg",
+          } as Service,
+          {
+            name: "Service 3",
+            description: "description 3",
+            imageUrl: "img/worker_3.jpg",
+          } as Service,
+          {
+            name: "Service 4",
+            description: "description 4",
+            imageUrl: "img/worker_3.jpg",
+          } as Service,
+          {
+            name: "Service 5",
+            description: "description 5",
+            imageUrl: "img/worker_2.jpg",
+          } as Service,
+        ],
+      } as PaginatedItemList<Service>;
+    },
+  });
+};
 
 export const useSearchRecommendations = () => {
-    return useQuery({
-        queryKey: ['useSearchRecommendations'],
-        queryFn: () => {
-            return [
-                "Sit amet consectetur",
-                "Ex sapien vitae r",
-                "Sem placerat in id",
-                "Tempus leo eu aenean",
-            ];
-        }
-    })
-}
+  return useQuery({
+    queryKey: ["useSearchRecommendations"],
+    queryFn: () => {
+      return [
+        "Sit amet consectetur",
+        "Ex sapien vitae r",
+        "Sem placerat in id",
+        "Tempus leo eu aenean",
+      ];
+    },
+  });
+};
 
 export const useBrands = (filterBrands: string[]) => {
-    console.log(filterBrands);
+  let indexes = [];
 
-    let indexes = [];
+  const brands = [
+    {
+      label: "Brand 1",
+      value: "123",
+    } as Brand,
+    {
+      label: "Brand 2",
+      value: "113",
+    } as Brand,
+    {
+      label: "Brand 3",
+      value: "222",
+    } as Brand,
+  ];
 
-    const brands = [
-        {
-            label: "Brand 1",
-            value: "123"
-        } as Brand,
-        {
-            label: "Brand 2",
-            value: "113"
-        } as Brand,
-        {
-            label: "Brand 3",
-            value: "222"
-        } as Brand,
-    ];
-
-    for (let i = 0; i < brands.length; i++) {
-        for (let j = 0; j < filterBrands.length; j++) {
-            if (brands[i].value == filterBrands[j]) {
-                indexes.push(i);
-            }
-        }
+  for (let i = 0; i < brands.length; i++) {
+    for (let j = 0; j < filterBrands.length; j++) {
+      if (brands[i].value == filterBrands[j]) {
+        indexes.push(i);
+      }
     }
+  }
 
-    return useQuery({
-        queryKey: ['useBrands'],
-        queryFn: () => {
-            return {
-                activeOptionIndexes: indexes,
-                options: brands
-            }
-        }
-    })
-}
+  return useQuery({
+    queryKey: ["useBrands"],
+    queryFn: () => {
+      return {
+        activeOptionIndexes: indexes,
+        options: brands,
+      };
+    },
+  });
+};
 
 export type Brand = {
-    label: string,
-    value: string
-}
+  label: string;
+  value: string;
+};
 
 export const useShopSearch = (filters: ShopSearchFilters) => {
-    return useQuery({
-        queryKey: ['useShopSearch'],
-        queryFn: () => {
-            return {
-                totalPages: 2,
-                currentPage: 1,
-                items: [
-                    {
-                        id: "234532",
-                        title: "XX1",
-                        description: "XX1",
-                        priceInEuro: 299.99,
-                        imgUrl: "img/worker_1.jpg",
-                        inStock: false,
-                    } as ShopItem,
-                    {
-                        id: "234532",
-                        title: "XX1",
-                        description: "XX1",
-                        priceInEuro: 299.99,
-                        imgUrl: "img/worker_1.jpg",
-                        inStock: true,
-                        hotPrice: {
-                            oldPrice: 299.99,
-                            newPrice: 100.02
-                        } as HotPriceDetails
-                    } as ShopItem,
-                    {
-                        id: "234532",
-                        title: "XX1",
-                        description: "XX1",
-                        priceInEuro: 299.99,
-                        imgUrl: "img/worker_1.jpg",
-                        inStock: false,
-                    } as ShopItem,
-                    {
-                        id: "234532",
-                        title: "XX1",
-                        description: "XX1",
-                        priceInEuro: 299.99,
-                        imgUrl: "img/worker_1.jpg",
-                        inStock: true,
-                    } as ShopItem,
-                    {
-                        id: "234532",
-                        title: "XX1",
-                        description: "XX1",
-                        priceInEuro: 299.99,
-                        imgUrl: "img/worker_1.jpg",
-                        inStock: true,
-                        hotPrice: {
-                            oldPrice: 299.99,
-                            newPrice: 100.02
-                        } as HotPriceDetails
-                    } as ShopItem,
-                ]
-            } as PaginatedItemList<ShopItem>
-        }
-    })
-}
+  return useQuery({
+    queryKey: ["useShopSearch", filters],
+    queryFn: async () => {
+      const queryParams = new URLSearchParams({
+        skip: ((filters.page - 1) * 20).toString(),
+        limit: "20",
+        text_query: filters.textQuery || "",
+        min_price: filters.minPrice.toString(),
+        max_price: filters.maxPrice.toString(),
+        in_stock: filters.showInStock
+          ? "true"
+          : filters.showOutOfStock
+            ? "false"
+            : "both",
+        sort_by: mapSortTypeToBackend(filters.sortBy) || "",
+      });
+
+      const res = await fetch(
+        `http://127.0.0.1:8000/api/products/?${queryParams.toString()}`
+      );
+      if (!res.ok) throw new Error("Failed to fetch products");
+
+      const data: ServerProduct[] = await res.json();
+
+      const items: ShopItem[] = data.map((product) => ({
+        id: product.id.toString(),
+        title: product.name,
+        description: product.description || "",
+        priceInEuro: product.price,
+        imgUrl: product.image_url || "/img/placeholder.jpg",
+        inStock: product.in_stock,
+      }));
+
+      const totalCount = data.length;
+      const totalPages = Math.ceil(totalCount / 20);
+
+      return {
+        totalPages,
+        currentPage: filters.page,
+        items,
+      } as PaginatedItemList<ShopItem>;
+    },
+  });
+};
+
+const mapSortTypeToBackend = (sortType: string): string => {
+  const mapping: { [key: string]: string } = {
+    ByName: "name_asc",
+    ByNameDescending: "name_desc",
+    ByPrice: "price_asc",
+    ByPriceDescending: "price_desc",
+    ByStock: "in_stock_desc",
+  };
+  return mapping[sortType] || "";
+};
 
 export const useShopItemRecommendation = () => {
-    return useQuery({
-        queryKey: ['useShopItemRecommendation'],
-        queryFn: () => {
-            return {
-                id: "234532",
-                title: "XX1",
-                description: "XX1",
-                priceInEuro: 299.99,
-                imgUrl: "img/worker_1.jpg",
-                inStock: true,
-            } as ShopItem
-        }
-    })
-}
+  return useQuery({
+    queryKey: ["useShopItemRecommendation"],
+    queryFn: () => {
+      return {
+        id: "234532",
+        title: "XX1",
+        description: "XX1",
+        priceInEuro: 299.99,
+        imgUrl: "img/worker_1.jpg",
+        inStock: true,
+      } as ShopItem;
+    },
+  });
+};
