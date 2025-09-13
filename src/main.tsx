@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
 import { QueryClientAtomProvider } from 'jotai-tanstack-query/react'
+import { Provider as JotaiProvider, useAtom } from 'jotai';
 
 // Import the generated route tree
 import { routeTree } from './routeTree.gen'
@@ -9,6 +10,7 @@ import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@ta
 import './index.css'
 import './i18n'
 import { handleGlobalError } from './errorHandler'
+import { cartAtom } from './state/atoms'
 
 // Create a new router instance
 const router = createRouter({ routeTree })

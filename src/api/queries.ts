@@ -6,6 +6,7 @@ import type {
   Service,
   ShopItem,
 } from "../types";
+import { API_PREFIX, SHOP_ITEM_PAGE_SIZE } from "../config";
 
 export const usePrivacyPolicy = (locale: string) => {
   return useQuery({
@@ -164,8 +165,8 @@ export const useShopSearch = (filters: ShopSearchFilters) => {
     queryKey: ["useShopSearch", filters],
     queryFn: async () => {
       const queryParams = new URLSearchParams({
-        skip: ((filters.page - 1) * 20).toString(),
-        limit: "20",
+        page: filters.page.toString(),
+        page_size: SHOP_ITEM_PAGE_SIZE.toString(),
         text_query: filters.textQuery || "",
         min_price: filters.minPrice.toString(),
         max_price: filters.maxPrice.toString(),
@@ -178,28 +179,33 @@ export const useShopSearch = (filters: ShopSearchFilters) => {
       });
 
       const res = await fetch(
-        `http://127.0.0.1:8000/api/products/?${queryParams.toString()}`
+        `${API_PREFIX}/products/?${queryParams.toString()}`
       );
+
       if (!res.ok) throw new Error("Failed to fetch products");
 
-      const data: ServerProduct[] = await res.json();
+      const data = await res.json();
 
-      const items: ShopItem[] = data.map((product) => ({
-        id: product.id.toString(),
-        title: product.name,
-        description: product.description || "",
-        priceInEuro: product.price,
-        imgUrl: product.image_url || "/img/placeholder.jpg",
-        inStock: product.in_stock,
-      }));
+      console.log(data);
 
-      const totalCount = data.length;
-      const totalPages = Math.ceil(totalCount / 20);
+
+      const items: ShopItem[] = data.items.map(
+        (product: ServerProduct) => {
+          return {
+            id: product.id.toString(),
+            title: product.name,
+            description: product.description ?? "",
+            priceInEuro: product.price,
+            imgUrl: product.image_url ?? "/img/placeholder.jpg",
+            inStock: product.in_stock,
+          } as ShopItem;
+        });
+
 
       return {
-        totalPages,
-        currentPage: filters.page,
-        items,
+        totalPages: data.totalPages,
+        currentPage: data.currentPage,
+        items: items,
       } as PaginatedItemList<ShopItem>;
     },
   });

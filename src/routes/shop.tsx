@@ -11,7 +11,6 @@ import {
   useSearchRecommendations,
   useShopSearch,
   type Brand,
-  type ShopItem,
 } from "../api/queries";
 import { useState, type ChangeEvent } from "react";
 import { getTrackBackground, Range } from "react-range";
@@ -20,6 +19,8 @@ import clsx from "clsx";
 import { Pager } from "./services";
 import { useAtom } from "jotai";
 import { cartAtom } from "../state/atoms";
+import type { ShopItem } from "../types";
+import { addToCart } from "../functions/cart";
 
 const MIN_PRICE = 0;
 const MAX_PRICE = 10000;
@@ -35,7 +36,7 @@ export const Route = createFileRoute("/shop")({
       hotPrice: Boolean(search.hotPrice ?? false),
       brands: Array.isArray(search.brands)
         ? // @ts-ignore
-          search.brands.map(String)
+        search.brands.map(String)
         : search.brands
           ? search.brands
           : [],
@@ -52,7 +53,7 @@ function RouteComponent() {
   const searchFilters = Route.useSearch();
   const [queryText, setQueryText] = useState<string>(searchFilters.textQuery);
   const [sortType, setSortType] = useState<SortType>(searchFilters.sortBy);
-  const { isLoading, data } = useSearchRecommendations();
+  // const { isLoading, data } = useSearchRecommendations();
 
   const [filtersOpen, setFiltersOpen] = useState<boolean>(true);
 
@@ -85,7 +86,7 @@ function RouteComponent() {
   };
 
   return (
-    <div className="flex justify-center  font-[Montserrat]">
+    <div className="flex justify-center  font-[Montserrat] min-h-[100vh]">
       <div className="w-[88rem] p-[2rem] lg:p-(--default-padding) lg:pt-(--navbar-height) lg:mt-(--default-padding) pb-(--default-padding)">
         <h1 className="text-5xl mt-[1rem] lg:mt-[0] text-center mb-[1em] font-semibold">
           {t("shop.page_title")}
@@ -325,7 +326,6 @@ function FilterComponent({
           )}
           renderThumb={({ props, index }) => (
             <div
-              key={`thumb-${index}`}
               {...props}
               className="h-5 w-5 rounded-full flex items-center justify-center cursor-grab border-(--foreground) bg-(--background) border-[4px]"
             />
@@ -436,17 +436,11 @@ function ShopItemList({
   const { data, isLoading } = useShopSearch(filters);
   const [cart, setCart] = useAtom(cartAtom);
 
-  const addToCart = (item: ShopItem): void => {
-    let copy = cart;
+  const addItemToCart = (item: ShopItem): void => {
+    let copy = { ...cart };
 
-    for (let i = 0; i < copy.items.length; i++) {
-      if (copy.items[i].itemType.id == item.id) {
-        copy.items[i].itemCount += 1;
-        return;
-      }
-    }
+    addToCart(copy, item)
 
-    copy.items.push({ itemCount: 1, itemType: item });
     setCart(copy);
   };
 
@@ -521,7 +515,7 @@ function ShopItemList({
                         )}
                       </span>
                       <button
-                        onClick={() => addToCart(item)}
+                        onClick={() => addItemToCart(item)}
                         className="hidden sm:block bg-(--foreground) text-(--background) font-semibold text-xl rounded-xl px-6 py-2 cursor-pointer"
                       >
                         {t("shop.list_item.add_to_cart_btn_text")}
@@ -531,7 +525,7 @@ function ShopItemList({
                 </div>
                 <div className="sm:hidden pt-[2rem] flex justify-center">
                   <button
-                    onClick={() => addToCart(item)}
+                    onClick={() => addItemToCart(item)}
                     className="bg-(--foreground) text-(--background) font-semibold text-xl rounded-xl px-6 py-3 cursor-pointer w-full max-w-[250px]"
                   >
                     Add to cart

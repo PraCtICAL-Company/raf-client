@@ -9,6 +9,7 @@ import type {
   UserAddress,
 } from "../types";
 import axios from "axios";
+import { API_PREFIX } from "../config";
 
 export const errorAtom = atom<string | null>(null);
 
@@ -27,7 +28,7 @@ export const userAtom = atomWithQuery(() => ({
       }
 
       const userResponse = await axios.get<User>(
-        `http://127.0.0.1:8000/api/users/${user_id}`,
+        `${API_PREFIX}/users/${user_id}`,
         {
           headers: {
             ...(token ? { Authorization: `Bearer ${token}` } : {}),
@@ -36,7 +37,7 @@ export const userAtom = atomWithQuery(() => ({
       );
 
       const addressesResponse = await axios.get<UserAddress[]>(
-        `http://127.0.0.1:8000/api/addresses/user/${user_id}`,
+        `${API_PREFIX}/addresses/user/${user_id}`,
         {
           headers: {
             ...(token ? { Authorization: `Bearer ${token}` } : {}),
@@ -74,46 +75,53 @@ export const supportedLocalesAtom = atom([
 export const cartAtom = atomWithStorage<Cart>(
   "cart",
   {
+    totalItems: 0,
+    totalSum: 0,
     items: [
-      {
-        itemCount: 1,
-        itemType: {
-          id: "2346",
-          title: "XX1",
-          description: "XX1",
-          priceInEuro: 299.99,
-          imgUrl: "img/worker_1.jpg",
-          inStock: true,
-        } as ShopItem,
-      },
-      {
-        itemCount: 1,
-        itemType: {
-          id: "223",
-          title: "XX2",
-          description: "XX2",
-          priceInEuro: 59.99,
-          imgUrl: "img/worker_2.jpg",
-          inStock: true,
-        } as ShopItem,
-      },
-      {
-        itemCount: 1,
-        itemType: {
-          id: "5246",
-          title: "XX3",
-          description: "XX3",
-          priceInEuro: 99.99,
-          imgUrl: "img/worker_3.jpg",
-          inStock: false,
-          hotPrice: {
-            oldPrice: 299.99,
-            newPrice: 100.02,
-          } as HotPriceDetails,
-        } as ShopItem,
-      },
+      // {
+      //   itemCount: 1,
+      //   itemType: {
+      //     id: "2346",
+      //     title: "XX1",
+      //     description: "XX1",
+      //     priceInEuro: 299.99,
+      //     imgUrl: "img/worker_1.jpg",
+      //     inStock: true,
+      //   } as ShopItem,
+      // },
+      // {
+      //   itemCount: 1,
+      //   itemType: {
+      //     id: "223",
+      //     title: "XX2",
+      //     description: "XX2",
+      //     priceInEuro: 59.99,
+      //     imgUrl: "img/worker_2.jpg",
+      //     inStock: true,
+      //   } as ShopItem,
+      // },
+      // {
+      //   itemCount: 1,
+      //   itemType: {
+      //     id: "5246",
+      //     title: "XX3",
+      //     description: "XX3",
+      //     priceInEuro: 99.99,
+      //     imgUrl: "img/worker_3.jpg",
+      //     inStock: false,
+      //     hotPrice: {
+      //       oldPrice: 299.99,
+      //       newPrice: 100.02,
+      //     } as HotPriceDetails,
+      //   } as ShopItem,
+      // },
     ],
   },
   undefined,
   { getOnInit: true }
 );
+
+// export const cartTotalItemsAtom = atom(
+//   (get) => get(cartAtom).totalItems,
+//   (_get, set, newCount) => set(cartAtom, newCount),
+// )

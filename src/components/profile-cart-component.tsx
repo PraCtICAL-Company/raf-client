@@ -15,14 +15,14 @@ import {
 import { Link } from "@tanstack/react-router";
 import clsx from "clsx";
 import { useTranslation } from "react-i18next";
-import {} from "../api/queries";
+import { } from "../api/queries";
 import Modal from "react-modal";
 import { useEffect, useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useAtom } from "jotai";
 import { cartAtom, userAtom } from "../state/atoms";
 import CartItemQuantityInput from "./number-input";
-import { totalPrice } from "../functions/cart";
+import { addToCart, refreshCart, removeFromCart, removeFromCartEntirely, totalItems, totalPrice } from "../functions/cart";
 import {
   defaultAddress,
   type Cart,
@@ -144,11 +144,12 @@ export default function ProfileCartComponent() {
     setDeleteModalIsOpen(false);
   };
 
-  const removeFromCart = (item: CartItem): void => {
-    let cartCopy = cart;
+  const removeItemFromCart = (item: CartItem): void => {
+    let cartCopy = { ...cart };
     cartCopy.items = cartCopy.items.filter(
       (it) => it.itemType.id != item.itemType.id
     );
+    removeFromCartEntirely(cartCopy, item);
     setCart(cartCopy);
     setCartTotal(totalPrice(cartCopy));
   };
@@ -437,7 +438,7 @@ export default function ProfileCartComponent() {
                                   <TrashIcon
                                     style={{ pointerEvents: "all" }}
                                     className="cursor-pointer size-6 absolute left-[0.5rem] bottom-[0.5rem]"
-                                    onClick={() => removeFromCart(cartItem)}
+                                    onClick={() => removeItemFromCart(cartItem)}
                                   />
                                   <div className="">
                                     {cartItem.itemType.hotPrice ? (
@@ -463,9 +464,13 @@ export default function ProfileCartComponent() {
                                     cartItem={cartItem}
                                     min={1}
                                     max={99}
-                                    onChange={() => {
-                                      setCart(cart);
-                                      setCartTotal(totalPrice(cart));
+                                    onChange={(newValue) => {
+                                      const cartCopy = { ...cart }
+
+                                      refreshCart(cartCopy)
+
+                                      setCart(cartCopy);
+                                      setCartTotal(totalPrice(cartCopy));
                                     }}
                                   />
                                 </div>

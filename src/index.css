@@ -21,7 +21,6 @@
 
 body {
   background-color: var(--background);
-  min-height: 100vh;
 }
 
 .ReactModal__Overlay {

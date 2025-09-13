@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import type { ContactMessage, Order, User, UserAddress } from "../types";
+import type { ContactMessage, Order, ShopItem, User, UserAddress } from "../types";
 import { API_PREFIX, DEFAULT_JSON_HEADERS } from "../config";
 import axios from "axios";
 
@@ -114,6 +114,36 @@ export const useSendMessage = () => {
         method: "POST",
         headers: DEFAULT_JSON_HEADERS,
         body: JSON.stringify({ message }),
+      });
+
+      if (!res.ok) {
+        let errorMessage = "Failed to send message";
+        const data = await res.json();
+
+        if (data?.message) {
+          errorMessage += `: ${data.message}`;
+        }
+
+        throw new Error(errorMessage);
+      }
+    },
+  });
+};
+
+export const useAddToCart = () => {
+  return useMutation({
+    mutationKey: ["useAddToCart"],
+    mutationFn: async ({ item, user }: {
+      item: ShopItem;
+      user: User
+    }) => {
+      const res: Response = await fetch(`${API_PREFIX}/cart/${user.id}/add`, {
+        method: "POST",
+        headers: DEFAULT_JSON_HEADERS,
+        body: JSON.stringify({
+          product_id: item.id,
+          quantity: 1
+        }),
       });
 
       if (!res.ok) {
