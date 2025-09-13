@@ -11,7 +11,6 @@ import {
   useSearchRecommendations,
   useShopSearch,
   type Brand,
-  type ShopItem,
 } from "../api/queries";
 import { useState, type ChangeEvent } from "react";
 import { getTrackBackground, Range } from "react-range";
@@ -20,6 +19,8 @@ import clsx from "clsx";
 import { Pager } from "./services";
 import { useAtom } from "jotai";
 import { cartAtom } from "../state/atoms";
+import type { ShopItem } from "../types";
+import { addToCart_Service } from "../api/CartService";
 
 const MIN_PRICE = 0;
 const MAX_PRICE = 10000;
@@ -52,7 +53,6 @@ function RouteComponent() {
   const searchFilters = Route.useSearch();
   const [queryText, setQueryText] = useState<string>(searchFilters.textQuery);
   const [sortType, setSortType] = useState<SortType>(searchFilters.sortBy);
-  const { isLoading, data } = useSearchRecommendations();
 
   const [filtersOpen, setFiltersOpen] = useState<boolean>(true);
 
@@ -325,7 +325,6 @@ function FilterComponent({
           )}
           renderThumb={({ props, index }) => (
             <div
-              key={`thumb-${index}`}
               {...props}
               className="h-5 w-5 rounded-full flex items-center justify-center cursor-grab border-(--foreground) bg-(--background) border-[4px]"
             />
@@ -436,7 +435,8 @@ function ShopItemList({
   const { data, isLoading } = useShopSearch(filters);
   const [cart, setCart] = useAtom(cartAtom);
 
-  const addToCart = (item: ShopItem): void => {
+  const addToCart = async (item: ShopItem): Promise<void> => {
+    await addToCart_Service(item);
     let copy = cart;
 
     for (let i = 0; i < copy.items.length; i++) {

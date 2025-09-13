@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import type { ContactMessage, Order, User, UserAddress } from "../types";
+import type { ContactMessage, Order, UserAddress } from "../types";
 import { API_PREFIX, DEFAULT_JSON_HEADERS } from "../config";
 import axios from "axios";
 

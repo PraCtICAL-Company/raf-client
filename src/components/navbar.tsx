@@ -59,9 +59,8 @@ export default function Navbar() {
   const routerState = useRouterState();
 
   const [userMenuIsOpen, setUserMenuIsOpen] = useState<boolean>(false);
-  const [loginModalIsOpen, setLoginModalIsOpen] = useState<boolean>(true);
-  const [registerModalIsOpen, setRegisterModalIsOpen] =
-    useState<boolean>(false);
+  const [loginModalIsOpen, setLoginModalIsOpen] = useState<boolean>(false);
+  const [registerModalIsOpen, setRegisterModalIsOpen] = useState<boolean>(true);
 
   const [{ data, isLoading }] = useAtom(userAtom);
 
