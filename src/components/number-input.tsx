@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import type { CartItem } from "../types";
 
 export default function CartItemQuantityInput({ onChange, cartItem, min, max }:
-    { onChange: () => void; cartItem: CartItem; min: number; max: number }
+    { onChange: (newValue: number) => void; cartItem: CartItem; min: number; max: number }
 ) {
     const [value, setValue] = useState(cartItem)
     const [count, setCount] = useState(0);
@@ -28,7 +28,13 @@ export default function CartItemQuantityInput({ onChange, cartItem, min, max }:
         setValue(oldValue);
         setCount(oldValue.itemCount);
 
-        onChange();
+        if (extent < 0) {
+            onChange(-1);
+        } else {
+            onChange(1);
+        }
+
+
     }
 
     return (

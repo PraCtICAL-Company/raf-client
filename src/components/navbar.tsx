@@ -270,6 +270,18 @@ export default function Navbar() {
                       >
                         {t("navbar.popup_menu.logout")}
                       </div>
+                      <div
+                        onClick={() => setLoginModalIsOpen(true)}
+                        className="p-3 cursor-pointer w-full text-left"
+                      >
+                        {t("navbar.popup_menu.login")}
+                      </div>
+                      <div
+                        onClick={() => setRegisterModalIsOpen(true)}
+                        className="p-3 cursor-pointer w-full text-left"
+                      >
+                        {t("navbar.popup_menu.register")}
+                      </div>
                     </div>
                   ) : (
                     <div className="block w-full">
@@ -296,10 +308,10 @@ export default function Navbar() {
                 </div>
                 <div className="">
                   <div className="font-bold">
-                    {totalItems(cart)} {t("navbar.count_text")}
+                    {cart.totalItems} {t("navbar.count_text")}
                   </div>
                   <div className="font-bold">
-                    {totalPrice(cart).toFixed(2)}€
+                    {cart.totalSum.toFixed(2)}€
                   </div>
                 </div>
               </div>

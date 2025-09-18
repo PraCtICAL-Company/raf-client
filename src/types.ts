@@ -1,4 +1,6 @@
 export type Cart = {
+  totalItems: number;
+  totalSum: number;
   items: CartItem[];
 };
 
@@ -14,6 +16,7 @@ export type Order = {
 };
 
 export type User = {
+  id: string;
   name: string;
   email: string;
   phone: string;
