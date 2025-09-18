@@ -21,6 +21,7 @@ import { useAtom } from "jotai";
 import { cartAtom } from "../state/atoms";
 import type { ShopItem } from "../types";
 import { addToCart } from "../functions/cart";
+import { addToCart_Service } from "../api/CartService";
 
 const MIN_PRICE = 0;
 const MAX_PRICE = 10000;
@@ -437,6 +438,7 @@ function ShopItemList({
   const [cart, setCart] = useAtom(cartAtom);
 
   const addItemToCart = (item: ShopItem): void => {
+    await addToCart_Service(item);
     let copy = { ...cart };
 
     addToCart(copy, item)
